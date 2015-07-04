@@ -174,7 +174,7 @@ begin
       begin
         if OCRErrors[i].UseREOnlyToFind = True then
           S := RepRE(OCRErrors[i].Find, S, OCRErrors[i].ReplaceBy) else      //Text replaced with S by adenry
-          S := ReplaceRegExpr(OCRErrors[i].Find, S, OCRErrors[i].ReplaceBy); //Text replaced with S by adenry
+          S := ReplaceRegExpr(OCRErrors[i].Find, S, OCRErrors[i].ReplaceBy, False); //Text replaced with S by adenry
       end else
         S := Replace(S, OCRErrors[i].Find, OCRErrors[i].ReplaceBy, OCRErrors[i].CaseSensitive, OCRErrors[i].WholeWord, OCRErrors[i].PreserveCase); //Text replaced with S by adenry
       //added by adenry: we are only checking for OCR errors. One difference is enough to say there is an OCR error. But not if this error is fixed later in the script...
