@@ -4,6 +4,7 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
+    <Projects Include="SubtitleAPI\SubtitleAPI.dproj" />
     <Projects Include="SubtitleWorkshop.dproj" />
   </ItemGroup>
   <ProjectExtensions>
@@ -21,14 +22,23 @@
   <Target Name="SubtitleWorkshop:Make">
     <MSBuild Projects="SubtitleWorkshop.dproj" Targets="Make" />
   </Target>
+  <Target Name="SubtitleAPI">
+    <MSBuild Projects="SubtitleAPI\SubtitleAPI.dproj" Targets="" />
+  </Target>
+  <Target Name="SubtitleAPI:Clean">
+    <MSBuild Projects="SubtitleAPI\SubtitleAPI.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="SubtitleAPI:Make">
+    <MSBuild Projects="SubtitleAPI\SubtitleAPI.dproj" Targets="Make" />
+  </Target>
   <Target Name="Build">
-    <CallTarget Targets="SubtitleWorkshop" />
+    <CallTarget Targets="SubtitleWorkshop;SubtitleAPI" />
   </Target>
   <Target Name="Clean">
-    <CallTarget Targets="SubtitleWorkshop:Clean" />
+    <CallTarget Targets="SubtitleWorkshop:Clean;SubtitleAPI:Clean" />
   </Target>
   <Target Name="Make">
-    <CallTarget Targets="SubtitleWorkshop:Make" />
+    <CallTarget Targets="SubtitleWorkshop:Make;SubtitleAPI:Make" />
   </Target>
   <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
 </Project>
