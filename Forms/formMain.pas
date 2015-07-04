@@ -18,7 +18,7 @@ uses
     ifpii_controls, ifpii_std, ifpii_classes, ifpii_graphics, ifpii_forms, ifpii_stdctrls, ifpii_extctrls, ifpii_menus, ifpidateutils,
     ifpiir_controls, ifpiir_std, ifpiir_classes, ifpiir_graphics, ifpiir_forms, ifpiir_stdctrls, ifpiir_extctrls, ifpiir_menus, ifpidateutilsr,
   StrMan, FastStrings, WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
-  CommonTypes;
+  CommonTypes, XPMan;
 
 type
   TfrmMain = class(TForm)
@@ -485,6 +485,7 @@ type
     mnuDisplayOriginalPopup: TMenuItem;
     mnuDisplayTranslationPopup: TMenuItem;
     edtPlayerShortcuts: TEdit;
+    XPManifest: TXPManifest;
     procedure lstSubtitlesInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure lstSubtitlesFreeNode(Sender: TBaseVirtualTree;
