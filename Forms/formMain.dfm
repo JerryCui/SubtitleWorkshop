@@ -8341,7 +8341,7 @@ object frmMain: TfrmMain
     Left = 200
     Top = 160
     Bitmap = {
-      494C010131003600080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101310036000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -10070,18 +10070,6 @@ object frmMain: TfrmMain
     Left = 440
     Top = 24
   end
-  object psCompExec: TIFPS3CompExec
-    CompilerOptions = []
-    OnCompile = psCompExecCompile
-    OnExecute = psCompExecExecute
-    OnAfterExecute = psCompExecAfterExecute
-    OnCompImport = psCompExecCompImport
-    OnExecImport = psCompExecExecImport
-    Plugins = <>
-    UsePreProcessor = False
-    Left = 512
-    Top = 24
-  end
   object tmrMouseHide: TTimer
     Enabled = False
     Interval = 3000
@@ -10155,7 +10143,7 @@ object frmMain: TfrmMain
     Left = 232
     Top = 160
     Bitmap = {
-      494C010131003600080010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101310036000C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -12154,5 +12142,17 @@ object frmMain: TfrmMain
   object XPManifest: TXPManifest
     Left = 480
     Top = 208
+  end
+  object PSScript1: TPSScript
+    CompilerOptions = []
+    OnCompile = PSScript1Compile
+    OnExecute = PSScript1Execute
+    OnAfterExecute = PSScript1AfterExecute
+    OnCompImport = PSScript1CompImport
+    OnExecImport = PSScript1ExecImport
+    Plugins = <>
+    UsePreProcessor = False
+    Left = 520
+    Top = 56
   end
 end
