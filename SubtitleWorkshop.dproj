@@ -1,0 +1,181 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{31462876-6af2-40aa-b316-a470fea34ad1}</ProjectGuid>
+    <MainSource>SubtitleWorkshop.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>SubtitleWorkshop.exe</DCC_DependencyCheckOutputName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_Define>DEBUG</DCC_Define>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality</Borland.Personality>
+    <Borland.ProjectType>VCLApplication</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject xmlns=""> <Delphi.Personality>   <Parameters>
+      <Parameters Name="UseLauncher">False</Parameters>
+      <Parameters Name="LoadAllSymbols">True</Parameters>
+      <Parameters Name="LoadUnspecifiedSymbols">False</Parameters>
+    </Parameters>
+    <VersionInfo>
+      <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
+      <VersionInfo Name="AutoIncBuild">False</VersionInfo>
+      <VersionInfo Name="MajorVer">1</VersionInfo>
+      <VersionInfo Name="MinorVer">0</VersionInfo>
+      <VersionInfo Name="Release">0</VersionInfo>
+      <VersionInfo Name="Build">0</VersionInfo>
+      <VersionInfo Name="Debug">False</VersionInfo>
+      <VersionInfo Name="PreRelease">False</VersionInfo>
+      <VersionInfo Name="Special">False</VersionInfo>
+      <VersionInfo Name="Private">False</VersionInfo>
+      <VersionInfo Name="DLL">False</VersionInfo>
+      <VersionInfo Name="Locale">1049</VersionInfo>
+      <VersionInfo Name="CodePage">1251</VersionInfo>
+    </VersionInfo>
+    <VersionInfoKeys>
+      <VersionInfoKeys Name="CompanyName"></VersionInfoKeys>
+      <VersionInfoKeys Name="FileDescription"></VersionInfoKeys>
+      <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
+      <VersionInfoKeys Name="InternalName"></VersionInfoKeys>
+      <VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys>
+      <VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys>
+      <VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys>
+      <VersionInfoKeys Name="ProductName"></VersionInfoKeys>
+      <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
+      <VersionInfoKeys Name="Comments"></VersionInfoKeys>
+    </VersionInfoKeys>
+    <Source>
+      <Source Name="MainSource">SubtitleWorkshop.dpr</Source>
+    </Source>
+  </Delphi.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <ItemGroup />
+  <ItemGroup>
+    <DelphiCompile Include="SubtitleWorkshop.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="Forms\formAbout.pas">
+      <Form>frmAbout</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formAdjustSubsEnterNewSyncPoint.pas">
+      <Form>frmEnterNewSyncPoint</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formAdjustSubtitles.pas">
+      <Form>frmAdjustSubtitles</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formAutomaticDurations.pas">
+      <Form>frmAutomaticDurations</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formBatchConvert.pas">
+      <Form>frmBatchConvert</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formCombineSubtitles.pas">
+      <Form>frmCombineSubtitles</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formCompositeCustomInfo.pas">
+      <Form>frmCompositeCustomInfo</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formConvertCase.pas">
+      <Form>frmConvertCase</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formCustomFormats.pas">
+      <Form>frmCustomFormats</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formDivideLines.pas">
+      <Form>frmDivideLines</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formDurationLimits.pas">
+      <Form>frmDurationLimits</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formInfoErrors.pas">
+      <Form>frmInfoErrors</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formInfoErrorsSettings.pas">
+      <Form>frmInfoErrorsSettings</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formJoin.pas">
+      <Form>frmJoin</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formMain.pas">
+      <Form>frmMain</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formOutputSettings.pas">
+      <Form>frmOutputSettings</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formRoundTimeValues.pas">
+      <Form>frmRoundTimeValues</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSAMILangExtractor.pas">
+      <Form>frmSAMILangExtractor</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSaveAs.pas">
+      <Form>frmSaveAs</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSearchAndReplace.pas">
+      <Form>frmSearchAndReplace</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSetDelay.pas">
+      <Form>frmSetDelay</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSetPauses.pas">
+      <Form>frmSetPauses</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSettings.pas">
+      <Form>frmSettings</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSmartLineAdjust.pas">
+      <Form>frmSmartLineAdjust</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSplit.pas">
+      <Form>frmSplit</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formSubtitleAPIFormats.pas">
+      <Form>frmSubtitleAPIFormats</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formTimeExpanderReducer.pas">
+      <Form>frmTimeExpanderReducer</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formUnbreakSubtitles.pas">
+      <Form>frmUnbreakSubtitles</Form>
+    </DCCReference>
+    <DCCReference Include="Forms\formVariousInfo.pas">
+      <Form>frmVariousInfo</Form>
+    </DCCReference>
+    <DCCReference Include="Lib\DirectX\Direct3D9.pas" />
+    <DCCReference Include="Lib\DirectX\DirectDraw.pas" />
+    <DCCReference Include="Lib\DirectX\DirectShow9.pas" />
+    <DCCReference Include="Lib\DirectX\DirectSound.pas" />
+    <DCCReference Include="Lib\DirectX\DXTypes.pas" />
+    <DCCReference Include="Lib\FastStrings.pas" />
+    <DCCReference Include="Lib\HTMLPars.pas" />
+    <DCCReference Include="Lib\RegExpr.pas" />
+    <DCCReference Include="Lib\StrMan.pas" />
+    <DCCReference Include="Lib\WinShell.pas" />
+    <DCCReference Include="Units\CommonTypes.pas" />
+    <DCCReference Include="Units\FileTypes.pas" />
+    <DCCReference Include="Units\Functions.pas" />
+    <DCCReference Include="Units\General.pas" />
+    <DCCReference Include="Units\InfoErrorsFunctions.pas" />
+    <DCCReference Include="Units\OCRScripts.pas" />
+    <DCCReference Include="Units\PascalScriptsFunctions.pas" />
+    <DCCReference Include="Units\Shortcuts.pas" />
+    <DCCReference Include="Units\TreeViewHandle.pas" />
+    <DCCReference Include="Units\Undo.pas" />
+    <DCCReference Include="Units\USubtitleAdjust.pas" />
+    <DCCReference Include="Units\USubtitleApi.pas" />
+    <DCCReference Include="Units\USubtitlesFunctions.pas" />
+    <DCCReference Include="Units\VideoPreview.pas" />
+    <DCCReference Include="Units\VTInPlaceEdition.pas" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+</Project>

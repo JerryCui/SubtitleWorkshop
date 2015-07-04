@@ -43,6 +43,10 @@ contains
   SWTimeCounter in 'Sources\SWTimeCounter.pas',
   USSpeller in 'Sources\USSpeller.pas',
   TimeMaskEdit in 'Sources\TimeMaskEdit.pas',
-  SymbolDlg in 'Sources\SymbolDlg.pas';
+  SymbolDlg in 'Sources\SymbolDlg.pas',
+  USGraphics in 'Sources\USGraphics.pas',
+  FastStrings in '..\Lib\FastStrings.pas',
+  USubtitlesFunctions in '..\Units\USubtitlesFunctions.pas',
+  formSymbolDlg in 'Sources\formSymbolDlg.pas';
 
 end.
