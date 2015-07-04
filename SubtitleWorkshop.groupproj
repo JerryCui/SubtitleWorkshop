@@ -1,0 +1,34 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{d8797ed4-1b8e-4ebf-baf6-dd1574cd032b}</ProjectGuid>
+  </PropertyGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Projects Include="SubtitleWorkshop.dproj" />
+  </ItemGroup>
+  <ProjectExtensions>
+    <Borland.Personality>Default.Personality</Borland.Personality>
+    <Borland.ProjectType />
+    <BorlandProject>
+  <BorlandProject xmlns=""> <Default.Personality> </Default.Personality> </BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Target Name="SubtitleWorkshop">
+    <MSBuild Projects="SubtitleWorkshop.dproj" Targets="" />
+  </Target>
+  <Target Name="SubtitleWorkshop:Clean">
+    <MSBuild Projects="SubtitleWorkshop.dproj" Targets="Clean" />
+  </Target>
+  <Target Name="SubtitleWorkshop:Make">
+    <MSBuild Projects="SubtitleWorkshop.dproj" Targets="Make" />
+  </Target>
+  <Target Name="Build">
+    <CallTarget Targets="SubtitleWorkshop" />
+  </Target>
+  <Target Name="Clean">
+    <CallTarget Targets="SubtitleWorkshop:Clean" />
+  </Target>
+  <Target Name="Make">
+    <CallTarget Targets="SubtitleWorkshop:Make" />
+  </Target>
+  <Import Condition="Exists('$(MSBuildBinPath)\Borland.Group.Targets')" Project="$(MSBuildBinPath)\Borland.Group.Targets" />
+</Project>
