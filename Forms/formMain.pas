@@ -14,11 +14,13 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Menus, ComCtrls, IniFiles, ImgList,
     ShellAPI, ClipBrd, URLMon, FileCtrl, Grids, ToolWin, Mask, Math, {XPMan,} RichEdit, SymbolDlg, //Math, RichEdit, XPMan added by adenry
   VirtualTrees, MiMenu, MiSubtitulo, {MiHint,} {NFormSizing,} SWSeekBar, SWButton, USSpeller, SWTimeCounter, TimeMaskEdit, //MiHint, NFormSizing removed by adenry
-    IFPS3CompExec, ifpsComp, ifps3,
-    ifpii_controls, ifpii_std, ifpii_classes, ifpii_graphics, ifpii_forms, ifpii_stdctrls, ifpii_extctrls, ifpii_menus, ifpidateutils,
-    ifpiir_controls, ifpiir_std, ifpiir_classes, ifpiir_graphics, ifpiir_forms, ifpiir_stdctrls, ifpiir_extctrls, ifpiir_menus, ifpidateutilsr,
   StrMan, FastStrings, WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
-  CommonTypes, XPMan;
+  CommonTypes, XPMan, uPSComponent, uPSCompiler, uPSRuntime, uPSC_std,
+  uPSC_classes, uPSC_controls, uPSC_graphics, uPSC_stdctrls, uPSC_extctrls,
+  uPSC_forms, uPSC_menus, uPSC_dateutils,
+  uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
+  uPSR_forms, uPSR_menus, uPSR_dateutils;
+
 
 type
   TfrmMain = class(TForm)
@@ -246,7 +248,6 @@ type
     mnuUndo: TMenuItem;
     mnuRedo: TMenuItem;
     mnuPascalScripts: TMenuItem;
-    psCompExec: TIFPS3CompExec;
     mnu40P: TMenuItem;
     mnu30P: TMenuItem;
     mnu20P: TMenuItem;
@@ -486,6 +487,7 @@ type
     mnuDisplayTranslationPopup: TMenuItem;
     edtPlayerShortcuts: TEdit;
     XPManifest: TXPManifest;
+    PSScript1: TPSScript;
     procedure lstSubtitlesInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure lstSubtitlesFreeNode(Sender: TBaseVirtualTree;
@@ -682,13 +684,6 @@ type
     procedure mnuSaveSMILClick(Sender: TObject);
     procedure mnuUndoClick(Sender: TObject);
     procedure mnuRedoClick(Sender: TObject);
-    procedure psCompExecCompile(Sender: TIFPS3CompExec);
-    procedure psCompExecExecute(Sender: TIFPS3CompExec);
-    procedure psCompExecCompImport(Sender: TObject;
-      x: TIFPSPascalCompiler);
-    procedure psCompExecExecImport(Sender: TObject; se: TIFPSExec;
-      x: TIFPSRuntimeClassImporter);
-    procedure psCompExecAfterExecute(Sender: TIFPS3CompExec);
     procedure btnSyncPoint1Click(Sender: TObject);
     procedure btnSyncPoint2Click(Sender: TObject);
     procedure mnuFirstSyncPointClick(Sender: TObject);
@@ -956,6 +951,12 @@ type
       Node: PVirtualNode; Column: TColumnIndex);
     procedure lstSubtitlesEditCancelled(Sender: TBaseVirtualTree;
       Column: TColumnIndex);
+    procedure PSScript1AfterExecute(Sender: TPSScript);
+    procedure PSScript1Execute(Sender: TPSScript);
+    procedure PSScript1Compile(Sender: TPSScript);
+    procedure PSScript1CompImport(Sender: TObject; x: TPSPascalCompiler);
+    procedure PSScript1ExecImport(Sender: TObject; se: TPSExec;
+      x: TPSRuntimeClassImporter);
   protected
     procedure CreateParams(var Params: TCreateParams); override;
   private
@@ -9717,9 +9718,9 @@ procedure TfrmMain.mnuPascalScriptClick(Sender: TObject);
     ErrorsText : String;
   begin
     ErrorsText := '';
-    for l := 0 to psCompExec.CompilerMessageCount - 1 do
+    for l := 0 to PSScript1.CompilerMessageCount - 1 do
     begin
-      ErrorsText := ErrorsText + #13#10 + psCompExec.CompilerErrorToStr(l);
+      ErrorsText := ErrorsText + #13#10 + PSScript1.CompilerErrorToStr(l);
     end;
     MsgBox(s + #13#10#13#10 + ErrorsText, BTN_OK, '', '', MB_ICONERROR, Self);
   end;
@@ -9727,11 +9728,11 @@ begin
   Screen.Cursor := crHourGlass; //added by adenry
   try
     frmMain.tmrPascalScriptRestoreCursor.Enabled := True; //added by adenry
-    psCompExec.Script.LoadFromFile(ExtractFilePath(Application.ExeName) + 'PascalScripts\' + (Sender as TMenuItem).Caption + '.pas'); //StripHotKey added by adenry for toolbar button fix
+    PSScript1.Script.LoadFromFile(ExtractFilePath(Application.ExeName) + 'PascalScripts\' + (Sender as TMenuItem).Caption + '.pas'); //StripHotKey added by adenry for toolbar button fix
 
-    if psCompExec.Compile then
+    if PSScript1.Compile then
     begin
-      if not psCompExec.Execute then
+      if not PSScript1.Execute then
         OutputMsg(ErrorMsg[24]) else
       begin
         if AutoRecheckOnScripts = 1 then
@@ -9751,25 +9752,22 @@ end;
 // PASCAL SCRIPT FUNCTIONS WERE HERE
 // -----------------------------------------------------------------------------
 
-procedure TfrmMain.psCompExecCompile(Sender: TIFPS3CompExec);
+procedure TfrmMain.PSScript1AfterExecute(Sender: TPSScript);
+begin
+  if UndoList.Count > 0 then
+    PUndoAction(UndoList.Last)^.BindToNext := False;
+end;
+
+procedure TfrmMain.PSScript1Compile(Sender: TPSScript);
 begin
   CompExecCompile(Sender);
 end;
 
-procedure TfrmMain.psCompExecExecute(Sender: TIFPS3CompExec);
-begin
-  psCompExec.SetVarToInstance('Application', Application);
-  //psCompExec.SetVarToInstance('Self', Self);
-end;
-
-// -----------------------------------------------------------------------------
-
-procedure TfrmMain.psCompExecCompImport(Sender: TObject;
-  x: TIFPSPascalCompiler);
+procedure TfrmMain.PSScript1CompImport(Sender: TObject; x: TPSPascalCompiler);
 begin
   SIRegister_Std(x);
   SIRegister_Classes(x, true);
-  SIRegister_Graphics(x);
+  SIRegister_Graphics(x, true);
   SIRegister_Controls(x);
   SIRegister_stdctrls(x);
   SIRegister_extctrls(x);
@@ -9778,14 +9776,12 @@ begin
   RegisterDateTimeLibrary_C(x);
 end;
 
-// -----------------------------------------------------------------------------
-
-procedure TfrmMain.psCompExecExecImport(Sender: TObject; se: TIFPSExec;
-  x: TIFPSRuntimeClassImporter);
+procedure TfrmMain.PSScript1ExecImport(Sender: TObject; se: TPSExec;
+  x: TPSRuntimeClassImporter);
 begin
   RIRegister_Std(x);
   RIRegister_Classes(x, true);
-  RIRegister_Graphics(x);
+  RIRegister_Graphics(x, true);
   RIRegister_Controls(x);
   RIRegister_stdctrls(x);
   RIRegister_extctrls(x);
@@ -9794,12 +9790,9 @@ begin
   RegisterDateTimeLibrary_R(se);
 end;
 
-// -----------------------------------------------------------------------------
-
-procedure TfrmMain.psCompExecAfterExecute(Sender: TIFPS3CompExec);
+procedure TfrmMain.PSScript1Execute(Sender: TPSScript);
 begin
-  if UndoList.Count > 0 then
-    PUndoAction(UndoList.Last)^.BindToNext := False;
+  PSScript1.SetVarToInstance('Application', Application);
 end;
 
 // -----------------------------------------------------------------------------

@@ -11,7 +11,7 @@ interface
 uses
   Forms, Controls, SysUtils,
   VirtualTrees, IFPS3CompExec,
-  CommonTypes;
+  CommonTypes, uPSComponent;
 
 // -----------------------------------------------------------------------------
 function  MyGetSubCount: Integer;
@@ -56,7 +56,7 @@ function  MyGetMovieFilepath(): String;
 function  MyGetVideoPosTime(): String;
 function  MyGetVideoPosFrames(): String;
 // -----------------------------------------------------------------------------
-procedure CompExecCompile(Sender: TIFPS3CompExec);
+procedure CompExecCompile(Sender: TPSScript);
 // -----------------------------------------------------------------------------
 
 implementation
@@ -591,7 +591,7 @@ end;
 
 // -----------------------------------------------------------------------------
 
-procedure CompExecCompile(Sender: TIFPS3CompExec);
+procedure CompExecCompile(Sender: TPSScript);
 begin
   Sender.AddFunction(@MyIsOriginalLoaded,   'function IsOriginalLoaded: Boolean;');
   Sender.AddFunction(@MyIsTranslatedLoaded, 'function IsTranslatedLoaded: Boolean;');
