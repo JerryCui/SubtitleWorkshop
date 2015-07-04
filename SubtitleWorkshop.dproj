@@ -3,10 +3,10 @@
   <PropertyGroup>
     <ProjectGuid>{31462876-6af2-40aa-b316-a470fea34ad1}</ProjectGuid>
     <MainSource>SubtitleWorkshop.dpr</MainSource>
-    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
-    <DCC_DependencyCheckOutputName>SubtitleWorkshop.exe</DCC_DependencyCheckOutputName>
+    <DCC_DependencyCheckOutputName>Bin\SubtitleWorkshop.exe</DCC_DependencyCheckOutputName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -14,10 +14,12 @@
     <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
     <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
     <DCC_Define>RELEASE;VER150</DCC_Define>
+    <DCC_ExeOutput>.\Bin</DCC_ExeOutput>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Version>7.0</Version>
     <DCC_Define>DEBUG;VER150</DCC_Define>
+    <DCC_ExeOutput>.\Bin</DCC_ExeOutput>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>Delphi.Personality</Borland.Personality>
