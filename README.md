@@ -16,7 +16,7 @@ To compile Subtitle Workshop's source code successfully:
 
 1. Use Delphi 7, other versions won't work.
 2. Install all the components listed above.
-3. Add the paths to the source code directories for those components to your Delphi 7 Library path (Tools: Environment Options: Library).
+3. Add the paths to the source code directories for those components to your Delphi Library path.
 
 UPX (The Ultimate Packer for eXecutables) is used for compression (through Bin\Compress.bat) - current version used is 3.91 - http://upx.sourceforge.net/
 
