@@ -20,9 +20,9 @@ var
   ID_VERSION: string;
   ID_BUILD: string;
   ID_FULLVERSION: string;
+  ID_PROGRAM : string;
 
 const
-  ID_PROGRAM      = 'Subtitle Workshop';
   ID_EMAIL        = 'subtitleworkshop@gmail.com';
   ID_WEBPAGE      = 'http://subworkshop.sf.net';
   ID_DONATIONPAGE = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=974UTRLZU5L6C';
@@ -2477,6 +2477,7 @@ begin
   ID_VERSION := FileVersionInfo.ProductVersion;
   ID_BUILD := FileVersionInfo.FileVersionBuild;
   ID_FULLVERSION := ID_VERSION + ' (build ' + ID_BUILD + ')';
+  ID_PROGRAM := FileVersionInfo.ProductName;
 
   FileVersionInfo.Free;
 end;
