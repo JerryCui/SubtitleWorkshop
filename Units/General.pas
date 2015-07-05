@@ -1254,11 +1254,11 @@ procedure CommandLineProcess(Cli: String);
 
       // run script
       err := FALSE;
-      frmMain.psCompExec.Script.LoadFromFile(ExtractFilePath(Application.ExeName) + 'PascalScripts\' + Script);
+      frmMain.PSScript1.Script.LoadFromFile(ExtractFilePath(Application.ExeName) + 'PascalScripts\' + Script);
 
-      if frmMain.psCompExec.Compile then
+      if frmMain.PSScript1.Compile then
       begin
-        if not frmMain.psCompExec.Execute then
+        if not frmMain.PSScript1.Execute then
           err := TRUE;
       end else
         err := TRUE;
@@ -1266,9 +1266,9 @@ procedure CommandLineProcess(Cli: String);
       if err = TRUE then
       begin
         ErrorsText := '';
-        for l := 0 to frmMain.psCompExec.CompilerMessageCount - 1 do
+        for l := 0 to frmMain.PSScript1.CompilerMessageCount - 1 do
         begin
-          ErrorsText := ErrorsText + #13#10 + frmMain.psCompExec.CompilerErrorToStr(l);
+          ErrorsText := ErrorsText + #13#10 + frmMain.PSScript1.CompilerErrorToStr(l);
         end;
         MsgBox('Compiler errors:' + #13#10#13#10 + ErrorsText, BTN_OK, '', '', MB_ICONERROR, nil);
       end;
