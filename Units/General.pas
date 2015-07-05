@@ -12,15 +12,17 @@ uses
   Forms, Windows, Classes, SysUtils, Controls, StdCtrls, Mask, Menus, IniFiles, Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math, //Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math added by adenry
   VirtualTrees,
   FastStrings,
-  USubtitleAPI, CommonTypes;
+  USubtitleAPI, CommonTypes, jclFileUtils;
 
 // -----------------------------------------------------------------------------
 
+var
+  ID_VERSION: string;
+  ID_BUILD: string;
+  ID_FULLVERSION: string;
+
 const
   ID_PROGRAM      = 'Subtitle Workshop';
-  ID_VERSION      = '6.0b';
-  ID_BUILD        = '131121';
-  ID_FULLVERSION  = ID_VERSION + ' (build ' + ID_BUILD + ')';
   ID_EMAIL        = 'subtitleworkshop@gmail.com';
   ID_WEBPAGE      = 'http://subworkshop.sf.net';
   ID_DONATIONPAGE = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=974UTRLZU5L6C';
@@ -33,6 +35,7 @@ const
   ID_SRFEXT       = '.srf';
   ID_OCREXT       = '.ocr';
   ID_SHORTCUTS    = 'shortcuts.key';
+
 
   SpecialChars  : set of Char = ['¡', '!', '"', '#', '$', '%', '&', '''', '(', ')', '+', '-', '.', '/',
                                  ':', ';', '<', '=', '>', '¿', '?', '@', '[', '\', ']', '^', '_', '`',
@@ -2465,5 +2468,21 @@ end;
 //added by adenry: end
 
 // -----------------------------------------------------------------------------
+
+procedure SetVersionInfo;
+var
+  FileVersionInfo: TJclFileVersionInfo;
+begin
+  FileVersionInfo := TJclFileVersionInfo.Create(Application.ExeName);
+  ID_VERSION := FileVersionInfo.ProductVersion;
+  ID_BUILD := FileVersionInfo.FileVersionBuild;
+  ID_FULLVERSION := ID_VERSION + ' (build ' + ID_BUILD + ')';
+
+  FileVersionInfo.Free;
+end;
+
+initialization
+
+  SetVersionInfo;
 
 end.
