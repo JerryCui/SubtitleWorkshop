@@ -1,4 +1,4 @@
-These versions of Subtitle Workshop and Subtitle API are developed with Delphi 7.
+These versions of Subtitle Workshop and Subtitle API are developed with Delphi 2007.
 
 Additional components Subtitle Workshop requires:
 - SWComponents (included in source, see "SWComponents" directory)
@@ -21,3 +21,11 @@ NSIS (nullsoft scriptable install system) is used for the creation of the instal
 
 
 Subtitle Workshop and Subtitle API are released under the GNU/GPL 3 license.
+
+v6.0c
+-------
+* Innerfuse Pascal Script 3 (IFPS3) replaced with successor, RemObjects PascalScript (latest from Git repository) - https://github.com/remobjects/pascalscript
+* VirtualTreeView updated from 4.8.6 to 5.3.0 (http://www.soft-gems.net/)
+* Added XP Manifest, now Subtitle Workshop looks modern on Windows XP and higher
+* Misc little changes
+
