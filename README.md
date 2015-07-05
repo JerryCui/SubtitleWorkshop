@@ -13,6 +13,7 @@ Additional components Subtitle API requires:
 - XML Parser (http://www.destructor.de/xmlparser/index.htm) - current version used is 1.0.20
 
 To compile Subtitle Workshop's source code successfully:
+
 1. Use Delphi 7, other versions won't work.
 2. Install all the components listed above.
 3. Add the paths to the source code directories for those components to your Delphi 7 Library path (Tools: Environment Options: Library).
