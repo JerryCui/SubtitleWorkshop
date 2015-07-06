@@ -1,4 +1,4 @@
-// This file is part of Subtitle Workshop
+ï»¿// This file is part of Subtitle Workshop
 // URL: subworkshop.sf.net
 // Licesne: GPL v3
 // Copyright: See Subtitle Workshop's copyright information
@@ -10,8 +10,8 @@ interface
 
 uses
   Forms, SysUtils, Windows, Graphics, Math, Controls, //Graphics added by adenry for TColor type use //Math added by adenry to use SimpleRoundTo //Controls added by adenry to use TCursor type
-  VirtualTrees, StrMan, FastStrings, //RegExpr, HTMLPars, //RegExpr, HTMLPars removed by adenry
-  CommonTypes;
+  VirtualTrees, StrMan, StrUtils, //RegExpr, HTMLPars, //RegExpr, HTMLPars removed by adenry
+  CommonTypes, jclStrings;
 
 // -----------------------------------------------------------------------------
 
@@ -349,8 +349,8 @@ begin
   end;
   if EntersAndSpacesBeginningEnd in ErrorsToCheck.eWhatUnnecessarySpaces then
   begin
-    if ((Pos(#13#10, Text) = 1) or ((Length(Text) > 1) and (SmartPos(#13#10, Text, True, Length(Text), False) = Length(Text)-1))) or
-       (Text[1] = ' ') or (SmartPos(' ', Text, True, Length(Text), False) = Length(Text)) then
+    if ((Pos(#13#10, Text) = 1) or ((Length(Text) > 1) and (StrLastPos(#13#10, Text) = Length(Text)-1))) or
+       (Text[1] = ' ') or (StrLastPos(' ', Text) = Length(Text)) then
     begin
       Result := True;
       exit;
@@ -383,7 +383,7 @@ begin
       exit;
     end;
     //added by adenry: begin
-    i := SmartPos(' .', Text, True, 1);
+    i := PosEx(' .', Text, 1);
     while i > 0 do
     begin
       if (i=1) or (i = Length(Text)-1) or // ' .' at the beginning or at the end of the subtitle
@@ -395,13 +395,13 @@ begin
         Result := True;
         exit;
       end;
-      i := SmartPos(' .', Text, True, i+2);
+      i := PosEx(' .', Text, i+2);
     end;
     //added by adenry: end
   end;
   if SpacesAfterQuestionAndExclamation in ErrorsToCheck.eWhatUnnecessarySpaces then
   begin
-    if (Pos('¡ ', Text) > 0) or (Pos('¿ ', Text) > 0) then
+    if (Pos('Â¡ ', Text) > 0) or (Pos('Â¿ ', Text) > 0) then
     begin
       Result := True;
       exit;
@@ -1115,10 +1115,10 @@ function RemoveTextBeforeColon(Text: String; CapitalLetters: Boolean): String;
   begin
     //a := Pos(':', Line); //removed by adenry
     //added by adenry:
-    a := SmartPos(':', Line, False, 1);
+    a := PosEx(':', Line, 1);
     while a > 0 do
       if IsTagPart(Line, a) then
-        a := SmartPos(':', Line, False, a+1) else
+        a := PosEx(':', Line, a+1) else
         break;
 
     if (a > 1) then
@@ -1258,7 +1258,7 @@ function FixNoSpaceAfterOrBeforeCustomChar(Text: String; After: Boolean): String
             if (Line[i+1] = '<') then
               if IsTagPart(Line, i+1) then
               begin
-                j := SmartPos('>', Line, True, i+1);
+                j := PosEx('>', Line, i+1);
                 if (Line[j+1] = ' ') then //there's a space after the tag
                 begin
                   i := j+1;
@@ -1343,7 +1343,7 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
           //fix space in the begining after a tag
           while True do
           begin
-            tmp := Copy(Line, 1, SmartPos(' ', Line, False, 1, True));
+            tmp := Copy(Line, 1, PosEx(' ', Line, 1));
             tmp := ReplaceString(tmp, '<i>', '');
             tmp := ReplaceString(tmp, '<b>', '');
             tmp := ReplaceString(tmp, '<u>', '');
@@ -1351,13 +1351,14 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
             tmp := ReplaceString(tmp, '</b>', '');
             tmp := ReplaceString(tmp, '</u>', '');
             if tmp = ' ' then
-              Delete(Line, SmartPos(' ', Line, False, 1, True), 1) else
+              Delete(Line, PosEx(' ', Line, 1), 1) else
               break;
           end;
           //fix space in the end before a tag
           while True do
           begin
-            tmp := Copy(Line, SmartPos(' ', Line, False, Length(Line), False), 1+Length(Line)-SmartPos(' ', Line, False, Length(Line), False));
+            tmp := Copy(Line, StrLastPos(' ', Line), 1+Length(Line)-
+                        StrLastPos(' ', Line));
             tmp := ReplaceString(tmp, '</i>', '');
             tmp := ReplaceString(tmp, '</b>', '');
             tmp := ReplaceString(tmp, '</u>', '');
@@ -1365,7 +1366,7 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
             tmp := ReplaceString(tmp, '<b>', '');
             tmp := ReplaceString(tmp, '<u>', '');
             if tmp = ' ' then
-              Delete(Line, SmartPos(' ', Line, False, Length(Line), False), 1) else
+              Delete(Line, StrLastPos(' ', Line), 1) else
               break;
           end;
         end;
@@ -1432,7 +1433,7 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
           ) then
           //added by adenry: end          
             Delete(Line, i, 1);
-          i := SmartPos(' .', Line, True, i+1);
+          i := PosEx(' .', Line, i+1);
         end;
         while (Pos(' :', Line) > 0) do
           Delete(Line, Pos(' :', Line), 1);
@@ -1441,10 +1442,10 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
       end;
       if (SpacesAfterQuestionAndExclamation in ErrorsToFix.eWhatUnnecessarySpaces) and not ForceFix then
       begin
-        while (Pos('¡ ', Line) > 0) do
-          Delete(Line, Pos('¡ ', Line) + 1, 1);
-        while (Pos('¿ ', Line) > 0) do
-          Delete(Line, Pos('¿ ', Line) + 1, 1);
+        while (Pos('Â¡ ', Line) > 0) do
+          Delete(Line, Pos('Â¡ ', Line) + 1, 1);
+        while (Pos('Â¿ ', Line) > 0) do
+          Delete(Line, Pos('Â¿ ', Line) + 1, 1);
       end;
       if (SpacesBeforeQuestionAndExclamation in ErrorsToFix.eWhatUnnecessarySpaces) and not ForceFix then
       begin
