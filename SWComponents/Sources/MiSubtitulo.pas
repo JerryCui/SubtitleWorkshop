@@ -12,7 +12,8 @@ interface
 
 uses
   Windows, Messages, Classes, Graphics, Controls, SysUtils, USGraphics,
-  Forms, ComCtrls, Math, RichEdit, FastStrings; //added by adenry
+  StrUtils, jclStrings,
+  Forms, ComCtrls, Math, RichEdit; //added by adenry
 
 const
   //TransparentColor = $FF00FF; //removed by adenry
@@ -131,24 +132,24 @@ begin
 	begin
 		Text := StringReplace(Text, '<u>', '', [rfReplaceAll, rfIgnoreCase]);
 		Text := StringReplace(Text, '</u>', '', [rfReplaceAll, rfIgnoreCase]);
-	end;	
+	end;
   if Color = True then begin
 		Text := StringReplace(Text, '</c>', '', [rfReplaceAll, rfIgnoreCase]);
     {
 		Text := StringReplace(Text, '</font>', '', [rfReplaceAll, rfIgnoreCase]);
     }
 
-    TagPos := SmartPos('<c:#', Text, False);
-    Tag2Pos := SmartPos('>', Text, True, TagPos+1);
+    TagPos := StrIPos('<c:#', Text);
+    Tag2Pos := PosEx('>', Text, TagPos+1);
     SearchStart := 1;
   	while (TagPos > 0) and (Tag2Pos > 0) do
     begin
-      Tag3Pos := SmartPos('<', Text, True, TagPos+1);
+      Tag3Pos := PosEx('<', Text, TagPos+1);
       if (Tag2Pos < Tag3Pos) or (Tag3Pos = 0) then
 	  	Delete(Text, TagPos, Tag2Pos-TagPos+1) else
         SearchStart := TagPos+1;
-      TagPos := SmartPos('<c:#', Text, False, SearchStart);
-      Tag2Pos := SmartPos('>', Text, True, TagPos+1);
+      TagPos := StrFind('<c:#', Text, SearchStart);
+      Tag2Pos := PosEx('>', Text, TagPos+1);
     end;
 
     {
@@ -282,7 +283,7 @@ procedure TMiSubtitulo.DrawSubtitleText;
   begin
     Result := -1;
 
-    tagPos := SmartPos('<c:#', Text, False); //added by adenry
+    tagPos := StrIPos('<c:#', Text); //added by adenry
 
 		if (tagPos > 0) then
     begin
@@ -894,10 +895,10 @@ begin
   SetRichEditText(re, s);
   
   //Replace BOLD tags
-  tPos := SmartPos(b, re.Text, False);
+  tPos := StrIPos(b, re.Text);
   While(tPos > 0) do
   begin
-    t2Pos := SmartPos(b2, re.Text, False);
+    t2Pos := StrIPos(b2, re.Text);
 
     re.SelStart := tPos + 2;
     re.SelLength := t2Pos - tPos - 3; //if t2Pos = 0 SelLength automatically extends to the text's end
@@ -910,14 +911,14 @@ begin
     re.SelLength := 3;
     re.SelText := '';
 
-    tPos := SmartPos(b, re.Text, False);
+    tPos := StrIPos(b, re.Text);
   end;
 
   //Replace ITALIC tags
-  tPos := SmartPos(i, re.Text, False);
+  tPos := StrIPos(i, re.Text);
   While(tPos > 0) do
   begin
-    t2Pos := SmartPos(i2, re.Text, False);
+    t2Pos := StrIPos(i2, re.Text);
 
     re.SelStart := tPos + 2;
     SelStart := re.SelStart;
@@ -938,14 +939,14 @@ begin
     re.SelLength := 3;
     re.SelText := '';
 
-    tPos := SmartPos(i, re.Text, False);
+    tPos := StrIPos(i, re.Text);
   end;
 
   //Replace UNDERLINE tags
-  tPos := SmartPos(u, re.Text, False);
+  tPos := StrIPos(u, re.Text);
   While(tPos > 0) do
   begin
-    t2Pos := SmartPos(u2, re.Text, False);
+    t2Pos := StrIPos(u2, re.Text);
 
     re.SelStart := tPos + 2;
     SelStart := re.SelStart;
@@ -966,22 +967,22 @@ begin
     re.SelLength := 3;
     re.SelText := '';
 
-    tPos := SmartPos(u, re.Text, False);
+    tPos := StrIPos(u, re.Text);
   end;
 
   //Replace COLOR tags
-  tPos := SmartPos(c, re.Text, False);
+  tPos := StrIPos(c, re.Text);
   SearchStart := 1;
   While(tPos > 0) do
   begin
-    if (Copy(re.Text, tPos+10, 1) = '>') and ( (SmartPos('<', re.Text, False, tPos+4) > tPos+10) or (SmartPos('<', re.Text, False, tPos+4)=0) ) then
+    if (Copy(re.Text, tPos+10, 1) = '>') and ( (PosEx('<', re.Text, tPos+4) > tPos+10) or (PosEx('<', re.Text, tPos+4)=0) ) then
     begin  //it's a proper <c:#XXXXXX> tag:
-      t2Pos := SmartPos(c2, re.Text, False, tPos+4); //nearest </c> tag
+      t2Pos := StrFind(c2, re.Text, tPos+4); //nearest </c> tag
       //get next nearest <c:#XXXXXX> tag: //It's much easier to get the nearest <c:# tag, but it's not accurate: tPos2 := SmartPos(c, re.Text, False, tPos+4);
       tPos2 := 0; SelStart := tPos+4;
       while (True) do
       begin
-        tPos2 := SmartPos(c, re.Text, False, SelStart); //get nearest <c:# tag
+        tPos2 := StrFind(c, re.Text, SelStart); //get nearest <c:# tag
         if tPos2 = 0 then break; //there are no more <c:# tags, so break
         if Copy(re.Text, tPos2+10, 1) <> '>' then
           SelStart := tPos2+1 else break; //if this is a proper <c:#XXXXXX> tag - break, otherwise - search for the next <c:#
@@ -1013,8 +1014,8 @@ begin
       re.SelText := '';
     end else
     begin //it's not a proper <c:#XXXXXX> tag:
-      t2Pos := SmartPos('>', re.Text, False, tPos+4);
-      if (t2Pos > 0) and ( (t2Pos < SmartPos('<', re.Text, False, tPos+4)) or (SmartPos('<', re.Text, False, tPos+4)=0) ) then
+      t2Pos := PosEx('>', re.Text, tPos+4);
+      if (t2Pos > 0) and ( (t2Pos < PosEx('<', re.Text, tPos+4)) or (PosEx('<', re.Text, tPos+4)=0) ) then
       begin //at least it's a closed <c:# tag, so we delete it
         re.SelStart := tPos - 1;
         re.SelLength := t2Pos-tPos+1;
@@ -1022,7 +1023,7 @@ begin
       end else //it's not even a closed <c:# tag, so we can't delete it as we don't know where its end is
         SearchStart := tPos+1;
     end;
-    tPos := SmartPos(c, re.Text, False, SearchStart);
+    tPos := StrFind(c, re.Text, SearchStart);
   end;
 
   {
@@ -1084,37 +1085,37 @@ begin
   }
 
   //Clear unnecessary close tags
-  t2Pos := SmartPos(b2, re.Text, False);
+  t2Pos := StrIPos(b2, re.Text);
   While (t2Pos > 0) do
   begin
     re.SelStart := t2Pos - 1;
     re.SelLength := 4;
     re.SelText := '';
-    t2Pos := SmartPos(b2, re.Text, False);
+    t2Pos := StrIPos(b2, re.Text);
   end;
-  t2Pos := SmartPos(i2, re.Text, False);
+  t2Pos := StrIPos(i2, re.Text);
   While (t2Pos > 0) do
   begin
     re.SelStart := t2Pos - 1;
     re.SelLength := 4;
     re.SelText := '';
-    t2Pos := SmartPos(i2, re.Text, False);
+    t2Pos := StrIPos(i2, re.Text);
   end;
-  t2Pos := SmartPos(u2, re.Text, False);
+  t2Pos := StrIPos(u2, re.Text);
   While (t2Pos > 0) do
   begin
     re.SelStart := t2Pos - 1;
     re.SelLength := 4;
     re.SelText := '';
-    t2Pos := SmartPos(u2, re.Text, False);
+    t2Pos := StrIPos(u2, re.Text);
   end;
-  t2Pos := SmartPos(c2, re.Text, False);
+  t2Pos := StrIPos(c2, re.Text);
   While (t2Pos > 0) do
   begin
     re.SelStart := t2Pos - 1;
     re.SelLength := 4;
     re.SelText := '';
-    t2Pos := SmartPos(c2, re.Text, False);
+    t2Pos := StrIPos(c2, re.Text);
   end;
   {
   t2Pos := SmartPos(f2, re.Text, False);
