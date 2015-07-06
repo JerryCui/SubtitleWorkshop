@@ -62,7 +62,6 @@ uses
   DirectSound in 'Lib\DirectX\DirectSound.pas',
   Direct3D9 in 'Lib\DirectX\Direct3D9.pas',
   DXTypes in 'Lib\DirectX\DXTypes.pas',
-  FastStrings in 'Lib\FastStrings.pas',
   HTMLPars in 'Lib\HTMLPars.pas',
   RegExpr in 'Lib\RegExpr.pas',
   StrMan in 'Lib\StrMan.pas',
