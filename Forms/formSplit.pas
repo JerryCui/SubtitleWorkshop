@@ -13,7 +13,6 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, FileCtrl, IniFiles, Buttons,
   VirtualTrees, TimeMaskEdit,
-  FastStrings,
   CommonTypes;
 
 type
@@ -651,8 +650,8 @@ begin
   While Assigned(Node) do
   begin
     Data          := lstSplitParts.GetNodeData(Node);
-    Name          := FastReplace(edtPrefixName.Text + cmbSuffixName.Text + lblAutoExt.Caption, '%NUM', IntToStr(Node.Index+1));
-    Name          := FastReplace(Name, '%ORGFILENAME', Copy(ExtractFileName(frmMain.OrgFile), 1, LastDelimiter('.', ExtractFileName(frmMain.OrgFile))-1));
+    Name          := StringReplace(edtPrefixName.Text + cmbSuffixName.Text + lblAutoExt.Caption, '%NUM', IntToStr(Node.Index+1), [rfReplaceAll, rfIgnoreCase]);
+    Name          := StringReplace(Name, '%ORGFILENAME', Copy(ExtractFileName(frmMain.OrgFile), 1, LastDelimiter('.', ExtractFileName(frmMain.OrgFile))-1), [rfReplaceAll, rfIgnoreCase]);
     Data.FileName := Name;
     Node          := Node.NextSibling;
   end;
@@ -802,8 +801,8 @@ var
   Name: String;
 begin
   Data := Sender.GetNodeData(Node);
-  Name := FastReplace(edtPrefixName.Text + cmbSuffixName.Text + lblAutoExt.Caption, '%NUM', IntToStr(Node.Index+1));
-  Name := FastReplace(Name, '%ORGFILENAME', Copy(ExtractFileName(frmMain.OrgFile), 1, LastDelimiter('.', ExtractFileName(frmMain.OrgFile))-1));
+  Name := StringReplace(edtPrefixName.Text + cmbSuffixName.Text + lblAutoExt.Caption, '%NUM', IntToStr(Node.Index+1), [rfReplaceAll, rfIgnoreCase]);
+  Name := StringReplace(Name, '%ORGFILENAME', Copy(ExtractFileName(frmMain.OrgFile), 1, LastDelimiter('.', ExtractFileName(frmMain.OrgFile))-1), [rfReplaceAll, rfIgnoreCase]);
   Data.FileName := Name;
 end;
 

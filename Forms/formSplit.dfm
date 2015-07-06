@@ -207,6 +207,10 @@ object frmSplit: TfrmSplit
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object rdoEndOfVideos: TRadioButton
         Left = 0
         Top = 192
@@ -325,6 +329,7 @@ object frmSplit: TfrmSplit
         Header.Font.Height = -11
         Header.Font.Name = 'Tahoma'
         Header.Font.Style = []
+        Header.Height = 17
         Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoVisible]
         Header.Style = hsFlatButtons
         TabOrder = 6
