@@ -13,9 +13,9 @@ unit UCheckFormat;
 interface
 
 uses
-  Dialogs,
-  Windows, USubtitleFile, USubtitlesRead, SysUtils, FastStrings
-  {$IFDEF REGEXPR}, RegExpr{$ENDIF};
+  Dialogs, StrUtils,
+  Windows, USubtitleFile, USubtitlesRead, SysUtils
+  {$IFDEF REGEXPR}, RegExpr{$ENDIF}, jclStrings;
 
 //------------------------------------------------------------------------------
 
@@ -106,8 +106,8 @@ begin
       //00:00:03:00 00:00:08:00 Text//Text
       if (TimeInFormat(Copy(tmpSubFile[i], 1, 11), 'hh:mm:ss:zz')) and
          (TimeInFormat(Copy(tmpSubFile[i], 13, 11), 'hh:mm:ss:zz')) and
-         (SmartPos(' ', tmpSubFile[i], False, 12) = 12) and
-         (SmartPos(' ', tmpSubFile[i], False, 24) = 24) then
+         (PosEx(' ', tmpSubFile[i], 12) = 12) and
+         (PosEx(' ', tmpSubFile[i], 24) = 24) then
       begin
         Result := sfDVDSubtitleSystem;
         //added by adenry: begin 2013.04.12
@@ -177,11 +177,11 @@ begin
       end;
 
       // Advanced SubStation Alpha
-      if (SmartPos('Dialogue:', tmpSubFile[i], False) > 0) and
-         (SmartPos('Marked=', tmpSubFile[i], False) = 0) and
-         (SmartPos('!effect', tmpSubFile[i], False) = 0) and
-         (TimeInFormat(Trim(Copy(tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1, SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) - (Pos(',', tmpSubFile[i]) + 1))), 'h:mm:ss.zz'))  and
-         (TimeInFormat(Trim(Copy(tmpSubFile[i], SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) + 1, SmartPos(',', tmpSubFile[i], True, SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) + 1) - (SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) + 1))), 'h:mm:ss.zz')) then
+      if (StrIPos('Dialogue:', tmpSubFile[i]) > 0) and
+         (StrIPos('Marked=', tmpSubFile[i]) = 0) and
+         (StrIPos('!effect', tmpSubFile[i]) = 0) and
+         (TimeInFormat(Trim(Copy(tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1, PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) - (Pos(',', tmpSubFile[i]) + 1))), 'h:mm:ss.zz'))  and
+         (TimeInFormat(Trim(Copy(tmpSubFile[i], PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) + 1, PosEx(',', tmpSubFile[i], PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) + 1) - (PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) + 1))), 'h:mm:ss.zz')) then
       begin
         Result := sfAdvancedSubStationAlpha;
         Break;
@@ -189,7 +189,7 @@ begin
 
       // by Bedazzle 2007.01.26 start
       // Advanced Subtitles (*.xas)
-      if (SmartPos('dvddisc/ADV_OBJ/', tmpSubFile[i], False) > 0) then   // i+4 changed to i by adenry; =1 changed to >0 by adenry
+      if (StrIPos('dvddisc/ADV_OBJ/', tmpSubFile[i]) > 0) then   // i+4 changed to i by adenry; =1 changed to >0 by adenry
       begin
         Result := sfAdvancedSubtitlesXAS;
         Break;
@@ -208,8 +208,8 @@ begin
       if (TimeInFormat(Copy(tmpSubFile[i], 1, 11), 'hh:mm:ss:zz')) and
          (TimeInFormat(Copy(tmpSubFile[i], 15, 11), 'hh:mm:ss:zz')) and
          (Pos(',', tmpSubFile[i]) = 13) and
-         (SmartPos(',', tmpSubFile[i], False, 14) = 27) and
-         (SmartPos('|', tmpSubFile[i], False, 15) = 62) then
+         (PosEx(',', tmpSubFile[i], 14) = 27) and
+         (PosEx('|', tmpSubFile[i], 15) = 62) then
       begin
         Result := sfCaptions32;
         Break;
@@ -234,8 +234,8 @@ begin
       end;
 
       // Cheetah
-      if (SmartPos('** caption number', tmpSubFile[i], False) = 1) or
-         ((SmartPos('*t ', tmpSubFile[i], False) = 1) and
+      if (StrIPos('** caption number', tmpSubFile[i]) = 1) or
+         ((StrIPos('*t ', tmpSubFile[i]) = 1) and
          (TimeInFormat(Copy(tmpSubFile[i], 4, 11), 'hh:mm:ss:zz'))) then
       begin
         Result := sfCheetah;
@@ -245,8 +245,8 @@ begin
       // CPC-600
       if (TimeInFormat(Copy(tmpSubFile[i], 1, 11), 'hh:mm:ss:zz')) and
          (TimeInFormat(Copy(tmpSubFile[i+1], 1, 11), 'hh:mm:ss:zz')) and
-         (SmartPos('_0NEN_',tmpSubFile[i], False) = 12) and //i0NENi replaced with _0NEN_ by adenry
-         (SmartPos('_0NEN_',tmpSubFile[i+1], False) = 12) then //i0NENi replaced with _0NEN_ by adenry
+         (StrIPos('_0NEN_',tmpSubFile[i]) = 12) and //i0NENi replaced with _0NEN_ by adenry
+         (StrIPos('_0NEN_',tmpSubFile[i+1]) = 12) then //i0NENi replaced with _0NEN_ by adenry
       begin
         Result := sfCPC600;
         Break;
@@ -266,15 +266,15 @@ begin
       if (AnsiUpperCase(Copy(tmpSubFile[i], 1, 19)) = 'SUBTITLE FILE MARK:') or
          ((TimeInFormat(Copy(tmpSubFile[i], 1, 11), 'hh:mm:ss:zz')) and
          (TimeInFormat(Copy(tmpSubFile[i], 13, 11), 'hh:mm:ss:zz')) and
-         (SmartPos('&', tmpSubFile[i], False, 12) = 12) and
-         (SmartPos('#', tmpSubFile[i], False, 24) = 24)) then
+         (PosEx('&', tmpSubFile[i], 12) = 12) and
+         (PosEx('#', tmpSubFile[i], 24) = 24)) then
       begin
         Result := sfDVDJunior;
         Break;
       end;
 
       // DVDSubtitle
-      if (SmartPos('{T ', tmpSubFile[i], False) = 1) and
+      if (StrIPos('{T ', tmpSubFile[i]) = 1) and
          (TimeInFormat(Copy(tmpSubFile[i], 4, 11), 'hh:mm:ss:zz')) then
       begin
         Result := sfDVDSubtitle;
@@ -291,16 +291,16 @@ begin
       end;
 
       // I-Author Script
-      if (SmartPos('BMPFILE:', tmpSubFile[i], False) = 1) or
-         (SmartPos('TIME:', tmpSubFile[i], False) = 1) or
-         (SmartPos('STARTTIME:', tmpSubFile[i], False) = 1) then
+      if (StrIPos('BMPFILE:', tmpSubFile[i]) = 1) or
+         (StrIPos('TIME:', tmpSubFile[i]) = 1) or
+         (StrIPos('STARTTIME:', tmpSubFile[i]) = 1) then
       begin
         Result := sfIAuthor;
         Break;
       end;
 
       // Inscriber CG
-      if (SmartPos('@@9', tmpSubFile[i], False) = 1) then
+      if (PosEx('@@9', tmpSubFile[i]) = 1) then
       begin
         Result := sfInscriberCG;
         Break;
@@ -349,8 +349,11 @@ begin
          (StringCount('}', tmpSubFile[i]) >= 2) and
          (Pos('{', tmpSubFile[i]) = 1) and
          (
-         (IsInteger(Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) - 2)) or ((Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) - 2) = '') and (i > 0) and (IsInteger(Copy(tmpSubFile[i-1], SmartPos('{', tmpSubFile[i-1], True, 2) + 1, SmartPos('}', tmpSubFile[i-1], True, Pos('}', tmpSubFile[i-1]) + 1) - (SmartPos('{', tmpSubFile[i-1], True, 2) + 1)))))) and
-         (IsInteger(Copy(tmpSubFile[i], SmartPos('{', tmpSubFile[i], True, 2) + 1, SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) - (SmartPos('{', tmpSubFile[i], True, 2) + 1))) or ((Copy(tmpSubFile[i], SmartPos('{', tmpSubFile[i], True, 2) + 1, SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) - (SmartPos('{', tmpSubFile[i], True, 2) + 1)) = '') and (i < tmpSubFile.Count) and (IsInteger(Copy(tmpSubFile[i+1], 2, Pos('}', tmpSubFile[i+1]) - 2)))))
+         (IsInteger(Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) - 2)) or
+         ((Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) - 2) = '') and
+         (i > 0) and (IsInteger(Copy(tmpSubFile[i-1],
+          PosEx('{', tmpSubFile[i-1], 2) + 1, PosEx('}', tmpSubFile[i-1], Pos('}', tmpSubFile[i-1]) + 1) - (PosEx('{', tmpSubFile[i-1], 2) + 1)))))) and
+         (IsInteger(Copy(tmpSubFile[i], PosEx('{', tmpSubFile[i], 2) + 1, PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) - (PosEx('{', tmpSubFile[i], 2) + 1))) or ((Copy(tmpSubFile[i], PosEx('{', tmpSubFile[i], 2) + 1, PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) - (PosEx('{', tmpSubFile[i], 2) + 1)) = '') and (i < tmpSubFile.Count) and (IsInteger(Copy(tmpSubFile[i+1], 2, Pos('}', tmpSubFile[i+1]) - 2)))))
          ) then
       begin
         Result := sfMicroDVD;
@@ -359,7 +362,7 @@ begin
 
       // MPlayer
       if (IsInteger(Copy(tmpSubFile[i], 1, Pos(',',tmpSubFile[i]) - 1))) and
-         (IsInteger(Copy(tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1, SmartPos(',', tmpSubFile[i], True, Pos(',',tmpSubFile[i]) + 1) - (Pos(',',tmpSubFile[i]) + 1)))) and
+         (IsInteger(Copy(tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1, PosEx(',', tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1) - (Pos(',',tmpSubFile[i]) + 1)))) and
          (IsInteger(ReplaceString(tmpSubFile[i], ',', '')) = False) and
          (StringCount(',', tmpSubFile[i]) >= 3) then
       begin
@@ -369,7 +372,7 @@ begin
 
       // MPlayer 2
       if (IsInteger(Copy(tmpSubFile[i], 2, Pos(']', tmpSubFile[i]) - 2))) and
-         (IsInteger(Copy(tmpSubFile[i], SmartPos('[', tmpSubFile[i], True, 2) + 1, SmartPos(']', tmpSubFile[i], True, Pos(']', tmpSubFile[i]) + 1) - (SmartPos('[', tmpSubFile[i], True, 2) + 1)))) and
+         (IsInteger(Copy(tmpSubFile[i], PosEx('[', tmpSubFile[i], 2) + 1, PosEx(']', tmpSubFile[i], Pos(']', tmpSubFile[i]) + 1) - (PosEx('[', tmpSubFile[i], 2) + 1)))) and
          (StringCount('[', tmpSubFile[i]) >= 2) and
          (StringCount('[', tmpSubFile[i]) >= 2) and
          (Pos('[', tmpSubFile[i]) = 1) then
@@ -388,14 +391,14 @@ begin
 
       // Panimator
       if (Pos('/d ', tmpSubFile[i]) = 1) and
-         (IsInteger(Copy(tmpSubFile[i], 4, Length(tmpSubFile[i])-SmartPos(' ', tmpSubFile[i], False, 4)-1))) then
+         (IsInteger(Copy(tmpSubFile[i], 4, Length(tmpSubFile[i])-PosEx(' ', tmpSubFile[i], 4)-1))) then
       begin
         Result := sfPanimator;
         Break;
       end;
 
       // Philips SVCD Designer
-      if (SmartPos('# PHILIPS SVCD DESIGNER', tmpSubFile[i], False) > 0) then
+      if (StrIPos('# PHILIPS SVCD DESIGNER', tmpSubFile[i]) > 0) then
       begin
         Result := sfPhilipsSVCD;
         Break;
@@ -412,7 +415,7 @@ begin
       end;
 
       // Pinnacle Impression
-      if (SmartPos('#INPOINT OUTPOINT PATH', tmpSubFile[i], False) > 0) or
+      if (StrIPos('#INPOINT OUTPOINT PATH', tmpSubFile[i]) > 0) or
          ((TimeInFormat(Copy(tmpSubFile[i], 1, 11), 'hh:mm:ss:zz')) and
          (TimeInFormat(Copy(tmpSubFile[i], 13, 11), 'hh:mm:ss:zz')) and
          (StringCount(':', Copy(tmpSubFile[i], 1, 24)) = 6) and
@@ -426,7 +429,7 @@ begin
 
       // PowerDivX
       if (StringToTime(Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) -2)) > -1) and
-         (StringToTime(Copy(tmpSubFile[i], SmartPos('{', tmpSubFile[i], True, 2) + 1, SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) - (SmartPos('{', tmpSubFile[i], True, 2) + 1))) > -1) and
+         (StringToTime(Copy(tmpSubFile[i], PosEx('{', tmpSubFile[i], 2) + 1, PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) - (PosEx('{', tmpSubFile[i], 2) + 1))) > -1) and
          (StringCount('{', tmpSubFile[i]) >= 2) and
          (StringCount('}', tmpSubFile[i]) >= 2) and
          (Pos('{', tmpSubFile[i]) = 1) then
@@ -436,7 +439,7 @@ begin
       end;
 
       // QuickTime Text
-      if (SmartPos('{QTtext}', tmpSubFile[i], False) > 0) or
+      if (StrIPos('{QTtext}', tmpSubFile[i]) > 0) or
          (Pos('[', tmpSubFile[i]) = 1) and
          (Pos(']', tmpSubFile[i]) = 13) and
          (Pos('[', tmpSubFile[i+2]) = 1) and
@@ -449,28 +452,28 @@ begin
       end;
 
       // RealTime
-      if (StringToTime(Copy(tmpSubFile[i], SmartPos('begin="', tmpSubFile[i], False) + 7, SmartPos('"', tmpSubFile[i], True, SmartPos('begin="', tmpSubFile[i], False) + 7) - (SmartPos('begin="', tmpSubFile[i], False) + 7))) > -1) and // No usamos TimeInFormat porque vi unos RT en
-         (StringToTime(Copy(tmpSubFile[i], SmartPos('end="', tmpSubFile[i], False) + 5, SmartPos('"', tmpSubFile[i], True, SmartPos('end="', tmpSubFile[i], False) + 5) - (SmartPos('end="', tmpSubFile[i], False) + 5))) > -1) and   // los cuales el formato del tiempo varía
-         (SmartPos('<time', tmpSubFile[i], False) > 0) and
-         (SmartPos('begin="', tmpSubFile[i], False) > 0) and
-         (SmartPos('end="', tmpSubFile[i], False) > 0) then
+      if (StringToTime(Copy(tmpSubFile[i], StrIPos('begin="', tmpSubFile[i]) + 7, PosEx('"', tmpSubFile[i], StrIPos('begin="', tmpSubFile[i]) + 7) - (StrIPos('begin="', tmpSubFile[i]) + 7))) > -1) and // No usamos TimeInFormat porque vi unos RT en
+         (StringToTime(Copy(tmpSubFile[i], StrIPos('end="', tmpSubFile[i]) + 5, PosEx('"', tmpSubFile[i], StrIPos('end="', tmpSubFile[i]) + 5) - (StrIPos('end="', tmpSubFile[i]) + 5))) > -1) and   // los cuales el formato del tiempo varía
+         (StrIPos('<time', tmpSubFile[i]) > 0) and
+         (StrIPos('begin="', tmpSubFile[i]) > 0) and
+         (StrIPos('end="', tmpSubFile[i]) > 0) then
       begin
         Result := sfRealTime;
         Break;
       end;
 
       // SAMI Captioning
-      if (SmartPos('<SAMI>', tmpSubFile[i], False) <> 0) or
-         (SmartPos('</SAMI>', tmpSubFile[i], False) <> 0) or
-         (SmartPos('<SYNC START=', tmpSubFile[i], False) <> 0) then
+      if (StrIPos('<SAMI>', tmpSubFile[i]) <> 0) or
+         (StrIPos('</SAMI>', tmpSubFile[i]) <> 0) or
+         (StrIPos('<SYNC START=', tmpSubFile[i]) <> 0) then
       begin
         Result := sfSAMI;
         Break;
       end;
 
       // Sasami script
-      if (SmartPos(';Set.Time.Start=', tmpSubFile[i], False) > 0) and
-         (IsInteger(Copy(tmpSubFile[i], SmartPos(';Set.Time.Start=', tmpSubFile[i], False) + 16, Length(tmpSubFile[i])))) then
+      if (StrIPos(';Set.Time.Start=', tmpSubFile[i]) > 0) and
+         (IsInteger(Copy(tmpSubFile[i], StrIPos(';Set.Time.Start=', tmpSubFile[i]) + 16, Length(tmpSubFile[i])))) then
       begin
         Result := sfSasamiScript;
         Break;
@@ -531,7 +534,7 @@ begin
          (TimeInFormat(Copy(tmpSubFile[i], Pos(#9#9, tmpSubFile[i]) + 14, 11), 'hh:mm:ss:zz')) and
          (Pos(#9#9, tmpSubFile[i]) > 0)) or
          ((TimeInFormat(Copy(DeleteDoubleTabs(tmpSubFile[i]), Pos(#9, DeleteDoubleTabs(tmpSubFile[i])) + 1, 11), 'hh:mm:ss:zz')) and
-         (TimeInFormat(Copy(DeleteDoubleTabs(tmpSubFile[i]), SmartPos(#9, DeleteDoubleTabs(tmpSubFile[i]), True, Pos(#9, DeleteDoubleTabs(tmpSubFile[i]))+ 1) + 1, 11), 'hh:mm:ss:zz')) and
+         (TimeInFormat(Copy(DeleteDoubleTabs(tmpSubFile[i]), PosEx(#9, DeleteDoubleTabs(tmpSubFile[i]), Pos(#9, DeleteDoubleTabs(tmpSubFile[i]))+ 1) + 1, 11), 'hh:mm:ss:zz')) and
          (StringCount(#9, DeleteDoubleTabs(tmpSubFile[i])) >= 2))) then
       begin
         Result := sfSonicScenarist;
@@ -548,18 +551,18 @@ begin
       end;
 
       // Stream SubText Player
-      if (SmartPos('[PROPERTIES]', tmpSubFile[i], False) = 1) or
-         (SmartPos('[SCRIPT]', tmpSubFile[i], False) = 1) and
+      if (StrIPos('[PROPERTIES]', tmpSubFile[i]) = 1) or
+         (StrIPos('[SCRIPT]', tmpSubFile[i]) = 1) and
          ((IsInteger(Copy(tmpSubFile[i+1], 1, Pos(#9, tmpSubFile[i+1])-1)) and
-         (IsInteger(Copy(tmpSubFile[i+1], Pos(#9, tmpSubFile[i+1])+1, SmartPos(#9, tmpSubFile[i+1], True, Pos(#9, tmpSubFile[i+1])+1) - (Pos(#9, tmpSubFile[i+1])+1)))))) then
+         (IsInteger(Copy(tmpSubFile[i+1], Pos(#9, tmpSubFile[i+1])+1, PosEx(#9, tmpSubFile[i+1], Pos(#9, tmpSubFile[i+1])+1) - (Pos(#9, tmpSubFile[i+1])+1)))))) then
       begin
         Result := sfSSTPlayer;
         Break;
       end;
 
       // Stream SubText Script
-      if ((SmartPos('SST',tmpSubFile[i], False) = 1) and
-         (SmartPos('[TITLES]', tmpSubFile[i+1], False) = 1)) or
+      if ((StrIPos('SST',tmpSubFile[i]) = 1) and
+         (StrIPos('[TITLES]', tmpSubFile[i+1]) = 1)) or
          (StringCount(#9, tmpSubFile[i]) = 5) and
          (IsInteger(Copy(tmpSubFile[i], 1, Pos(#9,tmpSubFile[i]) - 1))) then
       begin
@@ -569,7 +572,7 @@ begin
 
       // SubCreator 1.x
       if (TimeInFormat(Copy(tmpSubFile[i], 1, 10), 'hh:mm:ss.z')) and
-         (SmartPos(':', tmpSubFile[i], False, 8) = 11) then
+         (PosEx(':', tmpSubFile[i], 8) = 11) then
       begin
         Result := sfSubCreator;
         Break;
@@ -593,13 +596,13 @@ begin
       end;
 
       // SubStation Alpha
-      if ((SmartPos('Dialogue:', tmpSubFile[i], False) > 0) or
-         (SmartPos('Marked', tmpSubFile[i], False) > 0) or
-         (SmartPos('!effect', tmpSubFile[i], False) > 0) or
-         (SmartPos('Comment:', tmpSubFile[i], False) > 0) or
-         (SmartPos('Command:', tmpSubFile[i], False) > 0)) and
-         (TimeInFormat(Trim(Copy(tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1, SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) - (Pos(',', tmpSubFile[i]) + 1))), 'h:mm:ss.zz'))  and
-         (TimeInFormat(Trim(Copy(tmpSubFile[i], SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) + 1, SmartPos(',', tmpSubFile[i], True, SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) + 1) - (SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) + 1))), 'h:mm:ss.zz')) then
+      if ((StrIPos('Dialogue:', tmpSubFile[i]) > 0) or
+         (StrIPos('Marked', tmpSubFile[i]) > 0) or
+         (StrIPos('!effect', tmpSubFile[i]) > 0) or
+         (StrIPos('Comment:', tmpSubFile[i]) > 0) or
+         (StrIPos('Command:', tmpSubFile[i]) > 0)) and
+         (TimeInFormat(Trim(Copy(tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1, PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) - (Pos(',', tmpSubFile[i]) + 1))), 'h:mm:ss.zz'))  and
+         (TimeInFormat(Trim(Copy(tmpSubFile[i], PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) + 1, PosEx(',', tmpSubFile[i], PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) + 1) - (PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) + 1))), 'h:mm:ss.zz')) then
       begin
         Result := sfSubStationAlpha;
         Break;
@@ -635,8 +638,8 @@ begin
       end;
 
       // Timed Text
-      if (SmartPos('<tt xml:', tmpSubFile[i], False) <> 0) or
-         (SmartPos('</tt>', tmpSubFile[i], False) <> 0) then
+      if (StrIPos('<tt xml:', tmpSubFile[i]) <> 0) or
+         (StrIPos('</tt>', tmpSubFile[i]) <> 0) then
       begin
         Result := sfTimedText;
         Break;
@@ -653,7 +656,7 @@ begin
       //{$ENDIF}
 
       // TMPlayer
-      if SmartPos('NTP', tmpSubFile[i]) = 0 then
+      if StrIPos('NTP', tmpSubFile[i]) = 0 then
         if // TMPlayer Multiline Format
           ((StringCount(':', tmpSubFile[i]) >= 2) and
           (Pos(',', tmpSubFile[i]) = 9) and
@@ -776,7 +779,7 @@ AA	BBB	CCC
 }
 
       // ZeroG
-      if (SmartPos('% Zero G 1.0', tmpSubFile[i], False) <> 0) Or
+      if (StrIPos('% Zero G 1.0', tmpSubFile[i]) <> 0) Or
          (TimeInFormat(Copy(tmpSubFile[i], 5, 10), 'h:mm:ss.zz')) and
          (TimeInFormat(Copy(tmpSubFile[i], 16, 10), 'h:mm:ss.zz')) then
       begin
