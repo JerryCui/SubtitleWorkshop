@@ -1,4 +1,4 @@
-// This file is part of Subtitle Workshop
+Ôªø// This file is part of Subtitle Workshop
 // URL: subworkshop.sf.net
 // Licesne: GPL v3
 // Copyright: See Subtitle Workshop's copyright information
@@ -13,8 +13,7 @@ interface
 // -----------------------------------------------------------------------------
 
 uses
-  SysUtils,
-  FastStrings, HTMLPars, RegExpr;
+  SysUtils, HTMLPars, RegExpr;
 
 // -----------------------------------------------------------------------------
 type
@@ -84,10 +83,10 @@ begin
             begin
               OCRWordChars := Param.Value;
               if OCRWordChars = '' then
-                OCRWordChars := '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_Ò—·ÈÌÛ˙¡…Õ”⁄‰ÎÔˆ¸';
+                OCRWordChars := '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_√±√ë√°√©√≠√≥√∫√Å√â√ç√ì√ö√§√´√Ø√∂√º';
             end;
           end else
-            OCRWordChars := '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_Ò—·ÈÌÛ˙¡…Õ”⁄‰ÎÔˆ¸';
+            OCRWordChars := '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_√±√ë√°√©√≠√≥√∫√Å√â√ç√ì√ö√§√´√Ø√∂√º';
 
           Result := True;
           if Tag.Name = 'ERROR' then
@@ -148,7 +147,7 @@ begin
                     AReplaceString +
                     Copy(AInputString, r.MatchPos[0] + r.MatchLen[0], Length(AInputString)) else
           Result := Copy(Result, 1, r.MatchPos[0]-1 + i) +
-                    FastReplace(r.Match[0], r.Substitute('$1'), AReplaceString, True) +
+                    StringReplace(r.Match[0], r.Substitute('$1'), AReplaceString, [rfReplaceAll]) +
                     Copy(AInputString, r.MatchPos[0] + r.MatchLen[0], Length(AInputString));
         i := i + Length(AReplaceString) - Length(r.Substitute('$1'));
       until not r.ExecNext;
