@@ -9,8 +9,8 @@ unit formSaveAs;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, StdCtrls, Dialogs, ImgList, ComCtrls, IniFiles,
-  FastStrings;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, StdCtrls,
+  Dialogs, ImgList, ComCtrls, IniFiles, StrUtils;
 
 // -----------------------------------------------------------------------------
 
@@ -227,7 +227,7 @@ begin
 
       if AnsiLowerCase(ExtractFileExt(SubFile)) <> AnsiLowerCase(Ext) then
       begin
-        if SmartPos(ExtractFileExt(SubFile), AllExts, False) = 0 then
+        if not ContainsText(AllExts, ExtractFileExt(SubFile)) then
           SubFile := SubFile + Ext;
       end;
       if FileExists(SubFile) then
