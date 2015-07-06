@@ -11,8 +11,7 @@ unit USubtitlesFunctions;
 interface
 
 uses
-  SysUtils, Math,
-  FastStrings;
+  SysUtils, Math, StrUtils, jclStrings;
 
 // -----------------------------------------------------------------------------
 
@@ -67,45 +66,11 @@ end;
 // -----------------------------------------------------------------------------
 
 function StringCount(const aFindString, aSourceString : string; Const CaseSensitive : Boolean = TRUE) : Integer;
-var
-  Find,
-  Source,
-  NextPos                     : PChar;
-  LSource,
-  LFind                       : Integer;
-  Next                        : TFastPosProc;
-  JumpTable                   : TBMJumpTable;
 begin
-  Result := 0;
-  LSource := Length(aSourceString);
-  if LSource = 0 then exit;
-
-  LFind := Length(aFindString);
-  if LFind = 0 then exit;
-
   if CaseSensitive then
-  begin
-    Next := BMPos;
-    MakeBMTable(PChar(aFindString), Length(aFindString), JumpTable);
-  end
+    Result := StrStrCount(aSourceString, aFindString)
   else
-  begin
-    Next := BMPosNoCase;
-    MakeBMTableNoCase(PChar(aFindString), Length(aFindString), JumpTable);
-  end;
-
-  Source := @aSourceString[1];
-  Find := @aFindString[1];
-
-  repeat
-    NextPos := Next(Source, Find, LSource, LFind, JumpTable);
-    if NextPos <> nil then
-    begin
-      Dec(LSource, (NextPos - Source) + LFind);
-      Inc(Result);
-      Source := NextPos + LFind;
-    end;
-  until NextPos = nil;
+    Result := StrStrCount(AnsiLowerCase(aSourceString), AnsiLowerCase(aFindString))
 end;
 
 // -----------------------------------------------------------------------------
@@ -428,7 +393,7 @@ end;
 
 function ReplaceEnters(const S, NewPattern: String): String;
 begin
-  Result := FastReplace(S, #13#10, NewPattern);
+  Result := StringReplace(S, #13#10, NewPattern, [rfReplaceAll, rfIgnoreCase]);
 end;
 
 // -----------------------------------------------------------------------------
@@ -440,7 +405,7 @@ begin
   Flags := [];
   If ReplaceAll = True Then Flags := Flags + [rfReplaceAll];
   If IgnoreCase = True Then Flags := Flags + [rfIgnoreCase];
-  Result := FastAnsiReplace(S, OldPattern, NewPattern, Flags);
+  Result := StringReplace(S, OldPattern, NewPattern, Flags);
 end;
 
 // -----------------------------------------------------------------------------
