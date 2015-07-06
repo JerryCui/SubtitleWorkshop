@@ -55,11 +55,11 @@ function SubtitlesToFile_REALTIME(Subtitles: TSubtitles; const FileName: String;
         Text := CloseUnclosedTags(Text, '<font', '</font>');
         Text := ReplaceString(Text, '<c:#', '<font color="#');
         Text := ReplaceString(Text, '</c>', '</font>');
-        tagPos := SmartPos('<font color="#', Text, False);
+        tagPos := StrIPos('<font color="#', Text);
         while tagPos > 0 do
         begin
           Insert('"', Text, tagPos+20);
-          tagPos := SmartPos('<c:#', Text, False, tagPos+1);
+          tagPos := StrFind('<c:#', Text, tagPos+1);
         end;
       end
       {$ENDIF};

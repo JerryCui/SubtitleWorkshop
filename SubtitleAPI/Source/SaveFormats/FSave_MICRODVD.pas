@@ -13,7 +13,7 @@ function SubtitlesToFile_MICRODVD(Subtitles: TSubtitles; const FileName: String;
 		  function TextHasTag(Text, openTag, closeTag: String): Boolean;
 		  begin
 		    if (StringCount(openTag, Text, False) = 1) and (StringCount(closeTag, Text, False) <= 1)
-		      and (SmartPos(openTag, Text, False) = 1) and (SmartPos(closeTag, Text, False) = Length(Text)-Length(closeTag)+1) then
+		      and (StrIPos(openTag, Text) = 1) and (StrIPos(closeTag, Text) = Length(Text)-Length(closeTag)+1) then
 		        Result := True else
 		        Result := False;
 		  end;
@@ -45,14 +45,14 @@ function SubtitlesToFile_MICRODVD(Subtitles: TSubtitles; const FileName: String;
 		  Color := TextHasTag(RemoveSWTags(Text, True, True, True, False), '<c:#', '</c>');
 		  if Color then
 		  begin
-		    TheColor := Copy(Text, SmartPos('<c:#', Text, False) + 4, 6);
+		    TheColor := Copy(Text, StrIPos('<c:#', Text) + 4, 6);
 		    Text := RemoveSWTags(Text, False, False, False, True);
 		  end else
 		  begin
 		    Color := TextHasTag(RemoveSWTags(Text, True, True, True, False), '<font color=#', '</font>');
 		    if Color then
 		    begin
-		      TheColor := Copy(Text, SmartPos('<font color=#', Text, False) + 13, 6);
+		      TheColor := Copy(Text, StrIPos('<font color=#', Text) + 13, 6);
 		      Text := RemoveSWTags(Text, False, False, False, True);
 		    end;
 		  end;

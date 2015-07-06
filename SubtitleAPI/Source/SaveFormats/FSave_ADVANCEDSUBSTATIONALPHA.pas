@@ -61,7 +61,7 @@ const
 	    //1.2. </c> COLOR CLOSE TAGS: in SSA the equivalent to a color close tag is to set the primary color
 
 	    //1.2.1. Remove closing tags for color at the end of the subtitle
-	    tagPos := SmartPos('</c>', Text, False);
+	    tagPos := StrIPos('</c>', Text);
 	    while tagPos > 0 do
 	    begin
 	      if RemoveSWTags(Copy(Text, tagPos, MaxInt), False, False, False, True) = '' then
@@ -69,14 +69,14 @@ const
 	        Text := Copy(Text, 1, tagPos-1);
 	        break;
 	      end else
-	        tagPos := SmartPos('</c>', Text, False, tagPos+1);
+	        tagPos := StrFind('</c>', Text, tagPos+1);
 	    end;
         //1.2.2. Set close tag (ssa default color)
 	    Text := ReplaceString(Text, '</c>', SSAColor);
 
 	    //1.3. <c:# COLOR OPEN TAGS:
 
-	    tagPos := SmartPos('<c:#', Text, False);
+	    tagPos := StrIPos('<c:#', Text);
 	    while tagPos > 0 do
 	    begin
 	      additional := 0;
@@ -87,7 +87,7 @@ const
 	        Insert(SSAColor, Text, tagPos);
 	        additional := 13;
 	      end;
-	      tagPos := SmartPos('<c:#', Text, False, tagPos+4+additional);
+	      tagPos := StrFind('<c:#', Text, tagPos+4+additional);
 	    end;
 	    Text := RemoveSWTags(Text, False, False, False, True);
 	

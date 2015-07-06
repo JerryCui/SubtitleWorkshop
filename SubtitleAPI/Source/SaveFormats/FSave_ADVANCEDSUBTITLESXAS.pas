@@ -35,23 +35,23 @@ var
         // avoid joining dialogues, they start with "-" sign
         if ((copy(tmpStr, 1, 1)<>'-') and (pos(#13#10+'-', tmpStr)=0)) then
         begin
-          buff := FastReplace(tmpStr, #13#10, ' ');
+          buff := StringReplace(tmpStr, #13#10, ' ', [rfReplaceAll, rfIgnoreCase]);
 
           if NeedWrap then
           begin
             tmpStr := WrapText(buff, #13#10, [' ', '.', '?', '!'], JoinShort );
-            tmpStr := FastReplace(tmpStr, ' '+#13#10, #13#10);
+            tmpStr := StringReplace(tmpStr, ' '+#13#10, #13#10, [rfReplaceAll, rfIgnoreCase]);
           end
           else
             if (length(buff)<= JoinShort) then tmpStr := buff;
         end;
       end;
 
-      tmpStr := FastReplace(tmpStr, '&', '&amp;');
-      tmpStr := FastReplace(tmpStr, '<', '&lt');
-      tmpStr := FastReplace(tmpStr, '>', '&gt');
-      tmpStr := FastReplace(tmpStr, '"', '&quot;');
-      tmpStr := FastReplace(tmpStr, '''', '&apos;');
+      tmpStr := StringReplace(tmpStr, '&', '&amp;', [rfReplaceAll, rfIgnoreCase]);
+      tmpStr := StringReplace(tmpStr, '<', '&lt', [rfReplaceAll, rfIgnoreCase]);
+      tmpStr := StringReplace(tmpStr, '>', '&gt', [rfReplaceAll, rfIgnoreCase]);
+      tmpStr := StringReplace(tmpStr, '"', '&quot;', [rfReplaceAll, rfIgnoreCase]);
+      tmpStr := StringReplace(tmpStr, '''', '&apos;', [rfReplaceAll, rfIgnoreCase]);
       tmpStr := ReplaceEnters(tmpStr,'<br />');
 
       f.Add(#09#09#09+'<p style="'+ font + '" begin="' +
@@ -88,12 +88,12 @@ var
     h := XASAttributes.Height;
 
     if XASAttributes.XInPercent = TRUE then
-      sx := FastReplace(FloatToStr(x+IntMod*dx)+'%', ',', '.')
+      sx := StringReplace(FloatToStr(x+IntMod*dx)+'%', ',', '.', [rfReplaceAll, rfIgnoreCase])
     else
       sx := IntToStr(round(x*(1+RealMod*dx)))+'px';
 
     if XASAttributes.YInPercent = TRUE then
-      sy := FastReplace(FloatToStr(y+IntMod*dy)+'%', ',', '.')
+      sy := StringReplace(FloatToStr(y+IntMod*dy)+'%', ',', '.', [rfReplaceAll, rfIgnoreCase])
     else
       sy := IntToStr(round(y*(1+RealMod*dy)))+'px';
 

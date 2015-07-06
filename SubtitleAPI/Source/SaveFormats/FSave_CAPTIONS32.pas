@@ -29,7 +29,7 @@ begin
         if c > 1 then
         begin
           c := Pos('|', Subtitles.Text[i]);
-          Subtitles.Text[i] := Copy(Subtitles.Text[i], 1, SmartPos('|', Subtitles.Text[i], False, c+1)-1);
+          Subtitles.Text[i] := Copy(Subtitles.Text[i], 1, PosEx('|', Subtitles.Text[i], c+1)-1);
         end;
 
         c := Pos('|', Subtitles.Text[i]);
