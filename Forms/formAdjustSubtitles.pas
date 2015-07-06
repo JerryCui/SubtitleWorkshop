@@ -11,8 +11,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, Mask, ExtCtrls, IniFiles, ComCtrls,
   VirtualTrees, TimeMaskEdit,
-  FastStrings,
-  CommonTypes;
+  CommonTypes, StrUtils;
 
 type
   TfrmAdjustSubtitles = class(TForm)
@@ -468,8 +467,8 @@ begin
       for i := 0 to s.Count-1 do
       begin
         a := Pos('|', s[i]);
-        AddSyncPoint(StrToIntDef(Copy(s[i], a+1, SmartPos('|', s[i], True, a+1)-(a+1)), -1),
-                     StrToIntDef(Copy(s[i], SmartPos('|', s[i], True, a+1) + 1, Length(s[i])), 0),
+        AddSyncPoint(StrToIntDef(Copy(s[i], a+1, PosEx('|', s[i], a+1)-(a+1)), -1),
+                     StrToIntDef(Copy(s[i], PosEx('|', s[i], a+1) + 1, Length(s[i])), 0),
                      StrToIntDef(Copy(s[i], 1, a-1), 0)
                      );
       end;

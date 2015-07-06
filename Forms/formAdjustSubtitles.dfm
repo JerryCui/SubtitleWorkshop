@@ -57,6 +57,10 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
     TabOrder = 2
     object pgeSimple: TTabSheet
       Caption = 'Simple'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblFirstSpokenLine: TLabel
         Left = 8
         Top = 8
@@ -124,6 +128,7 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
         Header.Font.Height = -11
         Header.Font.Name = 'Tahoma'
         Header.Font.Style = []
+        Header.Height = 17
         Header.MainColumn = 2
         Header.Options = [hoAutoResize, hoColumnResize, hoVisible]
         Header.Style = hsPlates
