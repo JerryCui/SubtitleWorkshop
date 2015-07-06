@@ -93,7 +93,8 @@ interface
 uses
   Dialogs, // by Bedazzle 2007.01.26
   Classes, //added by adenry 2013.04.11 - for TStringList
-  USubtitleFile, USubtitlesFunctions, SysUtils, FastStrings{$IFDEF VIPLAY}, Forms{$ENDIF};
+  USubtitleFile, USubtitlesFunctions, SysUtils{$IFDEF VIPLAY}, Forms{$ENDIF},
+  StrUtils, jclStrings;
 
 //------------------------------------------------------------------------------
 

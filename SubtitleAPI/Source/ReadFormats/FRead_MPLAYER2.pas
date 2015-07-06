@@ -22,13 +22,13 @@ begin
          (IsInteger(Copy(tmpSubFile[i], 2, Pos(']', tmpSubFile[i]) - 2))) then
       begin
         InitialTime := StrToInt(Copy(tmpSubFile[i], 2, Pos(']', tmpSubFile[i]) - 2)) * 100;
-        Text := Copy(tmpSubFile[i], SmartPos('[', tmpSubFile[i], True, 2) + 1, SmartPos(']', tmpSubFile[i], True, Pos(']', tmpSubFile[i]) + 1) - (SmartPos('[', tmpSubFile[i], True, 2) + 1));
+        Text := Copy(tmpSubFile[i], PosEx('[', tmpSubFile[i], 2) + 1, PosEx(']', tmpSubFile[i], Pos(']', tmpSubFile[i]) + 1) - (PosEx('[', tmpSubFile[i], 2) + 1));
         if IsInteger(Text) then
           FinalTime := StrToInt(Text) * 100
         else
           FinalTime := InitialTime + 2000;
 
-        Text := ReplaceString(Copy(tmpSubFile[i], SmartPos(']', tmpSubFile[i], True, Pos(']', tmpSubFile[i]) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
+        Text := ReplaceString(Copy(tmpSubFile[i], PosEx(']', tmpSubFile[i], Pos(']', tmpSubFile[i]) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
 
         if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then
           Subtitles.Add(InitialTime + ExtraTime, InitialTime + ExtraTime + MaxDuration, Text)

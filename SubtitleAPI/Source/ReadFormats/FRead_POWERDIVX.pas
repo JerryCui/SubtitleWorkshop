@@ -16,8 +16,8 @@ begin
     for i := 0 to tmpSubFile.Count-1 do
     begin
       InitialTime := StringToTime(Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) -2));
-      FinalTime   := StringToTime(Copy(tmpSubFile[i], SmartPos('{', tmpSubFile[i], True, 2) + 1, SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) - (SmartPos('{', tmpSubFile[i], True, 2) + 1)));
-      Text        := ReplaceString(Copy(tmpSubFile[i], SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
+      FinalTime   := StringToTime(Copy(tmpSubFile[i], PosEx('{', tmpSubFile[i], 2) + 1, PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) - (PosEx('{', tmpSubFile[i], 2) + 1)));
+      Text        := ReplaceString(Copy(tmpSubFile[i], PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
 
       if (InitialTime > -1) and (FinalTime > -1) then
         if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then

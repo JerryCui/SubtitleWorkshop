@@ -14,7 +14,7 @@ begin
   Result := False;
   try
     for i := tmpSubFile.Count-1 downto 0 do
-      if (Pos('*', tmpSubFile[i]) = 1) and (SmartPos('*t ', tmpSubFile[i], False) <> 1) then
+      if (Pos('*', tmpSubFile[i]) = 1) and (StrIPos('*t ', tmpSubFile[i]) <> 1) then
         tmpSubFile.Delete(i);
 
     for i := 0 to tmpSubFile.Count-2 do

@@ -35,7 +35,7 @@ begin
         c    := 1;
         while (i+c <= (tmpSubFile.Count-1)) and (Pos('BG @', tmpSubFile[i+c]) = 1) do
         begin
-          a := SmartPos(' ', tmpSubFile[i+c], True, SmartPos(' ', tmpSubFile[i+c], True, Pos(' ', tmpSubFile[i+c]) + 1) + 1) + 1;
+          a := PosEx(' ', tmpSubFile[i+c], PosEx(' ', tmpSubFile[i+c], Pos(' ', tmpSubFile[i+c]) + 1) + 1) + 1;
 
           if Text <> '' then
             Text := Text + #13#10 + Copy(tmpSubFile[i+c], a, Length(tmpSubFile[i+c])-(a-1))

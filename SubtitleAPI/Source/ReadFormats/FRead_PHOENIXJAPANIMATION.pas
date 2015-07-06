@@ -22,7 +22,7 @@ begin
          (StringCount('"', tmpSubFile[i]) >= 2) then
       begin
         InitialTime := FramesToTime(StrToInt(Copy(tmpSubFile[i], 0, Pos(',', tmpSubFile[i])-1)), FPS);
-        FinalTime   := FramesToTime(StrToInt(Trim(Copy(tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1, SmartPos(',', tmpSubFile[i], True, Pos(',', tmpSubFile[i]) + 1) - (Pos(',', tmpSubFile[i]) + 1)))), FPS);
+        FinalTime   := FramesToTime(StrToInt(Trim(Copy(tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1, PosEx(',', tmpSubFile[i], Pos(',', tmpSubFile[i]) + 1) - (Pos(',', tmpSubFile[i]) + 1)))), FPS);
         Text        := ReplaceString(Copy(tmpSubFile[i], Pos('"', tmpSubFile[i]) + 1, Length(tmpSubFile[i]) - (Pos('"', tmpSubFile[i]) + 1)), '|', #13#10);
 
         if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then

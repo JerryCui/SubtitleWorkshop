@@ -35,7 +35,7 @@ begin
         c    := 1;
         while (i+c <= (tmpSubFile.Count-1)) and (Pos('Bð é', tmpSubFile[i+c]) = 1) do
         begin
-          a := SmartPos('     ', tmpSubFile[i+c], False);
+          a := PosEx('     ', tmpSubFile[i+c]);
 
           if Text <> '' then
             Text := Text + #13#10 + Copy(tmpSubFile[i+c], a+5, Length(tmpSubFile[i+c])-(a+4))

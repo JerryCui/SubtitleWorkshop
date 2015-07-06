@@ -17,7 +17,7 @@ begin
     begin
       InitialTime := StringToTime(Copy(tmpSubFile[i], 5, 10));
       FinalTime   := StringToTime(Copy(tmpSubFile[i], 16, 10));
-      Text        := ReplaceString(Copy(tmpSubFile[i], SmartPos('NTP ', tmpSubFile[i], False) + 4, Length(tmpSubFile[i])), '\n', #13#10);
+      Text        := ReplaceString(Copy(tmpSubFile[i], StrIPos('NTP ', tmpSubFile[i]) + 4, Length(tmpSubFile[i])), '\n', #13#10);
 
       if (InitialTime > -1) and (FinalTime > -1) then
         if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then

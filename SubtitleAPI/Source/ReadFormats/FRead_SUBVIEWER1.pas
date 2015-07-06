@@ -36,7 +36,7 @@ begin
         else
           Break;
 
-        if (i+1 <= (tmpSubFile.Count-1)) and (StringToTime(Copy(tmpSubFile[i+1], 2, 8)) = -1) and (SmartPos('[end]', tmpSubFile[i+1], False) <> 1) then
+        if (i+1 <= (tmpSubFile.Count-1)) and (StringToTime(Copy(tmpSubFile[i+1], 2, 8)) = -1) and (StrIPos('[end]', tmpSubFile[i+1]) <> 1) then
           if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then
             Subtitles.Add(InitialTime + ExtraTime, InitialTime + ExtraTime + MaxDuration, Text)
           else

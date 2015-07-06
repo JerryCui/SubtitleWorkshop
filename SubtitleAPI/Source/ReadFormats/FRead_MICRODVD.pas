@@ -33,7 +33,7 @@ function FileToSubtitles_MICRODVD(var Subtitles: TSubtitles; tmpSubFile: TSubtit
 		  tagPos := Pos(YTag, Text);
 		  while tagPos > 0 do //for every {y: tag
 		  begin
-		    tagEnd := SmartPos('}', Text, True, tagPos+2); //get tag end -- }
+		    tagEnd := PosEx('}', Text, tagPos+2); //get tag end -- }
 		    if tagEnd > 0 then
 		    begin
 		      Tag := Copy(Text, tagPos, tagEnd-tagPos+1);
@@ -49,7 +49,7 @@ function FileToSubtitles_MICRODVD(var Subtitles: TSubtitles; tmpSubFile: TSubtit
 		  tagPos := Pos(CTag, Text);
 		  while tagPos > 0 do //for every {c: tag
 		  begin
-		    tagEnd := SmartPos('}', Text, True, tagPos+2); //get tag end -- }
+		    tagEnd := PosEx('}', Text, tagPos+2); //get tag end -- }
 		    if tagEnd > 0 then
 		    begin
 		      Tag := Copy(Text, tagPos, tagEnd-tagPos+1);
@@ -86,20 +86,20 @@ function FileToSubtitles_MICRODVD(var Subtitles: TSubtitles; tmpSubFile: TSubtit
         {$ENDIF}
         begin
           // Style tags
-          if (SmartPos('{y:', Text, False) <> 0) and (Pos('}',Text) <> 0) then
+          if (StrIPos('{y:', Text) <> 0) and (Pos('}',Text) <> 0) then
           begin
-            tmpSubFile[i] := Copy(Text, SmartPos('{y:', Text, False) + 3, SmartPos('}', Text, True, SmartPos('{y:', Text, False) + 3) - SmartPos('{y:', Text, False) - 3);
+            tmpSubFile[i] := Copy(Text, StrIPos('{y:', Text) + 3, PosEx('}', Text, StrIPos('{y:', Text) + 3) - StrIPos('{y:', Text) - 3);
 
-            if SmartPos('u', tmpSubFile[i], False) > 0 then
+            if StrIPos('u', tmpSubFile[i]) > 0 then
               Text := '<u>' + Text;
-            if SmartPos('b', tmpSubFile[i], False) > 0 then
+            if StrIPos('b', tmpSubFile[i]) > 0 then
               Text := '<b>' + Text;
-            if SmartPos('i', tmpSubFile[i], False) > 0 then
+            if StrIPos('i', tmpSubFile[i]) > 0 then
               Text := '<i>' + Text;
           end;
           // Color tags
-          if (SmartPos('{c:$', Text, False) > 0) and (SmartPos('}', Text, True, SmartPos('{c:$', Text, False)) = (SmartPos('{c:$', Text, False) + 10)) then
-            Text := '<c:#' + InvertHTMLColor(Copy(Text, SmartPos('{c:$', Text, False) + 4, 6)) + '>' + Text;
+          if (StrIPos('{c:$', Text) > 0) and (PosEx('}', Text, StrIPos('{c:$', Text)) = (StrIPos('{c:$', Text) + 10)) then
+            Text := '<c:#' + InvertHTMLColor(Copy(Text, StrIPos('{c:$', Text) + 4, 6)) + '>' + Text;
         end
 
         //added by adenry: begin 2013.04.11
@@ -159,15 +159,15 @@ begin
          (StringCount('}',tmpSubFile[i], True) >= 2) then
       begin
         InitialTime := FramesToTime(StrToIntDef(Copy(tmpSubFile[i], 2, Pos('}', tmpSubFile[i]) - 2), 0), FPS);
-        Text := Copy(tmpSubFile[i], SmartPos('{', tmpSubFile[i], True, 2) + 1, SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) - (SmartPos('{', tmpSubFile[i], True, 2) + 1));
+        Text := Copy(tmpSubFile[i], PosEx('{', tmpSubFile[i], 2) + 1, PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) - (PosEx('{', tmpSubFile[i], 2) + 1));
         if IsInteger(Text) then
           FinalTime := FramesToTime(StrToIntDef(Text, 0), FPS) else
           FinalTime := InitialTime + 2000;
-        Text := ReplaceString(Copy(tmpSubFile[i], SmartPos('}', tmpSubFile[i], True, Pos('}', tmpSubFile[i]) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
+        Text := ReplaceString(Copy(tmpSubFile[i], PosEx('}', tmpSubFile[i], Pos('}', tmpSubFile[i]) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
 
         if (InitialTime = 0) and (i > 0) then
         begin
-          InitialTime := FramesToTime(StrToIntDef(Copy(tmpSubFile[i-1], SmartPos('{', tmpSubFile[i-1], True, 2) + 1, SmartPos('}', tmpSubFile[i-1], True, Pos('}', tmpSubFile[i-1]) + 1) - (SmartPos('{', tmpSubFile[i-1], True, 2) + 1)), 0), FPS);
+          InitialTime := FramesToTime(StrToIntDef(Copy(tmpSubFile[i-1], PosEx('{', tmpSubFile[i-1], 2) + 1, PosEx('}', tmpSubFile[i-1], Pos('}', tmpSubFile[i-1]) + 1) - (PosEx('{', tmpSubFile[i-1], 2) + 1)), 0), FPS);
           if InitialTime < 0 then InitialTime := 0;
         end;
         if (FinalTime = 0) and (i < tmpSubFile.Count-1) then

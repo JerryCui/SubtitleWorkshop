@@ -19,8 +19,8 @@ begin
       InitialTime := StrToIntDef(Copy(tmpSubFile[i], 1, c-1), -1);
       if InitialTime > -1 then
       begin
-        FinalTime := StrToIntDef(Copy(tmpSubFile[i], c+1, SmartPos(#9, tmpSubFile[i], True, c+1) - (c+1)), -1);
-        Text := Copy(tmpSubFile[i], SmartPos(#9, tmpSubFile[i], True, c+1) + 1, Length(tmpSubFile[i]));
+        FinalTime := StrToIntDef(Copy(tmpSubFile[i], c+1, PosEx(#9, tmpSubFile[i], c+1) - (c+1)), -1);
+        Text := Copy(tmpSubFile[i], PosEx(#9, tmpSubFile[i], c+1) + 1, Length(tmpSubFile[i]));
         Text := Trim(ReplaceString(RemoveRTFFormatting(Text), '~', #13#10));
 
         while Pos('}', Text) > 0 do

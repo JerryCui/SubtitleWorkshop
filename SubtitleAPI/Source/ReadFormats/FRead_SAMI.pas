@@ -49,10 +49,10 @@ function FileToSubtitles_SAMI(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFi
       Text := ReplaceString(Text, '<font color = ', '<c:#');
       Text := ReplaceString(Text, '<font color =', '<c:#');
 
-      TagPos := SmartPos('<c:#', Text, False, 1);
+      TagPos := StrFind('<c:#', Text, 1);
       while TagPos > 0 do
       begin
-        if SmartPos('>', Text, False, TagPos) > 0 then
+        if PosEx('>', Text, TagPos) > 0 then
         begin
           i := TagPos+4;
           Color := Copy(Text, i, 1);
@@ -63,7 +63,7 @@ function FileToSubtitles_SAMI(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFi
               Inc(i);
             Color := Copy(Text, i, 1);
           end;
-          TagPos := SmartPos('<c:#', Text, False, TagPos+4);
+          TagPos := StrFind('<c:#', Text, TagPos+4);
         end else
           break;
       end;
@@ -180,7 +180,7 @@ begin
     for i := 0 to tmpSubFile.Count-1 do
     begin
       if (i <= tmpSubFile.Count-3) and
-        (SmartPos('<sync start=', tmpSubFile[i], False) = 1) and
+        (StrIPos('<sync start=', tmpSubFile[i]) = 1) and
         (Pos('>', tmpSubFile[i]) > 13) then
       begin
         // ------------------ //
@@ -189,7 +189,7 @@ begin
         tmpCad := Trim(Copy(tmpSubFile[i], Pos('=', tmpSubFile[i]) + 1, Pos('>', tmpSubFile[i]) - 13));
 
         if Pos('"',tmpCad) > 0 then
-          tmpCad := Trim(Copy(tmpCad, Pos('"',tmpCad) + 1, SmartPos('"', tmpCad, True, Pos('"', tmpCad) + 1) - (Pos('"',tmpCad) + 1)));
+          tmpCad := Trim(Copy(tmpCad, Pos('"',tmpCad) + 1, PosEx('"', tmpCad, Pos('"', tmpCad) + 1) - (Pos('"',tmpCad) + 1)));
         if IsInteger(tmpCad) then
           InitialTime := StrToInt(tmpCad)
         else
@@ -198,11 +198,11 @@ begin
         // ------------------ //
         //     Final time     //
         // ------------------ //
-        if (i <= tmpSubFile.Count-3) and (SmartPos('<sync start=', tmpSubFile[i+2], False) > 0) then
+        if (i <= tmpSubFile.Count-3) and (StrIPos('<sync start=', tmpSubFile[i+2]) > 0) then
         begin
           tmpCad := Trim(Copy(tmpSubFile[i+2], Pos('=', tmpSubFile[i+2]) + 1, Pos('>', tmpSubFile[i+2]) - 13));
           if Pos('"',tmpCad) > 0 then
-            tmpCad := Trim(Copy(tmpCad, Pos('"',tmpCad) + 1, SmartPos('"', tmpCad, True, Pos('"', tmpCad) + 1) - (Pos('"',tmpCad) + 1)));
+            tmpCad := Trim(Copy(tmpCad, Pos('"',tmpCad) + 1, PosEx('"', tmpCad, Pos('"', tmpCad) + 1) - (Pos('"',tmpCad) + 1)));
           if IsInteger(tmpCad) then
             FinalTime := StrToInt(tmpCad)
           else
@@ -217,11 +217,11 @@ begin
         tmpCad := tmpSubFile[i+1];
 
         // Replace the enters, not just <br> because they may be some variants like <br />...
-        while (SmartPos('<br', tmpCad, False) > 0) and (Pos('>',tmpCad) > 0) do
+        while (StrIPos('<br', tmpCad) > 0) and (Pos('>',tmpCad) > 0) do
         begin
-          for a := SmartPos('<br', tmpCad, False) to Length(tmpCad) do  // search for next ">" after "<br" ...
+          for a := StrIPos('<br', tmpCad) to Length(tmpCad) do  // search for next ">" after "<br" ...
             if tmpCad[a] = '>' then break;
-          tmpCad := ReplaceString(tmpCad, Copy(tmpCad, SmartPos('<br', tmpCad, False), a - SmartPos('<br', tmpCad, False) + 1), #13#10);
+          tmpCad := ReplaceString(tmpCad, Copy(tmpCad, StrIPos('<br', tmpCad), a - StrIPos('<br', tmpCad) + 1), #13#10);
         end;
 
         tmpCad := ReplaceString(tmpCad, '&nbsp;', ' ');

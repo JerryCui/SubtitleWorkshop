@@ -32,9 +32,9 @@ begin
 
       c := Pos(#9, tmpLine);
       InitialTime := HHMMSSFFTimeToMS(Copy(tmpLine, c + 1, 11), FPS);
-      c := SmartPos(#9, tmpLine, True, c+1);
+      c := PosEx(#9, tmpLine, c+1);
       FinalTime := HHMMSSFFTimeToMS(Copy(tmpLine, c + 1, 11), FPS);
-      c := SmartPos(#9, tmpLine, True, c+1);
+      c := PosEx(#9, tmpLine, c+1);
       Text := Copy(tmpLine, c+1, Length(tmpLine));
 
       if (InitialTime > -1) and (FinalTime > -1) then

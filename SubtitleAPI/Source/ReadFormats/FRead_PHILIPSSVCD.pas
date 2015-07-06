@@ -27,7 +27,7 @@ begin
             Inc(StartPos);
           Text        := Text + Copy(tmpSubFile[i], 1, StartPos - 2);
           InitialTime := StringToTime(Copy(tmpSubFile[i], StartPos, 11));
-          FinalTime   := StringToTime(Copy(tmpSubFile[i], SmartPos(' ', tmpSubFile[i], True, StartPos) + 1, 11));
+          FinalTime   := StringToTime(Copy(tmpSubFile[i], PosEx(' ', tmpSubFile[i], StartPos) + 1, 11));
 
           if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then
             Subtitles.Add(InitialTime + ExtraTime, InitialTime + ExtraTime + MaxDuration, Text)
@@ -43,7 +43,7 @@ begin
         end;
       end
       else
-      if SmartPos('[list]', tmpSubFile[i], False) = 1 then
+      if StrIPos('[list]', tmpSubFile[i]) = 1 then
         AfterList := True;
     end;
   finally

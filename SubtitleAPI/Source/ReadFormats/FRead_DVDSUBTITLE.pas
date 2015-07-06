@@ -16,7 +16,7 @@ begin
   try
     for i := 0 to tmpSubFile.Count-1 do
     begin
-      if (SmartPos('{T ', tmpSubFile[i], False) = 1) and
+      if (StrIPos('{T ', tmpSubFile[i]) = 1) and
          (TimeInFormat(Copy(tmpSubFile[i], 4, 11), 'hh:mm:ss:zz')) then
       begin
         InitialTime := StringToTime(Copy(tmpSubFile[i], 4, 11));
@@ -31,7 +31,7 @@ begin
           Inc(c);
         end;
         c := 1;
-        while (i+c < (tmpSubFile.Count-1)) and (SmartPos('{T ', tmpSubFile[i+c], False) = 0) do
+        while (i+c < (tmpSubFile.Count-1)) and (StrIPos('{T ', tmpSubFile[i+c]) = 0) do
           Inc(c);
         FinalTime := StringToTime(Copy(tmpSubFile[i+c], 4, 11));
         if FinalTime = -1 then FinalTime := InitialTime + 2000;

@@ -23,9 +23,9 @@ begin
         Continue;
       end
       else if (Pos('/d ', tmpSubFile[i]) = 1) and
-              (IsInteger(Copy(tmpSubFile[i], 4, SmartPos(' ', tmpSubFile[i], False, 4)-4))) then
+              (IsInteger(Copy(tmpSubFile[i], 4, PosEx(' ', tmpSubFile[i], 4)-4))) then
       begin
-        x := SmartPos(' ', tmpSubFile[i], False, 4);
+        x := PosEx(' ', tmpSubFile[i], 4);
         InitialTime := (StrToInt(Copy(tmpSubFile[i], 4, x-4))*1000) +
                         StrToInt(Copy(tmpSubFile[i], x+1, Length(tmpSubFile[i])));
 
@@ -41,7 +41,7 @@ begin
           Inc(c);
         end;
 
-        x := SmartPos(' ', tmpSubFile[i], False, 4);
+        x := PosEx(' ', tmpSubFile[i], 4);
         If (IsInteger(Copy(tmpSubFile[i+c], 4, x-4))) then
           FinalTime := (StrToInt(Copy(tmpSubFile[i+c], 4, x-4))*1000)+
                         StrToInt(Copy(tmpSubFile[i+c], x+1, Length(tmpSubFile[i])))

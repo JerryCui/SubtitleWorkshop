@@ -29,7 +29,7 @@ var
       if Bold then
         Text := '<b>' + Text;
       b := not Bold;
-      while SmartPos('^B', Text, False) > 0 do
+      while StrIPos('^B', Text) > 0 do
       begin
         if b then
           Text := ReplaceString(Text, '^B', '<b>', False) else
@@ -40,7 +40,7 @@ var
       if Italic then
         Text := '<i>' + Text;
       i := not Italic;
-      while SmartPos('^I', Text, False) > 0 do
+      while StrIPos('^I', Text) > 0 do
       begin
         if i then
           Text := ReplaceString(Text, '^I', '<i>', False) else
@@ -51,7 +51,7 @@ var
       if UnderLined then
         Text := '<u>' + Text;
       u := not UnderLined;
-      while SmartPos('^U', Text, False) > 0 do
+      while StrIPos('^U', Text) > 0 do
       begin
         if u then
           Text := ReplaceString(Text, '^U', '<u>', False) else

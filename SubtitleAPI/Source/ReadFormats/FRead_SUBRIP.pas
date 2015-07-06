@@ -46,10 +46,10 @@ function FileToSubtitles_SUBRIP(var Subtitles: TSubtitles; tmpSubFile: TSubtitle
       Text := ReplaceString(Text, '<font color = ', '<c:#');
       Text := ReplaceString(Text, '<font color =', '<c:#');
 
-      TagPos := SmartPos('<c:#', Text, False, 1);
+      TagPos := StrFind('<c:#', Text, 1);
       while TagPos > 0 do
       begin
-        if SmartPos('>', Text, False, TagPos) > 0 then
+        if PosEx('>', Text, TagPos) > 0 then
         begin
           i := TagPos+4;
           Color := Copy(Text, i, 1);
@@ -60,7 +60,7 @@ function FileToSubtitles_SUBRIP(var Subtitles: TSubtitles; tmpSubFile: TSubtitle
               Inc(i);
             Color := Copy(Text, i, 1);
           end;
-          TagPos := SmartPos('<c:#', Text, False, TagPos+4);
+          TagPos := StrFind('<c:#', Text, TagPos+4);
         end else
           break;
       end;

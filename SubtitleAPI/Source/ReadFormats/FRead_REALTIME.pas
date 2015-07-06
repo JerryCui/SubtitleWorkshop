@@ -49,10 +49,10 @@ function FileToSubtitles_REALTIME(var Subtitles: TSubtitles; tmpSubFile: TSubtit
       Text := ReplaceString(Text, '<font color = ', '<c:#');
       Text := ReplaceString(Text, '<font color =', '<c:#');
 
-      TagPos := SmartPos('<c:#', Text, False, 1);
+      TagPos := StrFind('<c:#', Text, 1);
       while TagPos > 0 do
       begin
-        if SmartPos('>', Text, False, TagPos) > 0 then
+        if PosEx('>', Text, TagPos) > 0 then
         begin
           i := TagPos+4;
           Color := Copy(Text, i, 1);
@@ -63,7 +63,7 @@ function FileToSubtitles_REALTIME(var Subtitles: TSubtitles; tmpSubFile: TSubtit
               Inc(i);
             Color := Copy(Text, i, 1);
           end;
-          TagPos := SmartPos('<c:#', Text, False, TagPos+4);
+          TagPos := StrFind('<c:#', Text, TagPos+4);
         end else
           break;
       end;
@@ -152,7 +152,7 @@ begin
     // Add #13#10 as needed
     for i := Length(BigStr)-3 downto 2 do
     begin
-      if SmartPos('<time', BigStr, False, i) = i then//(AnsiLowerCase(Copy(BigStr, i, 5)) = '<time') then
+      if StrFind('<time', BigStr, i) = i then//(AnsiLowerCase(Copy(BigStr, i, 5)) = '<time') then
         Insert(#13#10, BigStr, i);
     end;
 
@@ -162,20 +162,20 @@ begin
     for i := 0 to tmpSubFile.Count-1 do
     begin
       Text := '';
-      tmpCad := Copy(tmpSubFile[i], SmartPos('begin="', tmpSubFile[i], False) + 7, SmartPos('"', tmpSubFile[i], True, SmartPos('begin="', tmpSubFile[i], False) + 7) - (SmartPos('begin="', tmpSubFile[i], False) + 7));
+      tmpCad := Copy(tmpSubFile[i], StrIPos('begin="', tmpSubFile[i]) + 7, PosEx('"', tmpSubFile[i], StrIPos('begin="', tmpSubFile[i]) + 7) - (StrIPos('begin="', tmpSubFile[i]) + 7));
       if Length(tmpCad) = 8 then tmpCad := '00:' + tmpCad;
       InitialTime := StringToTime(tmpCad);
-      tmpCad := Copy(tmpSubFile[i], SmartPos('end="', tmpSubFile[i], False) + 5, SmartPos('"', tmpSubFile[i], True, SmartPos('end="', tmpSubFile[i], False) + 5) - (SmartPos('end="', tmpSubFile[i], False) + 5));
+      tmpCad := Copy(tmpSubFile[i], StrIPos('end="', tmpSubFile[i]) + 5, PosEx('"', tmpSubFile[i], StrIPos('end="', tmpSubFile[i]) + 5) - (StrIPos('end="', tmpSubFile[i]) + 5));
       if Length(tmpCad) = 8 then tmpCad := '00:' + tmpCad;
       FinalTime := StringToTime(tmpCad);
 
       if (InitialTime > -1) and
          (FinalTime > -1) and
-         (SmartPos('<time', tmpSubFile[i], False) > 0) and
-         (SmartPos('begin="', tmpSubFile[i], False) > 0) and
-         (SmartPos('end="', tmpSubFile[i], False) > 0) then
+         (StrIPos('<time', tmpSubFile[i]) > 0) and
+         (StrIPos('begin="', tmpSubFile[i]) > 0) and
+         (StrIPos('end="', tmpSubFile[i]) > 0) then
       begin
-        Text := ReplaceString(Trim(Copy(tmpSubFile[i], SmartPos('<clear/>', tmpSubFile[i], False) + 8, Length(tmpSubFile[i]))), '<br>', #13#10);
+        Text := ReplaceString(Trim(Copy(tmpSubFile[i], StrIPos('<clear/>', tmpSubFile[i]) + 8, Length(tmpSubFile[i]))), '<br>', #13#10);
 
         Text := ConvertToSWTags(Text);
 

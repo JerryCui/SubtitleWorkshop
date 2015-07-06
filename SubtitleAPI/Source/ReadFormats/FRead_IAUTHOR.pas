@@ -22,18 +22,18 @@ begin
   try
     for i := tmpSubFile.Count-1 downto 0 do
     begin
-      if (SmartPos('BMPFILE:', tmpSubFile[i], False) = 0) and
-         ((SmartPos('TIME:', tmpSubFile[i], False) = 1) and ((SmartPos('DISABLE_OGT', tmpSubFile[i], False) = 0))) or
+      if (StrIPos('BMPFILE:', tmpSubFile[i]) = 0) and
+         ((StrIPos('TIME:', tmpSubFile[i]) = 1) and ((StrIPos('DISABLE_OGT', tmpSubFile[i]) = 0))) or
          (Pos('*', tmpSubFile[i]) = 1) then
         tmpSubFile.Delete(i);
     end;
 
     for i := 0 to tmpSubFile.Count-1 do
     begin
-      if (SmartPos('BMPFILE:', tmpSubFile[i], False) = 1) then
+      if (StrIPos('BMPFILE:', tmpSubFile[i]) = 1) then
       begin
         Text := Trim(Copy(tmpSubFile[i], 9, Length(tmpSubFile[i])));
-        if (SmartPos('STARTTIME:', tmpSubFile[i+1], False) = 1) then
+        if (StrIPos('STARTTIME:', tmpSubFile[i+1]) = 1) then
         begin
           InitialTime := Round((StrToFloat(Trim(Copy(tmpSubFile[i+1], 11, Length(tmpSubFile[i+1]))))+(256*c))*1000);
 
@@ -44,7 +44,7 @@ begin
             u := InitialTime;
             Inc(c);
           end;
-          if (SmartPos('TIME:', tmpSubFile[i+2], False) = 1) then
+          if (StrIPos('TIME:', tmpSubFile[i+2]) = 1) then
             FinalTime := Round((StrToFloat(Trim(Copy(tmpSubFile[i+2], 6, Pos(' ', tmpSubFile[i+2]))))+(256*c))*1000)
           else
             FinalTime := InitialTime + 2000;

@@ -60,7 +60,7 @@ function FileToSubtitles_SUBSTATIONALPHA(var Subtitles: TSubtitles; tmpSubFile: 
 		  tagPos := Pos('{\', Text); //get first tag
 		  while tagPos > 0 do
 		  begin
-		    closeTagPos := SmartPos('}', Text, True, tagPos);
+		    closeTagPos := PosEx('}', Text, tagPos);
 		    if closeTagPos < tagPos then
 		      break else
 		    begin
@@ -109,7 +109,7 @@ function FileToSubtitles_SUBSTATIONALPHA(var Subtitles: TSubtitles; tmpSubFile: 
 		          end;
 		        end;
 		        //get next subtag
-		        subtagPos := SmartPos('\', origTag, True, subtagPos+1);
+		        subtagPos := PosEx('\', origTag, subtagPos+1);
 		      end;
 
 		      Delete(Text, tagPos, Length(origTag)); //delete SSA tag
@@ -230,9 +230,9 @@ begin
     for i := 0 to tmpSubFile.Count-1 do
     begin
       a := Pos(',', tmpSubFile[i]);
-      InitialTime := StringToTime(Trim(Copy(tmpSubFile[i], a + 1, SmartPos(',', tmpSubFile[i], True, a + 1) - (a + 1))));
-      a := SmartPos(',', tmpSubFile[i], True, a + 1);
-      FinalTime   := StringToTime(Trim(Copy(tmpSubFile[i], a + 1, SmartPos(',', tmpSubFile[i], True, a + 1) - (a + 1))));
+      InitialTime := StringToTime(Trim(Copy(tmpSubFile[i], a + 1, PosEx(',', tmpSubFile[i], a + 1) - (a + 1))));
+      a := PosEx(',', tmpSubFile[i], a + 1);
+      FinalTime   := StringToTime(Trim(Copy(tmpSubFile[i], a + 1, PosEx(',', tmpSubFile[i], a + 1) - (a + 1))));
 
       if (InitialTime > -1) and (FinalTime > -1) then
       begin

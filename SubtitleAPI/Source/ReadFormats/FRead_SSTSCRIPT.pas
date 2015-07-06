@@ -17,12 +17,12 @@ begin
     begin
       if (StringCount(#9, tmpSubFile[i]) = 5) then
       begin
-        c := SmartPos(#9, tmpSubFile[i], True, Pos(#9, tmpSubFile[i]) + 1) + 1;
-        InitialTime := StringToTime(Copy(tmpSubFile[i], c, SmartPos(#9, tmpSubFile[i], True, c) - c));
-        c := SmartPos(#9, tmpSubFile[i], True, c + 1) + 1;
-        FinalTime := StringToTime(Copy(tmpSubFile[i], c, SmartPos(#9, tmpSubFile[i], True, c) - c));
-        c := SmartPos(#9, tmpSubFile[i], True, c + 1) + 1;
-        Text := ReplaceString(Copy(tmpSubFile[i], c, SmartPos(#9, tmpSubFile[i], True, c) - c), '~', #13#10);
+        c := PosEx(#9, tmpSubFile[i], Pos(#9, tmpSubFile[i]) + 1) + 1;
+        InitialTime := StringToTime(Copy(tmpSubFile[i], c, PosEx(#9, tmpSubFile[i], c) - c));
+        c := PosEx(#9, tmpSubFile[i], c + 1) + 1;
+        FinalTime := StringToTime(Copy(tmpSubFile[i], c, PosEx(#9, tmpSubFile[i], c) - c));
+        c := PosEx(#9, tmpSubFile[i], c + 1) + 1;
+        Text := ReplaceString(Copy(tmpSubFile[i], c, PosEx(#9, tmpSubFile[i], c) - c), '~', #13#10);
 
         if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then
           Subtitles.Add(InitialTime + ExtraTime, InitialTime + ExtraTime + MaxDuration, Text)

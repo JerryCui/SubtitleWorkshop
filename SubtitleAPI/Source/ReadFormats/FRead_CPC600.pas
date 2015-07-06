@@ -17,8 +17,8 @@ begin
     begin
       if (TimeInFormat(Copy(tmpSubFile[i], 1, 11), 'hh:mm:ss:zz')) and
          (TimeInFormat(Copy(tmpSubFile[i+1], 1, 11), 'hh:mm:ss:zz')) and
-         (SmartPos('_0NEN_',tmpSubFile[i], False) = 12) and
-         (SmartPos('_0NEN_',tmpSubFile[i+1], False) = 12) then
+         (StrIPos('_0NEN_',tmpSubFile[i]) = 12) and
+         (StrIPos('_0NEN_',tmpSubFile[i+1]) = 12) then
       begin
         InitialTime := StringToTime(Copy(tmpSubFile[i], 1, 11));
         FinalTime   := StringToTime(Copy(tmpSubFile[i+1], 1, 11));

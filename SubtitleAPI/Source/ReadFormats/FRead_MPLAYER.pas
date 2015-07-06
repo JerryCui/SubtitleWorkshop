@@ -16,11 +16,11 @@ begin
     for i := 0 to tmpSubFile.Count-1 do
     begin
       if (IsInteger(Copy(tmpSubFile[i], 1, Pos(',',tmpSubFile[i]) - 1))) and
-         (IsInteger(Copy(tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1, SmartPos(',', tmpSubFile[i], True, Pos(',',tmpSubFile[i]) + 1) - (Pos(',',tmpSubFile[i]) + 1)))) then
+         (IsInteger(Copy(tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1, PosEx(',', tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1) - (Pos(',',tmpSubFile[i]) + 1)))) then
       begin
         InitialTime   := FramesToTime(StrToInt(Copy(tmpSubFile[i], 1, Pos(',',tmpSubFile[i]) - 1)), FPS);
-        FinalTime     := FramesToTime(StrToInt(Copy(tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1, SmartPos(',', tmpSubFile[i], True, Pos(',',tmpSubFile[i]) + 1) - (Pos(',',tmpSubFile[i]) + 1))), FPS);
-        Text          := ReplaceString(Copy(tmpSubFile[i], SmartPos(',', tmpSubFile[i], True, SmartPos(',', tmpSubFile[i], True, SmartPos(',', tmpSubFile[i], True, Pos(',',tmpSubFile[i]) + 1)) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
+        FinalTime     := FramesToTime(StrToInt(Copy(tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1, PosEx(',', tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1) - (Pos(',',tmpSubFile[i]) + 1))), FPS);
+        Text          := ReplaceString(Copy(tmpSubFile[i], PosEx(',', tmpSubFile[i], PosEx(',', tmpSubFile[i], PosEx(',', tmpSubFile[i], Pos(',',tmpSubFile[i]) + 1)) + 1) + 1, Length(tmpSubFile[i])), '|', #13#10);
 
         if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then
           Subtitles.Add(InitialTime + ExtraTime, InitialTime + ExtraTime + MaxDuration, Text)
