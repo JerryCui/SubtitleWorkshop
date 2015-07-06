@@ -11,8 +11,9 @@ unit formSAMILangExtractor;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, IniFiles, FileCtrl, ComCtrls,
-  FastStrings, HTMLPars;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  ExtCtrls, StdCtrls, IniFiles, FileCtrl, ComCtrls, HTMLPars, StrUtils,
+  jclStrings;
 
 type
   TfrmSAMILangExtractor = class(TForm)
@@ -347,32 +348,32 @@ begin
     SAMIFile.LoadFromFile(edtSAMIFile.Text);
     BigStr := MakeOneLine(SAMIFile);
 
-    a := SmartPos('<STYLE', BigStr, False);
-    b := SmartPos('</STYLE>', BigStr, False);
+    a := StrIPos('<STYLE', BigStr);
+    b := StrIPos('</STYLE>', BigStr);
     if (a > 0) and (b > 0) then
     begin
       BigStr := Copy(BigStr, a, b);
       if (StringCount('lang:', BigStr, False) < 2) or (StringCount('.', BigStr, False) < 2) then
         MsgBox(InfoMsg[05], BTN_OK, '', '', MB_ICONWARNING, frmSAMILangExtractor) else
       begin
-        a := SmartPos('.', BigStr);
+        a := Pos('.', BigStr);
         while a > 0 do
         begin
-          RealClass := Trim(Copy(BigStr, a + 1, SmartPos('{', BigStr, True, a + 1) - (a + 1)));
-          BigStr := Copy(BigStr, SmartPos('{', BigStr, True, a) + 1, Length(BigStr));
-          b := SmartPos('Name:', BigStr, False);
-          RealLang := Copy(BigStr, b + 5, SmartPos(';', BigStr, True, b));
+          RealClass := Trim(Copy(BigStr, a + 1, PosEx('{', BigStr, a + 1) - (a + 1)));
+          BigStr := Copy(BigStr, PosEx('{', BigStr, a) + 1, Length(BigStr));
+          b := StrIPos('Name:', BigStr);
+          RealLang := Copy(BigStr, b + 5, PosEx(';', BigStr, b));
           if StringCount('"', RealLang) = 2 then
           begin
             b := Pos('"', RealLang) + 1;
-            RealLang := Copy(RealLang, b, SmartPos('"', RealLang, True, b) - b);
+            RealLang := Copy(RealLang, b, PosEx('"', RealLang, b) - b);
           end;
 
           lstLanguages.Items.Add;
           lstLanguages.Items[lstLanguages.Items.Count-1].Caption := RealClass;
           lstLanguages.Items[lstLanguages.Items.Count-1].SubItems.Add(RealLang);
 
-          a := SmartPos('.', BigStr);
+          a := Pos('.', BigStr);
         end;
 
       end;
