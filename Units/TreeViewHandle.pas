@@ -9,9 +9,8 @@ unit TreeViewHandle;
 interface
 
 uses
-  Windows, SysUtils, Classes, ClipBrd, IniFiles, Forms, //IniFiles, Forms added by adenry
+  Windows, StrUtils, SysUtils, Classes, ClipBrd, IniFiles, Forms, //IniFiles, Forms added by adenry
   VirtualTrees,
-  FastStrings,
   CommonTypes;
 
 // -----------------------------------------------------------------------------
@@ -619,10 +618,10 @@ procedure PasteNodesFromClipBoard;
   begin
     Posit := Pos('||', tmpText);
     SetStartTime(Node, StrToIntDef(Copy(tmpText, 1, Posit-1), 0));
-    SetFinalTime(Node, StrToIntDef(Copy(tmpText, Posit+2, SmartPos('||', tmpText, True, PosIt + 2)-(PosIt+2)), 0));
-    Posit := SmartPos('||', tmpText, True, PosIt + 2);
-    SetText(Node, ReplaceString(Copy(tmpText, PosIt+2, SmartPos('||', tmpText, True, PosIt + 2)-(PosIt+2)), '\~', #13#10));
-    Posit := SmartPos('||', tmpText, True, PosIt + 2);
+    SetFinalTime(Node, StrToIntDef(Copy(tmpText, Posit+2, PosEx('||', tmpText, PosIt + 2)-(PosIt+2)), 0));
+    Posit := PosEx('||', tmpText, PosIt + 2);
+    SetText(Node, ReplaceString(Copy(tmpText, PosIt+2, PosEx('||', tmpText, PosIt + 2)-(PosIt+2)), '\~', #13#10));
+    Posit := PosEx('||', tmpText, PosIt + 2);
     SetTranslation(Node, ReplaceString(Copy(tmpText, PosIt+2, Length(tmpText)), '\~', #13#10));
   end;
 var
