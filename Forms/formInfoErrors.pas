@@ -11,9 +11,9 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, IniFiles, Buttons, Math, ComCtrls, ToolWin, Menus, StrUtils, //Math added by adenry to use MIN; StrUtils added for DupeString
   VirtualTrees,
-  FastStrings, RegExpr, //StrMan //FastStrings added by adenry to use SmartPos; RegExpr added by adenry //StrMan removed by adenry
+  RegExpr, //StrMan //FastStrings added by adenry to use SmartPos; RegExpr added by adenry //StrMan removed by adenry
   formCompositeCustomInfo, //formCompositeCustomInfo added by adenry
-  CommonTypes;
+  CommonTypes, jclStrings;
 
 
 type
@@ -1235,14 +1235,21 @@ begin
                   if TComboBox(FindComponent('cmb' + IntToStr(i))).ItemIndex = 0 then
                     CaseSensitive := True else
                     CaseSensitive := False;
-                  if SmartPos(TEdit(FindComponent('edt1_' + IntToStr(i))).Text, Data.Text, CaseSensitive) > 0 then ShouldAddInfoError := True;
+
+                  if CaseSensitive then
+                    if PosEx(TEdit(FindComponent('edt1_' + IntToStr(i))).Text, Data.Text) > 0 then ShouldAddInfoError := True
+                  else
+                    if StrIPos(TEdit(FindComponent('edt1_' + IntToStr(i))).Text, Data.Text) > 0 then ShouldAddInfoError := True
                 end else
                 //Does not contain the text
                 begin
                   if TComboBox(FindComponent('cmb' + IntToStr(i))).ItemIndex = 2 then
                     CaseSensitive := True else
                     CaseSensitive := False;
-                  if SmartPos(TEdit(FindComponent('edt1_' + IntToStr(i))).Text, Data.Text, CaseSensitive) = 0 then ShouldAddInfoError := True;
+                  if CaseSensitive then
+                    if PosEx(TEdit(FindComponent('edt1_' + IntToStr(i))).Text, Data.Text) = 0 then ShouldAddInfoError := True
+                  else
+                    if StrIPos(TEdit(FindComponent('edt1_' + IntToStr(i))).Text, Data.Text) = 0 then ShouldAddInfoError := True;
                 end;
             end else
             //1, 2, 3, 4, 5: edt2_ is empty

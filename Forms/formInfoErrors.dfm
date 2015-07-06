@@ -1,7 +1,6 @@
 object frmInfoErrors: TfrmInfoErrors
   Left = 1394
   Top = 186
-  AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = 'frmInfoErrors'
   ClientHeight = 768
@@ -213,6 +212,7 @@ object frmInfoErrors: TfrmInfoErrors
         Header.Font.Height = -11
         Header.Font.Name = 'Tahoma'
         Header.Font.Style = []
+        Header.Height = 17
         Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoRestrictDrag, hoShowSortGlyphs, hoVisible]
         Header.SortColumn = 0
         Header.Style = hsPlates
@@ -234,6 +234,7 @@ object frmInfoErrors: TfrmInfoErrors
         OnInitNode = lstErrorsInitNode
         Columns = <
           item
+            Color = clWindow
             Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible, coAllowFocus]
             Position = 0
             WideText = 'Subtitle'
@@ -1081,10 +1082,8 @@ object frmInfoErrors: TfrmInfoErrors
         Caption = 'tbErrorTypesSets'
         Color = clBtnFace
         DisabledImages = frmMain.imgLstMenuDisabled
-        EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
-        Flat = True
         Images = frmMain.imgLstMenu
         ParentColor = False
         ParentShowHint = False
@@ -1241,10 +1240,8 @@ object frmInfoErrors: TfrmInfoErrors
         Caption = 'tbErrorTypes'
         Color = clBtnFace
         DisabledImages = frmMain.imgLstMenuDisabled
-        EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
-        Flat = True
         Images = frmMain.imgLstMenu
         ParentColor = False
         ParentShowHint = False
@@ -1276,10 +1273,8 @@ object frmInfoErrors: TfrmInfoErrors
         Caption = 'tbErrorTypes'
         Color = clBtnFace
         DisabledImages = frmMain.imgLstMenuDisabled
-        EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
-        Flat = True
         Images = frmMain.imgLstMenu
         ParentColor = False
         ParentShowHint = False
