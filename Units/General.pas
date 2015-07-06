@@ -11,8 +11,7 @@ interface
 uses
   Forms, Windows, Classes, SysUtils, Controls, StdCtrls, Mask, Menus, IniFiles, Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math, //Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math added by adenry
   VirtualTrees,
-  FastStrings,
-  USubtitleAPI, CommonTypes, jclFileUtils;
+  USubtitleAPI, CommonTypes, StrUtils, jclStrings, jclFileUtils;
 
 // -----------------------------------------------------------------------------
 
@@ -1389,9 +1388,9 @@ begin
     begin
       if tmpLines[i] = '{BlankLine}' then
         tmpLines[i] := '' else
-      if SmartPos('{repeatsub}', tmpLines[i], False) > 0 then
+      if StrIPos('{repeatsub}', tmpLines[i]) > 0 then
         RepeatPartStart := i;
-      if SmartPos('{endrepeat}', tmpLines[i], False) > 0 then
+      if StrIPos('{endrepeat}', tmpLines[i]) > 0 then
         EndRepeat := i;
     end;
 
@@ -1409,11 +1408,11 @@ begin
         tmpSubtitle.Add(RepeatPart[a]);
         tmpSubtitle[tmpSubtitle.Count-1] := ReplaceString(tmpSubtitle[tmpSubtitle.Count-1], '{asterisk}', '*');
 
-        if (SmartPos('{SubCount', tmpSubtitle[tmpSubtitle.Count-1], False) > 0) and (Pos('}',tmpSubtitle[tmpSubtitle.Count-1]) > SmartPos('{SubCount', tmpSubtitle[tmpSubtitle.Count-1], False)) then
+        if (StrIPos('{SubCount', tmpSubtitle[tmpSubtitle.Count-1]) > 0) and (Pos('}',tmpSubtitle[tmpSubtitle.Count-1]) > StrIPos('{SubCount', tmpSubtitle[tmpSubtitle.Count-1])) then
         begin
-          if SmartPos('{SubCount,', tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+          if StrIPos('{SubCount,', tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
           begin
-            tmpStr := Copy(tmpSubtitle[tmpSubtitle.Count-1], SmartPos('{SubCount,', tmpSubtitle[tmpSubtitle.Count-1], False) + 10, Length(tmpSubtitle[tmpSubtitle.Count-1])-1);
+            tmpStr := Copy(tmpSubtitle[tmpSubtitle.Count-1], StrIPos('{SubCount,', tmpSubtitle[tmpSubtitle.Count-1]) + 10, Length(tmpSubtitle[tmpSubtitle.Count-1])-1);
             if IsInteger(Copy(tmpStr, 1, Pos('}', tmpStr)-1)) then
               Pad := StrToInt(Copy(tmpStr, 1, Pos('}',tmpStr)-1)) else
               Pad := 0;
@@ -1422,7 +1421,7 @@ begin
           tmpSubtitle[tmpSubtitle.Count-1] := ReplaceString(tmpSubtitle[tmpSubtitle.Count-1], '{SubCount}', IntToStr(i+1));
         end;
 
-        if SmartPos('{swStart}', tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+        if StrIPos('{swStart}', tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
         begin
           if Time = True then
           begin
@@ -1433,7 +1432,7 @@ begin
             tmpSubtitle[tmpSubtitle.Count-1] := ReplaceString(tmpSubtitle[tmpSubtitle.Count-1], '{swStart}', IntToStr(TimeToFrames(SubtitleAPI.GetInitialTime(i), FPS)));
         end;
 
-        if SmartPos('{swEnd}', tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+        if StrIPos('{swEnd}', tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
         begin
           if Time = True then
           begin
@@ -1444,11 +1443,11 @@ begin
             tmpSubtitle[tmpSubtitle.Count-1] := ReplaceString(tmpSubtitle[tmpSubtitle.Count-1], '{swEnd}', IntToStr(TimeToFrames(SubtitleAPI.GetFinalTime(i), FPS)));
         end;
 
-        if SmartPos('{swFrameStart', tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+        if StrIPos('{swFrameStart', tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
         begin
-          if SmartPos('{swFrameStart,',tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+          if StrIPos('{swFrameStart,',tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
           begin
-            tmpStr := Copy(tmpSubtitle[tmpSubtitle.Count-1], SmartPos('{swFrameStart,', tmpSubtitle[tmpSubtitle.Count-1], False) + 14, Length(tmpSubtitle[tmpSubtitle.Count-1])-1);
+            tmpStr := Copy(tmpSubtitle[tmpSubtitle.Count-1], StrIPos('{swFrameStart,', tmpSubtitle[tmpSubtitle.Count-1]) + 14, Length(tmpSubtitle[tmpSubtitle.Count-1])-1);
             if IsInteger(Copy(tmpStr, 1, Pos('}',tmpStr)-1)) then
               Pad := StrToInt(Copy(tmpStr, 1, Pos('}',tmpStr)-1)) else
               Pad := 0;
@@ -1457,11 +1456,11 @@ begin
             tmpSubtitle[tmpSubtitle.Count-1] := ReplaceString(tmpSubtitle[tmpSubtitle.Count-1], '{swFrameStart}',IntToStr(TimeToFrames(SubtitleAPI.GetInitialTime(i), FPS)));
         end;
 
-        if SmartPos('{swFrameEnd', tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+        if StrIPos('{swFrameEnd', tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
         begin
-          if SmartPos('{swFrameEnd,', tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+          if StrIPos('{swFrameEnd,', tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
           begin
-            tmpStr := Copy(tmpSubtitle[tmpSubtitle.Count-1], SmartPos('{swFrameEnd,', tmpSubtitle[tmpSubtitle.Count-1], False) + 12,Length(tmpSubtitle[tmpSubtitle.Count-1])-1);
+            tmpStr := Copy(tmpSubtitle[tmpSubtitle.Count-1], StrIPos('{swFrameEnd,', tmpSubtitle[tmpSubtitle.Count-1]) + 12,Length(tmpSubtitle[tmpSubtitle.Count-1])-1);
             if IsInteger(Copy(tmpStr, 1, Pos('}',tmpStr)-1)) then
               Pad := StrToInt(Copy(tmpStr, 1, Pos('}',tmpStr)-1)) else
               Pad := 0;
@@ -1470,7 +1469,7 @@ begin
             tmpSubtitle[tmpSubtitle.Count-1] := ReplaceString(tmpSubtitle[tmpSubtitle.Count-1], '{swFrameEnd}', IntToStr(TimeToFrames(SubtitleAPI.GetFinalTime(i), FPS)));
         end;
 
-        if SmartPos('{swText}',tmpSubtitle[tmpSubtitle.Count-1], False) > 0 then
+        if StrIPos('{swText}',tmpSubtitle[tmpSubtitle.Count-1]) > 0 then
         begin
           if AnsiLowerCase(NewLineChar) = '[enter]' then
             tmpStr := SubtitleAPI.GetText(i) else
@@ -2256,7 +2255,7 @@ begin
     // check for abbreviations like: Mr. or Mrs. or Ms. or Dr.
     if s1 <> '' then
       for i := 1 to Length(Abbreviations) do
-        if SmartPos(Abbreviations[i], s1, False, Length(s1), False) = Length(s1)-Length(Abbreviations[i])+1 then exit;
+        if StrFind(Abbreviations[i], s1, Length(s1)) = Length(s1)-Length(Abbreviations[i])+1 then exit;
   end else
   begin
     //check for consecutive dots (.. or ... etc) at the beginning of the line
@@ -2298,6 +2297,7 @@ function IsDotInWebsiteAddress(Text: String; n: Integer): Boolean;
 var
   prev, next, buff: Integer;
   s1, s2, website: String;
+  StringPart: String;
 begin
     Result := False;
 
@@ -2316,9 +2316,9 @@ begin
       if (s1[prev] in Alphanumeric) and (s2[next] in Alphanumeric) then //if the characters around the dot are alphanumeric
       begin
         //get the start and the end of the website address
-        prev := Max(SmartPos(' ', s1, True, prev, False), SmartPos(#13#10, s1, True, prev, False)) + 1;
-        next := SmartPos(' ', s2, True);
-        buff := SmartPos(#13#10, s2, True);
+        prev := Max(StrLastPos(' ', s1), StrLastPos(#13#10, s1)) + 1;
+        next := PosEx(' ', s2);
+        buff := PosEx(#13#10, s2);
         if (buff > 0) and (buff < next) then next := buff;
         if next = 0 then next := Length(s2) else Dec(next);
         //form the website address
@@ -2327,19 +2327,19 @@ begin
           Delete(website, Length(website), 1); //remove special chars at the end
         //find the first slash (ignore '//' at the beginning if it exists) - the TLD is just before the slash
         website := ReplaceString(website, '//', '');
-        buff := SmartPos('/', website);
+        buff := Pos('/', website);
         if buff = 0 then buff := Length(website) else Dec(buff);
         //trim everything after the first slash (including that slash)
         website := Copy(website, 1, buff);
         //triim everything before the last dot (including that dot)
-        website := Copy(website, SmartPos('.', website, True, buff, False)+1, MaxInt); //now we have the TLD
+        website := Copy(website, StrLastPos('.', website)+1, MaxInt); //now we have the TLD
         //Check if it is a proper TLD
         website := ','+website+',';
-        if SmartPos(website, TopLevelDomains, False) > 0 then
+        if StrIPos(website, TopLevelDomains) > 0 then
           Result := True;
-        if SmartPos(website, TopLevelDomainsWords+TopLevelDomainsWordsUppercase, True) > 0 then
+        if StrIPos(website, TopLevelDomainsWords+TopLevelDomainsWordsUppercase) > 0 then
           Result := True;
-        if SmartPos(website, Uppercase(TopLevelDomainsWords), True) > 0 then
+        if Pos(website, Uppercase(TopLevelDomainsWords)) > 0 then
           Result := True;
       end;
     end;
