@@ -11,8 +11,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, ComCtrls, CheckLst, Registry, IniFiles, Mask, Math,
   VirtualTrees, MiSubtitulo, {NFormSizing,}
-  FastStrings, WinShell, //WinShell added by adenry
-  CommonTypes;
+  {FastStrings, }WinShell, //WinShell added by adenry
+  CommonTypes, StrUtils;
 
 type
   TfrmSettings = class(TForm)
@@ -567,8 +567,8 @@ begin
       cmbTextAlign.Items.Clear;
       tmpItem := ReadString('Settings Form','84','Left|Right|Center');
       cmbTextAlign.Items.Add(Copy(tmpItem, 1, Pos('|', tmpItem) - 1));
-      cmbTextAlign.Items.Add(Copy(tmpItem, Pos('|', tmpItem) + 1, SmartPos('|', tmpItem, True, Pos('|', tmpItem) + 1) - (Pos('|', tmpItem) + 1)));
-      cmbTextAlign.Items.Add(Copy(tmpItem, SmartPos('|', tmpItem, True, Pos('|', tmpItem) + 1) + 1, Length(tmpItem)));
+      cmbTextAlign.Items.Add(Copy(tmpItem, PosEx('|', tmpItem) + 1, PosEx('|', tmpItem, Pos('|', tmpItem) + 1) - (Pos('|', tmpItem) + 1)));
+      cmbTextAlign.Items.Add(Copy(tmpItem, PosEx('|', tmpItem, Pos('|', tmpItem) + 1) + 1, Length(tmpItem)));
       chkTagsHighlight.Caption            := ReadString('Settings Form', '148', 'Hilight tags in "Text" and "Translation" fields:');
       //added by adenry: begin
       chkSmartResize.Caption              := ReadString('Settings Form', '117', 'Smart Main Window and Subtitles List resize');

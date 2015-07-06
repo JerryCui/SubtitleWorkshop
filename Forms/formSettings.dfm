@@ -39,6 +39,10 @@ object frmSettings: TfrmSettings
     object pgeGeneral: TTabSheet
       Caption = 'pgeGeneral'
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlSeparate2: TBevel
         Left = 0
         Top = 152
@@ -193,6 +197,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeAdvanced'
       ImageIndex = 12
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblCharacters3: TLabel
         Left = 62
         Top = 186
@@ -561,6 +569,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeCharsets'
       ImageIndex = 11
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblNotesCharset: TLabel
         Left = 0
         Top = 160
@@ -629,6 +641,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeFormats'
       ImageIndex = 1
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblDefaultFormat: TLabel
         Left = 0
         Top = 0
@@ -691,6 +707,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeFileTypes'
       ImageIndex = 2
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkRegExtOnStart: TCheckBox
         Left = 0
         Top = 16
@@ -749,6 +769,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeSave'
       ImageIndex = 3
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblMinutes: TLabel
         Left = 83
         Top = 39
@@ -1122,6 +1146,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeVideoPreviewSubs'
       ImageIndex = 5
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkDrawBorder: TCheckBox
         Left = 0
         Top = 0
@@ -1376,6 +1404,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeExternalPreviewGeneral'
       ImageIndex = 6
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object edtVidPlayer: TLabeledEdit
         Left = 0
         Top = 16
@@ -1447,6 +1479,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeExternalPreviewAdvanced'
       ImageIndex = 7
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblParamDescription: TLabel
         Left = 0
         Top = 128
@@ -1513,6 +1549,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeProgramLook'
       ImageIndex = 8
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblFontToUse: TLabel
         Left = 0
         Top = 0
@@ -1633,6 +1673,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeListLook'
       ImageIndex = 9
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object chkMarkUnTransSubs: TCheckBox
         Left = 0
         Top = 36
@@ -2023,6 +2067,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeMarking'
       ImageIndex = 13
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblColumnsToMark: TLabel
         Left = 0
         Top = 47
