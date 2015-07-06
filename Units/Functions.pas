@@ -10,8 +10,8 @@ interface
 
 uses
   Forms, Windows, Classes, SysUtils, StdCtrls, Mask, IniFiles, ComCtrls, ExtCtrls, ShellApi, Controls, Math, Graphics, {JvRichEditToHtml,} Messages, RichEdit, ClipBrd, //Graphics, JvRichEditToHtml, Messages, RichEdit, ClipBrd added by adenry
-  VirtualTrees,
-  StrMan, FastStrings,
+  VirtualTrees, jclStrings, StrUtils,
+  StrMan,
   CommonTypes;
 
 // -----------------------------------------------------------------------------
@@ -310,17 +310,17 @@ begin
 			Text := ReplaceString(Text, '</c>', '');
 			//Text := ReplaceString(Text, '</font>', '');
 
-      TagPos := SmartPos('<c:#', Text, False);
-      Tag2Pos := SmartPos('>', Text, True, TagPos+1);
+      TagPos := StrIPos('<c:#', Text);
+      Tag2Pos := PosEx('>', Text, TagPos+1);
       SearchStart := 1;
 			while (TagPos > 0) and (Tag2Pos > 0) do
       begin
-        Tag3Pos := SmartPos('<', Text, True, TagPos+1);
+        Tag3Pos := PosEx('<', Text, TagPos+1);
         if (Tag2Pos < Tag3Pos) or (Tag3Pos = 0) then
 			  	Delete(Text, TagPos, Tag2Pos-TagPos+1) else
           SearchStart := TagPos+1;
-        TagPos := SmartPos('<c:#', Text, False, SearchStart);
-        Tag2Pos := SmartPos('>', Text, True, TagPos+1);
+        TagPos := StrFind('<c:#', Text, SearchStart);
+        Tag2Pos := PosEx('>', Text, TagPos+1);
       end;
 
       {
@@ -426,10 +426,10 @@ var
 begin
   Result := -1;
 
-  tagPos := SmartPos('<c:#', Text, False); //added by adenry
+  tagPos := StrIPos('<c:#', Text); //added by adenry
 
   if ((OnlyFullTag = False) and (tagPos > 0))
-  or ((tagPos = 1) and (SmartPos('</c>', Text, False) in [0, Length(Text)-3])) then
+  or ((tagPos = 1) and (StrIPos('</c>', Text) in [0, Length(Text)-3])) then
   begin
     Text := Copy(Text, tagPos + 4, 7);
     if Copy(Text, 7, 1) = '>' then
@@ -466,11 +466,11 @@ end;
 function GetSingleTagsModeFontStyles(Text: String): TFontStyles;
 begin
   Result := [];
-  if SmartPos('<b>', Text, False) > 0 then
+  if StrIPos('<b>', Text) > 0 then
     Result := Result + [fsBold];
-  if SmartPos('<i>', Text, False) > 0 then
+  if StrIPos('<i>', Text) > 0 then
     Result := Result + [fsItalic];
-  if SmartPos('<u>', Text, False) > 0 then
+  if StrIPos('<u>', Text) > 0 then
     Result := Result + [fsUnderline];
 end;
 //added by adenry: end
@@ -1644,12 +1644,12 @@ begin
       if i = 1 then
       begin
         //set last font tag from Out1
-        tagPos := SmartPos('<c:#', Out1, False, Length(Out1)-1, False);
+        tagPos := StrILastPos('<c:#', Out1);
         if tagPos > 0 then
           Out2 := Copy(Out1, tagPos, 11) + Out2;
       end else
         //remove unnecessary </c> tag
-        Delete(Out2, SmartPos('</c>', Out2, False), 7);
+        Delete(Out2, StrIPos('</c>', Out2), 7);
     {
     for i := 1 to StringCount('</font>', Out2, False) - StringCount('<font color=', Out2, False) do
       if i = 1 then
@@ -1839,16 +1839,18 @@ function IsTagPart(Text: String; n: Integer): Boolean;
 var
   tagOpen, tagClose, temp: Integer;
   tag: String;
+  StringPart: String;
 begin
   Result := False;
+  StringPart := StrLeft(Text, n);
   if (n < 1) or (n > Length(Text)) then exit;
   //if Length(Copy(Text, n, 1)) = 1 then
   begin
-    tagOpen  := SmartPos('<', Text, False, n, False);
-    if (tagOpen > 0) and (tagOpen > SmartPos('>', Text, False, Max(1,n-1), False)) then
+    tagOpen  := StrLastPos('<', StringPart);
+    if (tagOpen > 0) and (tagOpen > StrLastPos('>', StringPart)) then
     begin
-      tagClose := SmartPos('>', Text, False, n, True);
-      temp := SmartPos('<', Text, False, n+1, True);
+      tagClose := StrFind('>', StringPart);
+      temp := PosEx('<', StringPart);
       if (tagClose > 0) and ((tagClose < temp) or (temp=0)) then
       begin
         tag := Copy(Text, tagOpen, 3);
@@ -2589,7 +2591,8 @@ begin
   end;
 
   Text := RemoveSWTags(Text, not Bold, not Italic, not Underline, not Color, True);
-  if (SmartPos(openTag, Text, False) <> 1) or ((SmartPos(closeTag, Text, False) > 0)and(SmartPos(closeTag, Text, False) < Length(Text)-3)) then
+  if (StrIPos(openTag, Text) <> 1) or ((StrIPos(closeTag, Text) > 0) and
+     (StrIPos(closeTag, Text) < Length(Text)-3)) then
     Result := False else
     Result := True;
 end;
