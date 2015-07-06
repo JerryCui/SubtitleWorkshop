@@ -14,12 +14,12 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Menus, ComCtrls, IniFiles, ImgList,
     ShellAPI, ClipBrd, URLMon, FileCtrl, Grids, ToolWin, Mask, Math, {XPMan,} RichEdit, SymbolDlg, //Math, RichEdit, XPMan added by adenry
   VirtualTrees, MiMenu, MiSubtitulo, {MiHint,} {NFormSizing,} SWSeekBar, SWButton, USSpeller, SWTimeCounter, TimeMaskEdit, //MiHint, NFormSizing removed by adenry
-  StrMan, FastStrings, WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
+  StrMan, WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
   CommonTypes, XPMan, uPSComponent, uPSCompiler, uPSRuntime, uPSC_std,
   uPSC_classes, uPSC_controls, uPSC_graphics, uPSC_stdctrls, uPSC_extctrls,
   uPSC_forms, uPSC_menus, uPSC_dateutils,
   uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
-  uPSR_forms, uPSR_menus, uPSR_dateutils;
+  uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings;
 
 
 type
@@ -1574,8 +1574,8 @@ begin
       lblWorkWith.Caption := ReadString('Main Form', '06', 'Work with:');
       tmp                 := ReadString('Main Form', '07', 'Duration|Hide time|Both');
       rdoDuration.Caption   := Copy(tmp, 1, Pos('|', tmp) - 1);
-      rdoFinalTime.Caption  := Copy(tmp, Pos('|', tmp) + 1, SmartPos('|', tmp, True, Pos('|', tmp) + 1) - (Pos('|', tmp) + 1));
-      rdoBoth.Caption       := Copy(tmp, SmartPos('|', tmp, True, Pos('|', tmp) + 1) + 1, Length(tmp));
+      rdoFinalTime.Caption  := Copy(tmp, Pos('|', tmp) + 1, PosEx('|', tmp, Pos('|', tmp) + 1) - (Pos('|', tmp) + 1));
+      rdoBoth.Caption       := Copy(tmp, PosEx('|', tmp, Pos('|', tmp) + 1) + 1, Length(tmp));
 
       lstSubtitles.Header.Columns[0].Text := StringToWideStringEx(ReadString('Main Form', '08', 'Num'), CharSetToCodePage(frmMain.Font.Charset));
       lstSubtitles.Header.Columns[1].Text := StringToWideStringEx(ReadString('Main Form', '09', 'Show'), CharSetToCodePage(frmMain.Font.Charset));
@@ -5640,11 +5640,11 @@ begin
     if ApplyStyleInList then
     begin
       Color := GetSubColor(ItemText);
-      if (SmartPos('<i>', ItemText, False) > 0) then  //Pos changed to SmartPos by adenry
+      if (StrIPos('<i>', ItemText) > 0) then  //Pos changed to SmartPos by adenry
         TargetCanvas.Font.Style := TargetCanvas.Font.Style + [fsItalic];
-      if (SmartPos('<b>', ItemText, False) > 0) then  //Pos changed to SmartPos by adenry
+      if (StrIPos('<b>', ItemText) > 0) then  //Pos changed to SmartPos by adenry
         TargetCanvas.Font.Style := TargetCanvas.Font.Style + [fsBold];
-      if (SmartPos('<u>', ItemText, False) > 0) then  //Pos changed to SmartPos by adenry
+      if (StrIPos('<u>', ItemText) > 0) then  //Pos changed to SmartPos by adenry
         TargetCanvas.Font.Style := TargetCanvas.Font.Style + [fsUnderline];
       if (Color > -1) then
         TargetCanvas.Font.Color := Color;
@@ -8641,17 +8641,10 @@ begin
        ) then
     begin
       //delete dots at the end of Text1
-      DotPos := SmartPos('.', Text1, False, Length(Text1), False);
-      while (Copy(Text1, DotPos, 1) = '.') or (Copy(Text1, DotPos, 1) = ' ') do
-      begin
-        Delete(Text1, DotPos, 1);
-        Dec(DotPos);
-      end;
+      StrTrimCharsRight(Text1, [' ', '.']);
 
       //delete dots at the beginning of Text2
-      DotPos := Pos('.', Text2);
-      while (Copy(Text2, DotPos, 1) = '.') or (Copy(Text2, DotPos, 1) = ' ') do
-        Delete(Text2, DotPos, 1);
+      StrTrimCharsLeft(Text2, [' ', '.']);
 
       SetText(Node.PrevSibling, Text1);
       SetText(Node, Text2);
@@ -8679,17 +8672,10 @@ begin
         PFullTextChange(UndoAction2^.Buffer)^.OldTrans     := Text2;
 
         //delete dots at the end of Text1
-        DotPos := SmartPos('.', Text1, False, Length(Text1), False);
-        while (Copy(Text1, DotPos, 1) = '.') or (Copy(Text1, DotPos, 1) = ' ') do
-        begin
-          Delete(Text1, DotPos, 1);
-          Dec(DotPos);
-        end;
+        StrTrimCharsRight(Text1, [' ', '.']);
 
         //delete dots at the beginning of Text2
-        DotPos := Pos('.', Text2);
-        while (Copy(Text2, DotPos, 1) = '.') or (Copy(Text2, DotPos, 1) = ' ') do
-          Delete(Text2, DotPos, 1);
+        StrTrimCharsLeft(Text2, [' ', '.']);
 
         MustAddUndo := True;
 
@@ -12502,6 +12488,7 @@ var
   UndoName : TUndoActionName;
   insertTag, insertCloseTag: Boolean;
   tagPos, closeTagPos: Integer;
+  StringPart: String;
 begin
   if lstSubtitles.SelectedCount > 0 then
   begin
@@ -12565,8 +12552,9 @@ begin
         //check tags before selection
         if mmo.SelStart > 0 then
         begin
-          tagPos := SmartPos(tag, Text, False, mmo.SelStart, False);
-          closeTagPos := SmartPos(closeTag, Text, False, mmo.SelStart, False);
+          StringPart := StrLeft(Text, mmo.SelStart);
+          tagPos := StrILastPos(tag, StringPart);
+          closeTagPos := StrILastPos(closeTag, StringPart);
         end else
         begin
           tagPos := 0;
@@ -12576,8 +12564,8 @@ begin
           insertTag := False else
           insertTag := True;
         //check tags after selection
-        tagPos := SmartPos(tag, Text, False, mmo.SelStart+mmo.SelLength+2-Length(closeTag));
-        closeTagPos := SmartPos(closeTag, Text, False, mmo.SelStart+mmo.SelLength+2-Length(closeTag));
+        tagPos := StrFind(tag, Text, mmo.SelStart+mmo.SelLength+2-Length(closeTag));
+        closeTagPos := StrFind(closeTag, Text, mmo.SelStart+mmo.SelLength+2-Length(closeTag));
         if (closeTagPos > 0) and ((closeTagPos<tagPos) or (tagPos=0)) then
           insertCloseTag := False else
           insertCloseTag := True;
@@ -12706,21 +12694,24 @@ var
   posOpenTag, posCloseTag: Integer;
   posOpenTag2, posCloseTag2: Integer;
   tagInSelText: Boolean;
+  StringPart: String;
 begin
   if mmo.SelLength = 0 then
   begin
-    posOpenTag := SmartPos(openTag, mmo.Text, False, mmo.SelStart, False);
-    posCloseTag := SmartPos(closeTag, mmo.Text, False, mmo.SelStart, False);
+    StringPart := StrLeft(mmo.Text, mmo.SelStart);
+    posOpenTag := StrILastPos(openTag, StringPart);
+    posCloseTag := StrILastPos(closeTag, StringPart);
     if (posOpenTag > 0) and (posOpenTag > posCloseTag) then
       tb.Down := True else
       tb.Down := False;
   end else
   begin
-    posOpenTag := SmartPos(openTag, mmo.Text, False, mmo.SelStart + 1, False);
-    posCloseTag := SmartPos(closeTag, mmo.Text, False, mmo.SelStart + 1, False);
-    posCloseTag2 := SmartPos(closeTag, mmo.Text, False, mmo.SelStart + mmo.SelLength);
-    posOpenTag2 := SmartPos(openTag, mmo.Text, False, mmo.SelStart + mmo.SelLength);
-    tagInSelText := (SmartPos(closeTag, mmo.SelText, False) > 0) or (SmartPos(openTag, mmo.SelText, False) > 0);
+    StringPart := StrLeft(mmo.Text, mmo.SelStart + 1);
+    posOpenTag := StrILastPos(openTag, StringPart);
+    posCloseTag := StrILastPos(closeTag, StringPart);
+    posCloseTag2 := StrFind(closeTag, mmo.Text, mmo.SelStart + mmo.SelLength);
+    posOpenTag2 := StrFind(openTag, mmo.Text, mmo.SelStart + mmo.SelLength);
+    tagInSelText := (StrIPos(closeTag, mmo.SelText) > 0) or (StrIPos(openTag, mmo.SelText) > 0);
     if (posOpenTag > posCloseTag) and ((posCloseTag2 < posOpenTag2) or (posOpenTag2 = 0)) and not tagInSelText then
       tb.Down := True else
       tb.Down := False;
