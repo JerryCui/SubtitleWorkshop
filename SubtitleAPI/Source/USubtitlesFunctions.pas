@@ -13,7 +13,7 @@ interface
 uses
   Classes, //added by adenry for TStrings 2013.04.11
   Windows, //added by adenry for GetRValue, GetGValue, GetBValue 2013.04.11
-  SysUtils, Math, FastStrings;
+  SysUtils, Math, StrUtils, jclStrings;
 
 // -----------------------------------------------------------------------------
 
@@ -73,13 +73,13 @@ begin
   end;
 
   if Color = True then begin
-    while SmartPos('<c:#', Text, False) > 0 Do
+    while StrIPos('<c:#', Text) > 0 Do
       //Delete(Text, SmartPos('<c:#', Text, False), Pos('>', Copy(Text, SmartPos('<c:#', Text, False), Length(Text)))); //removed by adenry 2013.04.11
     //added by adenry: begin 2013.04.11
     begin
-      p := Pos('>', Copy(Text, SmartPos('<c:#', Text, False), Length(Text)));
+      p := Pos('>', Copy(Text, StrIPos('<c:#', Text), Length(Text)));
       if p > 0 then //avoid infinite loop
-        Delete(Text, SmartPos('<c:#', Text, False), p) else
+        Delete(Text, StrIPos('<c:#', Text), p) else
         break;
     end;
     //added by adenry: end
@@ -106,45 +106,11 @@ end;
 // -----------------------------------------------------------------------------
 
 function StringCount(const aFindString, aSourceString : {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; Const CaseSensitive : Boolean = TRUE) : Integer;
-var
-  Find,
-  Source,
-  NextPos                     : {$IFDEF UTF8}PWideChar{$ELSE}PChar{$ENDIF};
-  LSource,
-  LFind                       : Integer;
-  Next                        : TFastPosProc;
-  JumpTable                   : TBMJumpTable;
 begin
-  Result := 0;
-  LSource := Length(aSourceString);
-  if LSource = 0 then exit;
-
-  LFind := Length(aFindString);
-  if LFind = 0 then exit;
-
   if CaseSensitive then
-  begin
-    Next := BMPos;
-    MakeBMTable({$IFDEF UTF8}PWideChar{$ELSE}PChar{$ENDIF}(aFindString), Length(aFindString), JumpTable);
-  end
+    Result := StrStrCount(aSourceString, aFindString)
   else
-  begin
-    Next := BMPosNoCase;
-    MakeBMTableNoCase(PChar(aFindString), Length(aFindString), JumpTable);
-  end;
-
-  Source := @aSourceString[1];
-  Find := @aFindString[1];
-
-  repeat
-    NextPos := Next(Source, Find, LSource, LFind, JumpTable);
-    if NextPos <> nil then
-    begin
-      Dec(LSource, (NextPos - Source) + LFind);
-      Inc(Result);
-      Source := NextPos + LFind;
-    end;
-  until NextPos = nil;
+    Result := StrStrCount(AnsiLowerCase(aSourceString), AnsiLowerCase(aFindString))
 end;
 
 // -----------------------------------------------------------------------------
@@ -473,7 +439,7 @@ end;
 
 function ReplaceEnters(const S, NewPattern: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}): {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
 begin
-  Result := FastReplace(S, #13#10, NewPattern);
+  Result := StringReplace(S, #13#10, NewPattern, [rfReplaceAll]);
 end;
 
 // -----------------------------------------------------------------------------
@@ -485,7 +451,7 @@ begin
   Flags := [];
   If ReplaceAll = True Then Flags := Flags + [rfReplaceAll];
   If IgnoreCase = True Then Flags := Flags + [rfIgnoreCase];
-  Result := FastAnsiReplace(S, OldPattern, NewPattern, Flags);
+  Result := StringReplace(S, OldPattern, NewPattern, Flags);
 end;
 
 // -----------------------------------------------------------------------------
@@ -560,13 +526,13 @@ begin
   i := Pos('\', Text);
   if i > 0 then
   begin
-    c := SmartPos(' ', Text, True, i);
+    c := PosEx(' ', Text, i);
     while (i > 0) and (c > 0) do
     begin
       Delete(Text, i, c-i+1);
       i := Pos('\', Text);
       if i > 0 then
-        c := SmartPos(' ', Text, True, i) else
+        c := PosEx(' ', Text, i) else
         c := 0;
     end;
   end; 
@@ -660,7 +626,7 @@ begin
   TagPos := Pos('<c:#', Text);
   if TagPos <> 0 then
   begin
-    Color := Copy(Text, TagPos, SmartPos('>', Text, True, TagPos+4) - TagPos + 1);
+    Color := Copy(Text, TagPos, PosEx('>', Text, TagPos+4) - TagPos + 1);
     Text := Color + RemoveSWTags(Text, False, False, False, True);
     if CloseTags then Text := Text + '</c>';
   end;
