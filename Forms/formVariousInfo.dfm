@@ -1,10 +1,10 @@
 object frmVariousInfo: TfrmVariousInfo
   Left = 370
   Top = 558
-  Width = 608
-  Height = 336
   BorderIcons = [biSystemMenu]
   Caption = 'frmVariousInfo'
+  ClientHeight = 298
+  ClientWidth = 592
   Color = clBtnFace
   Constraints.MinHeight = 336
   Constraints.MinWidth = 513
@@ -21,8 +21,8 @@ object frmVariousInfo: TfrmVariousInfo
   OnResize = FormResize
   OnShow = FormShow
   DesignSize = (
-    600
-    302)
+    592
+    298)
   PixelsPerInch = 96
   TextHeight = 13
   object pgeCtrl: TPageControl
@@ -53,6 +53,7 @@ object frmVariousInfo: TfrmVariousInfo
         Header.Font.Height = -11
         Header.Font.Name = 'Tahoma'
         Header.Font.Style = []
+        Header.Height = 17
         Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoRestrictDrag]
         Header.Style = hsPlates
         HintMode = hmHintAndDefault
@@ -126,7 +127,7 @@ object frmVariousInfo: TfrmVariousInfo
           Width = 225
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 2
         end
         object chkBold: TCheckBox

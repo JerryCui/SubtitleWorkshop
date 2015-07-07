@@ -11,7 +11,6 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, IniFiles, ComCtrls, Math,
   VirtualTrees,
-  StrMan,
   CommonTypes;
 
 type
@@ -137,7 +136,7 @@ begin
       // Duration = Tcharacter x Ncharacters + Tword x Nwords + Tline x Nlines
       NewDuration := (
                       udMSPerCharacter.Position * (Length(Text) - StringCount(' ', Text) - StringCount(#13#10, Text)*2) + //() added by adenry to fix a bug
-                      udMSPerWord.Position      * sm.CountWords(Text) +
+                      udMSPerWord.Position      * CountWords(Text) +
                       udMSPerLine.Position      * (StringCount(#13#10, Text)+1)
                       );
     end else

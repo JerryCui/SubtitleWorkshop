@@ -64,7 +64,6 @@ uses
   DXTypes in 'Lib\DirectX\DXTypes.pas',
   HTMLPars in 'Lib\HTMLPars.pas',
   RegExpr in 'Lib\RegExpr.pas',
-  StrMan in 'Lib\StrMan.pas',
   WinShell in 'Lib\WinShell.pas';
 
 {$R *.res}

@@ -15,6 +15,10 @@ uses
 
 // -----------------------------------------------------------------------------
 
+type
+  TCharSet = set of Char;
+  TOpenIntegerArray = array of Integer;
+
 var
   ID_VERSION: string;
   ID_BUILD: string;
@@ -40,6 +44,8 @@ const
                                  ':', ';', '<', '=', '>', '¿', '?', '@', '[', '\', ']', '^', '_', '`',
                                  '{', '|', '}', '~', '€', '‚', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', '‹',// '«', '»', //last two added by adenry
                                  '‘', '’', '“', '”', '•', '-', '—', '˜', '™', '›', #13, #10, ' ', ',']; //',' added by adenry
+
+  gcWordDelims     = [#1..#47,#58..#64,#91..#96,#123..#126,'¡','¿']-['`'];
 
   Alphanumeric: set of Char = ['a'..'z', 'A'..'Z', '0'..'9']; //added by adenry
   HexChars: set of Char = ['A'..'F', 'a'..'f' , '0'..'9']; //added by adenry
@@ -176,6 +182,13 @@ procedure ShowMsg(msg: String); //added by adenry
 procedure Note(Text: String); //added by adenry for test purposes
 procedure SplitDelimitedString(Delimiter: Char; Str: string; ListOfStrings: TStrings); //added by adenry
 function GetVideoFilesFilterString: String; //added by adenry
+
+// StrMan.pas replacements
+
+function CountLines(const s: String): Integer;
+function CountWords(const s : String; const Delims : TCharSet = gcWordDelims): Integer;
+function Replace(Text, This, ByThis: String; CaseSensitive, WholeWords, PreserveCase: Boolean): String;
+
 
 // -----------------------------------------------------------------------------
 
@@ -2481,6 +2494,120 @@ begin
 
   FileVersionInfo.Free;
 end;
+
+function CountLines(const s: String): Integer;
+var
+  p: PChar;
+begin
+  Result := 1;
+  p := PChar(s);
+  if p=nil then Exit;
+  while p^<>#0 do
+  begin
+    if p^ in [#13,#10] then
+    begin
+      if p^=#13 then Inc(p);
+      if p^=#10 then Inc(p);
+      Inc(Result);
+    end;
+    Inc(p);
+  end;
+end;
+
+function CountWords(const s : String; const Delims : TCharSet = gcWordDelims) : Integer;
+var  i : Integer;
+     j : Integer;
+  SLen : Integer;
+begin
+  Result := 0;
+  SLen := Length(s);
+  i := 1;
+  while i<=SLen do
+  begin
+    while (i<=SLen) and (s[i] in Delims) do Inc(i);
+    j := i;
+    while (i<=SLen) and (not (s[i] in Delims)) do Inc(i);
+    if i-j>0 then Inc(Result);
+  end;
+end;
+
+function PreserveStringCase(const This, ByThis: String): String;
+var
+  StrLength, I: Integer;
+begin
+  Result := This;
+
+  if (This = '') or (ByThis = '') then
+    Exit;
+
+  StrLength := Length(This);
+  if Length(ByThis) < Length(This) then
+    StrLength := Length(ByThis);
+
+  for I := 0 to StrLength do
+    if  CharIsUpper(ByThis[i]) then
+      Result[i] := CharUpper(Result[i])
+    else
+      Result[i] := CharLower(Result[i]);
+
+end;
+
+
+function Replace(Text, This, ByThis: String; CaseSensitive, WholeWords, PreserveCase: Boolean): String;
+
+var
+  aByThis: String;
+  IsWholeWord, IsStartOfWholeWord, IsEndOfWholeWord: Boolean;
+  Found, Offset : Integer;
+  FoundStr: String;
+begin
+  Result := Text;
+
+
+  Offset := 1;
+  Found := 1;
+  IsWholeWord := False;
+
+  while Found <> 0 do
+  begin
+    if CaseSensitive then
+      Found := PosEx(This, Result, Offset)
+    else
+      Found := PosEx(AnsiLowerCase(This), AnsiLowerCase(Result), Offset);
+    // Not found
+    if Found = 0 then
+      break;
+
+    // Is whole word
+    if WholeWords then
+    begin
+      IsStartOfWholeWord := not CharIsAlphaNum(Result[Found-1]);
+      IsEndOfWholeWord    := not CharIsAlphaNum(Result[Found + Length(This)]);
+      IsWholeWord := IsStartOfWholeWord and IsEndOfWholeWord;
+
+{      ShowMessage('Start = ' + BoolToStr(IsStartOfWholeWord, True) +
+        ' , end = ' + BoolToStr(IsEndOfWholeWord, True) + ', whole = ' + BoolToStr(IsWholeWord, True));}
+    end;
+      // Preserve case
+    if PreserveCase then
+    begin
+      FoundStr := Copy(Result, Found, Length(This));
+      aByThis := PreserveStringCase(ByThis, FoundStr);
+    end
+    else
+      aByThis := ByThis;
+
+    if (WholeWords and (IsWholeWord)) or (not WholeWords) then
+    begin
+      Delete(Result, Found, Length(This));
+      Insert(aByThis, Result, Found);
+    end;
+
+    Offset := Found + Length(ByThis);
+
+  end;
+end;
+
 
 initialization
 

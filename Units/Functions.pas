@@ -10,8 +10,7 @@ interface
 
 uses
   Forms, Windows, Classes, SysUtils, StdCtrls, Mask, IniFiles, ComCtrls, ExtCtrls, ShellApi, Controls, Math, Graphics, {JvRichEditToHtml,} Messages, RichEdit, ClipBrd, //Graphics, JvRichEditToHtml, Messages, RichEdit, ClipBrd added by adenry
-  VirtualTrees, jclStrings, StrUtils,
-  StrMan,
+  VirtualTrees, jclStrings, StrUtils, General,
   CommonTypes;
 
 // -----------------------------------------------------------------------------
@@ -119,7 +118,7 @@ function TrimSpacesAndNewLinesOnly(S: String): String; //added by adenry
 implementation
 
 uses
-  General, USubtitlesFunctions, TreeViewHandle, Undo, InfoErrorsFunctions, //USubtitleApi, //InfoErrorsFunctions added by adenry //USubtitleApi removed by adenry
+  USubtitlesFunctions, TreeViewHandle, Undo, InfoErrorsFunctions, //USubtitleApi, //InfoErrorsFunctions added by adenry //USubtitleApi removed by adenry
   formMain, formSaveAs;
 
 // -----------------------------------------------------------------------------
@@ -1219,7 +1218,7 @@ end;
 function Replace(Text, This, ByThis: String; CaseSensitive, WholeWords, PreserveCase: Boolean): String;
 begin
   if ByThis = '' then PreserveCase := False;
-  Result := sm.Replace(This, ByThis, Text, not CaseSensitive, WholeWords, PreserveCase);
+  Result := Replace(This, ByThis, Text, not CaseSensitive, WholeWords, PreserveCase);
 end;
 
 // -----------------------------------------------------------------------------

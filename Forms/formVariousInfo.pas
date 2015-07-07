@@ -13,7 +13,6 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, FileCtrl, Math, StdCtrls, ExtCtrls, ComCtrls, IniFiles,
   VirtualTrees,
-  StrMan,
   CommonTypes;
 
 type
@@ -749,14 +748,14 @@ begin
         SubText := Data.Text;
       SubText := RemoveSWTags(SubText, True, True, True, True); // Important!!: Remove tags before checking!
       //Lines
-      Inc(TotalLines, sm.CountLines(SubText));
-      case sm.CountLines(SubText) of
+      Inc(TotalLines, CountLines(SubText));
+      case CountLines(SubText) of
         1: Inc(Tot1LSubs);
         2: Inc(Tot2LSubs);
         3: Inc(TotMore2LSubs);
       end;
       //Total words
-      Inc(TotalWords, sm.CountWords(SubText));
+      Inc(TotalWords, CountWords(SubText));
       //Total letters
       Inc(TotalLetters, Length(SubText) - (StringCount(#13#10, SubText) * 2) - (StringCount(' ', SubText)));
       //Longest line

@@ -10,7 +10,7 @@ interface
 
 uses
   Forms, SysUtils, Windows, Graphics, Math, Controls, //Graphics added by adenry for TColor type use //Math added by adenry to use SimpleRoundTo //Controls added by adenry to use TCursor type
-  VirtualTrees, StrMan, StrUtils, //RegExpr, HTMLPars, //RegExpr, HTMLPars removed by adenry
+  VirtualTrees, StrUtils, //RegExpr, HTMLPars, //RegExpr, HTMLPars removed by adenry
   CommonTypes, jclStrings;
 
 // -----------------------------------------------------------------------------
@@ -342,7 +342,7 @@ var
 begin
   Result := False;
   if (Length(Text) = 0) then exit;
-  if (sm.Trim(Text) = '') then
+  if (Trim(Text) = '') then
   begin
     Result := True;
     exit;
@@ -1153,7 +1153,7 @@ function RemoveTextBeforeColon(Text: String; CapitalLetters: Boolean): String;
         if IsUpperCase(txt) or not CapitalLetters then
         begin
           //save dash
-          dash := Copy(sm.TrimLeft(txt), 1, 2);
+          dash := Copy(TrimLeft(txt), 1, 2);
           if Length(dash) > 0 then
           begin
             if dash[1] in dashes then
@@ -1172,7 +1172,7 @@ function RemoveTextBeforeColon(Text: String; CapitalLetters: Boolean): String;
         //added by adenry: end
       end;
     end;
-    Result := sm.TrimRight(Line);
+    Result := TrimRight(Line);
   end;
 var
   PosEnter : Integer;
@@ -1336,7 +1336,7 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
       if (EntersAndSpacesBeginningEnd in ErrorsToFix.eWhatUnnecessarySpaces) or ForceFix then
       begin
         if ForceFix then Line := TrimSpacesAndNewLinesOnly(Line) else //added by adenry
-        Line := sm.Trim(Line);
+        Line := Trim(Line);
         //added by adenry: begin
         if SubtitleApi.MultiTagsMode then
         begin

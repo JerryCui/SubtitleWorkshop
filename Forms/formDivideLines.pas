@@ -11,8 +11,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, Mask, ExtCtrls, ComCtrls, Math, IniFiles, Menus, ClipBrd, //ClipBrd added by adenry
   VirtualTrees, TimeMaskEdit,
-  StrMan,
-  CommonTypes;
+  CommonTypes, General;
 
 type
   TfrmDivideLines = class(TForm)
@@ -95,7 +94,7 @@ var
 implementation
 
 uses
-  General, Functions, TreeViewHandle, USubtitlesFunctions, Undo, VideoPreview, //VideoPreview added by adenry
+  Functions, TreeViewHandle, USubtitlesFunctions, Undo, VideoPreview, //VideoPreview added by adenry
   formMain;
 
 {$R *.dfm}
