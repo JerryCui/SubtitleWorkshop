@@ -302,8 +302,8 @@ begin
   Min  := Trunc((Time-(Hour*3600000)) / 60000);
   Sec  := Trunc((Time-(Hour*3600000)-(Min*60000)) / 1000);
   MSec := Trunc((Time-(Hour*3600000)-(Min*60000)-(Sec*1000)));
-
-  if TimeFormat = 'hh:mm:ss' then
+  Result := FormatDateTime(TimeFormat, EncodeTime(Hour, Min, Sec, MSec));
+{  if TimeFormat = 'hh:mm:ss' then
     Result := Format('%.2d:%.2d:%.2d', [Hour, Min, Sec])
   else
   begin
@@ -323,7 +323,7 @@ begin
       TimeFormat := Copy(ReplaceString(TimeFormat, StringOfChar('z', tmpApariciones), Copy(PadLeft(IntToStr(MSec), '0', 3), 0, tmpApariciones)), 0, tmp + tmpApariciones-1);
     end;
     Result := TimeFormat;
-  end;
+  end; }
 end;
 
 // -----------------------------------------------------------------------------
