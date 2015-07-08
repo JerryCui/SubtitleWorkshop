@@ -328,6 +328,7 @@ end;
 
 // -----------------------------------------------------------------------------
 
+//TODO: f (frame) format specifier used only for CAVENA, not implemented yet
 function TimeToString(Time: Integer; TimeFormat: String = {$IFDEF VIPLAY}'hh:mm:ss'{$ELSE}'hh:mm:ss,zzz'{$ENDIF}): String;
 var
   Hour, Min, Sec, MSec, Fram : Word;
@@ -340,7 +341,7 @@ begin
   MSec := Trunc((Time-(Hour*3600000)-(Min*60000)-(Sec*1000)));
   Fram := Trunc(Msec/41.667);
 
-  if TimeFormat = 'hh:mm:ss' then
+{  if TimeFormat = 'hh:mm:ss' then
     Result := Format('%.2d:%.2d:%.2d', [Hour, Min, Sec])
   else
   begin
@@ -361,9 +362,10 @@ begin
     begin
       tmp := Pos('z', TimeFormat);
       TimeFormat := Copy(ReplaceString(TimeFormat, StringOfChar('z', tmpApariciones), Copy(PadLeft(IntToStr(MSec), '0', 3), 0, tmpApariciones)), 0, tmp + tmpApariciones-1);
-    end;
+    end;}
+    Result := FormatDateTime(TimeFormat, EncodeTime(Hour, Min, Sec, MSec));
 
-    tmpApariciones := StringCount('f', TimeFormat);
+ {   tmpApariciones := StringCount('f', TimeFormat);
     If tmpApariciones > 0 then
     begin
       tmp := Pos('f', TimeFormat);
@@ -371,7 +373,7 @@ begin
     end;
 
     Result := TimeFormat;
-  end;
+  end; }
 end;
 
 // -----------------------------------------------------------------------------
