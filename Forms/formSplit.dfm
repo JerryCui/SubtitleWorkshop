@@ -57,7 +57,7 @@ object frmSplit: TfrmSplit
     Top = 8
     Width = 409
     Height = 329
-    ActivePage = pgeSimple
+    ActivePage = pgeAdvanced
     Style = tsFlatButtons
     TabOrder = 3
     object pgeSimple: TTabSheet
@@ -207,10 +207,6 @@ object frmSplit: TfrmSplit
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object rdoEndOfVideos: TRadioButton
         Left = 0
         Top = 192
@@ -311,7 +307,6 @@ object frmSplit: TfrmSplit
           Top = 44
           Width = 81
           Height = 21
-          ItemHeight = 0
           Sorted = True
           TabOrder = 2
           OnChange = cmbSuffixNameChange
@@ -349,7 +344,7 @@ object frmSplit: TfrmSplit
           item
             Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible]
             Position = 0
-            Width = 251
+            Width = 247
             WideText = 'Filename'
           end
           item
@@ -388,7 +383,6 @@ object frmSplit: TfrmSplit
       Width = 273
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
       Sorted = True
       TabOrder = 0
       OnChange = cmbOutputFormatChange

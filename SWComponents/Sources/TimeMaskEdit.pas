@@ -56,7 +56,7 @@ type
     procedure SetEditRect;
     function GetMinHeight: Integer;
     procedure UDButton(const Up: Boolean);
-    procedure UpDownChangingEx(Sender: TObject; var AllowChange: Boolean; NewValue: SmallInt; Direction: TUpDownDirection);
+    procedure UpDownChangingEx(Sender: TObject; var AllowChange: Boolean; NewValue: Integer; Direction: TUpDownDirection);
     procedure SetTimeStep(const NewTimeStep: Word); //added by adenry
     procedure SetFramesStep(const NewFramesStep: Word); //added by adenry
     procedure SetAlignment(Value: TAlignment);  //added by adenry
@@ -533,7 +533,7 @@ end;
 
 // -----------------------------------------------------------------------------
 
-procedure TTimeMaskEdit.UpDownChangingEx(Sender: TObject; var AllowChange: Boolean; NewValue: SmallInt; Direction: TUpDownDirection);
+procedure TTimeMaskEdit.UpDownChangingEx(Sender: TObject; var AllowChange: Boolean; NewValue: Integer; Direction: TUpDownDirection);
 begin
   if (ReadOnly = False) then
     UDButton(Direction = updUp);

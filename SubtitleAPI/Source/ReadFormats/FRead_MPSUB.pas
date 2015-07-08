@@ -12,7 +12,7 @@ function FileToSubtitles_MPSUB(var Subtitles: TSubtitles; tmpSubFile: TSubtitleF
     for i := 1 to Length(Text) do
     begin
       if (Text[i] in ['0'..'9']) = False then
-        Text[i] := DecimalSeparator;
+        Text[i] := FormatSettings.DecimalSeparator;
     end;
     Result := Text;
   end;

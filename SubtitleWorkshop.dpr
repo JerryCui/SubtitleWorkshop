@@ -64,7 +64,9 @@ uses
   DXTypes in 'Lib\DirectX\DXTypes.pas',
   HTMLPars in 'Lib\HTMLPars.pas',
   RegExpr in 'Lib\RegExpr.pas',
-  WinShell in 'Lib\WinShell.pas';
+  WinShell in 'Lib\WinShell.pas',
+  SymbolDlg in 'SWComponents\Sources\SymbolDlg.pas',
+  formSymbolDlg in 'SWComponents\Sources\formSymbolDlg.pas' {frmSymbolDlg};
 
 {$R *.res}
 

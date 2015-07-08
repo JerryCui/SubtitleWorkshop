@@ -14,11 +14,11 @@ var
 begin
   c          := 1;
   Result     := True;
-  dc         := DecimalSeparator;
+  dc         := FormatSettings.DecimalSeparator;
   tmpSubFile := TSubtitleFile.Create;
 
   try
-    DecimalSeparator := '.';
+    FormatSettings.DecimalSeparator := '.';
 
     for i := From to UpTo do
     begin
@@ -57,6 +57,6 @@ begin
     end;
   finally
     tmpSubFile.Free;
-    DecimalSeparator := dc;
+    FormatSettings.DecimalSeparator := dc;
   end;
 end;

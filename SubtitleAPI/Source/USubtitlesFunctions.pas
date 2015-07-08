@@ -31,7 +31,7 @@ function TimeToString   (Time: Integer; TimeFormat: String = {$IFDEF VIPLAY}'hh:
 //function StringToTime   (Time: String; NoHours: Boolean = False): Integer;
 function StringToTime   (Time: String; NoHours: Boolean = False; FramesInstead: Boolean = False): Integer;    // by Bedazzle 2007.05.13
 function TimeInFormat   (Time, Format: String): Boolean;
-function PadLeft        (const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; const PadChar: {$IFDEF UTF8}WideChar{$ELSE}AnsiChar{$ENDIF}; const Length: Integer; const Cut: Boolean = False): String;
+function PadLeft        (const S: String; const PadChar: Char; const Length: Integer; const Cut: Boolean = False): String;
 function PadRight       (const S: {$IFDEF UTF8}WideString{$ELSE}AnsiString{$ENDIF}; const PadChar: {$IFDEF UTF8}WideChar{$ELSE}AnsiChar{$ENDIF}; const Length: Integer; const Cut: Boolean): {$IFDEF UTF8}WideString{$ELSE}AnsiString{$ENDIF};
 function LimitDecimals  (Num: Real; Limit: Integer): {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
 function ReverseText    (Text: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; KeepLinesOrder: Boolean = True) : {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
@@ -231,7 +231,7 @@ end;
 
 // -----------------------------------------------------------------------------
 
-function PadLeft(const S : {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; const PadChar : {$IFDEF UTF8}WideChar{$ELSE}Char{$ENDIF}; const Length : Integer; const Cut : Boolean = False) : String;
+function PadLeft(const S : String; const PadChar : Char; const Length : Integer; const Cut : Boolean = False) : String;
 var
   F, L, P, M : Integer;
   I, J : {$IFDEF UTF8}PWideChar{$ELSE}PChar{$ENDIF};

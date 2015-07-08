@@ -19,8 +19,6 @@ uses
 //  Charset / Wide String  //
 // ------------------------//
 function CharSetToCodePage(ciCharset: UINT): Cardinal;
-function StringToWideStringEx(const S: string; CodePage: Word): WideString;
-function WideStringToStringEx(const WS: WideString; CodePage: Word): AnsiString;
 // ------------------------------------------------//
 //   Getting nodes and columns, nodes selection    //
 // ------------------------------------------------//
@@ -92,33 +90,6 @@ begin
   end;
 end;
 
-// -----------------------------------------------------------------------------
-
-//Convert an ANSI string to a Wide string
-function StringToWideStringEx(const S: string; CodePage: Word): WideString;
-var
-  InputLength,
-  OutputLength: Integer;
-begin
-  InputLength := Length(S);
-  OutputLength := MultiByteToWideChar(CodePage, 0, PChar(S), InputLength, nil, 0);
-  SetLength(Result, OutputLength);
-  MultiByteToWideChar(CodePage, 0, PChar(S), InputLength, PWideChar(Result), OutputLength);
-end;
-
-// -----------------------------------------------------------------------------
-
-//Convert an Wide string to an ANSI string
-function WideStringToStringEx(const WS: WideString; CodePage: Word): AnsiString;
-var
-  InputLength,
-  OutputLength: Integer;
-begin
-  InputLength := Length(WS);
-  OutputLength := WideCharToMultiByte(CodePage, 0, PWideChar(WS), InputLength, nil, 0, nil, nil);
-  SetLength(Result, OutputLength);
-  WideCharToMultiByte(CodePage, 0, PWideChar(WS), InputLength, PAnsiChar(Result), OutputLength, nil, nil);
-end;
 
 // -----------------------------------------------------------------------------
 

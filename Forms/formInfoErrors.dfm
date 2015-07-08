@@ -1115,7 +1115,6 @@ object frmInfoErrors: TfrmInfoErrors
         AutoComplete = False
         Anchors = [akTop, akRight]
         DropDownCount = 12
-        ItemHeight = 13
         ParentShowHint = False
         ShowHint = True
         TabOrder = 6
@@ -1187,7 +1186,6 @@ object frmInfoErrors: TfrmInfoErrors
         Hint = 'Custom info sets'
         AutoComplete = False
         Anchors = [akTop, akRight]
-        ItemHeight = 13
         ParentShowHint = False
         ShowHint = True
         TabOrder = 1

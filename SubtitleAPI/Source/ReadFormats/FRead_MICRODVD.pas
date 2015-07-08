@@ -146,11 +146,11 @@ begin
       // DivXG400 FPS Info tag
       if Copy(tmpSubFile[i], 1, 6) = '{1}{1}' then
       begin
-        DecimalSep       := DecimalSeparator;
-        DecimalSeparator := '.';
-        if IsInteger(Copy(tmpSubFile[i], 7, Length(tmpSubFile[i])), DecimalSeparator) then
+        DecimalSep       := FormatSettings.DecimalSeparator;
+        FormatSettings.DecimalSeparator := '.';
+        if IsInteger(Copy(tmpSubFile[i], 7, Length(tmpSubFile[i])), FormatSettings.DecimalSeparator) then
           FPS := StrToFloat(Copy(tmpSubFile[i], 7, Length(tmpSubFile[i])));
-        DecimalSeparator := DecimalSep;
+        FormatSettings.DecimalSeparator := DecimalSep;
       end else
 
       if (Pos('{', tmpSubFile[i]) = 1) and

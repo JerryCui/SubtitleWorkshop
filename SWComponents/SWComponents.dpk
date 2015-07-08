@@ -7,6 +7,7 @@
 package SWComponents;
 
 {$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
@@ -28,12 +29,14 @@ package SWComponents;
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
+{$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'Subtitle Workshop Components'}
 {$IMPLICITBUILD OFF}
 
 requires
   rtl,
-  vcl;
+  vcl,
+  Jcl;
 
 contains
   SWButton in 'Sources\SWButton.pas',
@@ -45,7 +48,6 @@ contains
   TimeMaskEdit in 'Sources\TimeMaskEdit.pas',
   SymbolDlg in 'Sources\SymbolDlg.pas',
   USGraphics in 'Sources\USGraphics.pas',
-  FastStrings in '..\Lib\FastStrings.pas',
   USubtitlesFunctions in '..\Units\USubtitlesFunctions.pas',
   formSymbolDlg in 'Sources\formSymbolDlg.pas';
 

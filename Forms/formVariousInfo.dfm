@@ -127,7 +127,6 @@ object frmVariousInfo: TfrmVariousInfo
           Width = 225
           Height = 21
           Style = csDropDownList
-          ItemHeight = 13
           TabOrder = 2
         end
         object chkBold: TCheckBox

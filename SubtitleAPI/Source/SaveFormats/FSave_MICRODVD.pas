@@ -145,10 +145,10 @@ begin
   tmpSubFile := TSubtitleFile.Create;
   try
     // DivXG400 FPS Info tag
-    DecimalSep       := DecimalSeparator;
-    DecimalSeparator := '.';
+    DecimalSep       := FormatSettings.DecimalSeparator;
+    FormatSettings.DecimalSeparator := '.';
     tmpSubFile.Add(Format('{1}{1}%.3f', [FPS]), False);
-    DecimalSeparator := DecimalSep;
+    FormatSettings.DecimalSeparator := DecimalSep;
 
     for i := From to UpTo do
     begin

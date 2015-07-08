@@ -13,9 +13,8 @@ unit UCheckFormat;
 interface
 
 uses
-  Dialogs, StrUtils,
-  Windows, USubtitleFile, USubtitlesRead, SysUtils
-  {$IFDEF REGEXPR}, RegExpr{$ENDIF}, jclStrings;
+  Vcl.Dialogs, StrUtils,
+  Windows, USubtitleFile, USubtitlesRead, SysUtils, jclStrings;
 
 //------------------------------------------------------------------------------
 

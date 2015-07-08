@@ -11,7 +11,7 @@ unit USubtitlesSave;
 interface
 
 uses
-  Windows, Dialogs, Controls,
+  Windows, Vcl.Dialogs, Vcl.Controls,
   Classes, //added by adenry 2013.04.11 - for TStringList
   USubtitlesRead, USubtitleFile, USubtitlesFunctions, StrUtils, jclStrings,
   SysUtils;

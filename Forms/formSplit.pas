@@ -76,7 +76,7 @@ type
     procedure lstSplitPartsKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure udNumberOfPartsChangingEx(Sender: TObject;
-      var AllowChange: Boolean; NewValue: Smallint;
+      var AllowChange: Boolean; NewValue: Integer;
       Direction: TUpDownDirection);
     procedure rdoSelectedItemClick(Sender: TObject);
     procedure lstSplitPartsGetNodeDataSize(Sender: TBaseVirtualTree;
@@ -85,14 +85,14 @@ type
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure lstSplitPartsGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: String);
     procedure rdoEqualInLinesClick(Sender: TObject);
     procedure lstSplitPartsPaintText(Sender: TBaseVirtualTree;
       const TargetCanvas: TCanvas; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType);
     procedure btnBrowse2Click(Sender: TObject);
     procedure lstSplitPartsNewText(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+      Node: PVirtualNode; Column: TColumnIndex; NewText: String);
     procedure lstSplitPartsFreeNode(Sender: TBaseVirtualTree;
       Node: PVirtualNode);
     procedure FormDestroy(Sender: TObject);
@@ -144,9 +144,9 @@ begin
       edtNameFile1.EditLabel.Caption := Format(ReadString('Split','10','Part %d:'), [1]);
       edtNameFile2.EditLabel.Caption := Format(ReadString('Split','10','Part %d:'), [2]);
       // Advanced mode
-      lstSplitParts.Header.Columns[0].Text := StringToWideStringEx(ReadString('Split','11','FileName'), CharSetToCodePage(frmMain.Font.Charset));
-      lstSplitParts.Header.Columns[1].Text := StringToWideStringEx(ReadString('Split','12','Length'), CharSetToCodePage(frmMain.Font.Charset));
-      lstSplitParts.Header.Columns[2].Text := StringToWideStringEx(ReadString('Split','13','Lines'), CharSetToCodePage(frmMain.Font.Charset));
+      lstSplitParts.Header.Columns[0].Text := ReadString('Split','11','FileName');
+      lstSplitParts.Header.Columns[1].Text := ReadString('Split','12','Length');
+      lstSplitParts.Header.Columns[2].Text := ReadString('Split','13','Lines');
 
       rdoEqualInTime.Caption               := ReadString('Split','14','Parts equal in time');
       rdoEqualInLines.Caption              := ReadString('Split','15','Parts equal in lines');
@@ -761,7 +761,7 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmSplit.udNumberOfPartsChangingEx(Sender: TObject;
-  var AllowChange: Boolean; NewValue: Smallint;
+  var AllowChange: Boolean; NewValue: Integer;
   Direction: TUpDownDirection);
 begin
   AllowChange := False;
@@ -810,7 +810,7 @@ end;
 
 procedure TfrmSplit.lstSplitPartsGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: String);
 var
  Data: PSubtitlePart;
 begin
@@ -828,7 +828,7 @@ begin
        end else
          CellText := '';
   end;
-  CellText := StringToWideStringEx(CellText, CharSetToCodePage(frmMain.Font.Charset));
+  CellText := CellText;
 end;
 
 // -----------------------------------------------------------------------------
@@ -870,7 +870,7 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmSplit.lstSplitPartsNewText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+  Node: PVirtualNode; Column: TColumnIndex; NewText: String);
 var
   Data: PSubtitlePart;
 begin

@@ -20,7 +20,7 @@ uses
 // --------------------------//
 function StringCount    (const aFindString, aSourceString : string; Const CaseSensitive : Boolean = TRUE): Integer;
 function ReplaceString  (const S, OldPattern, NewPattern: String; ReplaceAll: Boolean = True; IgnoreCase: Boolean = True): String;
-function PadLeft        (const S: String; const PadChar: AnsiChar; const Length: Integer; const Cut: Boolean = False): String;
+function PadLeft        (const S: String; const PadChar: Char; const Length: Integer; const Cut: Boolean = False): String;
 function PadRight       (const S: AnsiString; const PadChar: AnsiChar; const Length: Integer; const Cut: Boolean): AnsiString;
 function IsInteger      (const Str: String; AddChars: String = ''): Boolean;
 //function LimitDecimals  (Num: Real; Limit: Integer): String; //removed by adenry

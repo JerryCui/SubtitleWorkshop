@@ -19,13 +19,13 @@ begin
     tmpSubFile.Add('# CREATOR=Project author', False);
     tmpSubFile.Add('# VIDEO SOURCE=C:\Untitled.avi', False);
     // DATE
-    DateSep         := DateSeparator;
-    DateFor         := ShortDateFormat;
-    DateSeparator   := '-';
-    ShortDateFormat := 'yyyy/mm/dd';
+    DateSep         := FormatSettings.DateSeparator;
+    DateFor         := FormatSettings.ShortDateFormat;
+    FormatSettings.DateSeparator   := '-';
+    FormatSettings.ShortDateFormat := 'yyyy/mm/dd';
     tmpSubFile.Add('# DATE=' + DateToStr(Date), False);
-    DateSeparator   := DateSep;
-    ShortDateFormat := DateFor;
+    FormatSettings.DateSeparator   := DateSep;
+    FormatSettings.ShortDateFormat := DateFor;
     //
     tmpSubFile.Add('# </HEAD>', False);
     tmpSubFile.Add('#', False);

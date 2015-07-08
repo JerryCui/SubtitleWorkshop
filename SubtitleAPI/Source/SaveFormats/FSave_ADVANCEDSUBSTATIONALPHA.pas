@@ -12,8 +12,8 @@ const
   var
     DSep : Char;
   begin
-    DSep := DecimalSeparator;
-    DecimalSeparator := '.';
+    DSep := FormatSettings.DecimalSeparator;
+    FormatSettings.DecimalSeparator := '.';
 
     Result := Format;
     Result := ReplaceString(Result, 'Format: Name',     'Style: Default');
@@ -40,7 +40,7 @@ const
     Result := ReplaceString(Result, ' MarginV',         IntToStr(ASSAttributes.MarginV));
     Result := ReplaceString(Result, ' Encoding',        IntToStr(ASSAttributes.Encoding));
 
-    DecimalSeparator := DSep;
+    FormatSettings.DecimalSeparator := DSep;
   end;
 
   function ConvertFromSWTags(Text: String): String;

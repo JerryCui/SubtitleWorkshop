@@ -147,7 +147,7 @@ end;
 
 // -----------------------------------------------------------------------------
 
-function MessWatch(nCode, wParam, lParam: Integer): Integer; stdcall;
+function MessWatch(nCode: integer; wParam: WPARAM; lParam: LPARAM): LRESULT; stdcall;
 var
   p          : pTCWPRetStruct;
   h          : HWND;

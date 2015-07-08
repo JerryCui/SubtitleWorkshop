@@ -586,7 +586,6 @@ object frmSettings: TfrmSettings
         Width = 145
         Height = 21
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 0
       end
       object gbCharsets: TGroupBox
@@ -615,7 +614,6 @@ object frmSettings: TfrmSettings
           Width = 145
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 0
         end
         object cmbOrgCharset: TComboBox
@@ -624,7 +622,6 @@ object frmSettings: TfrmSettings
           Width = 145
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 1
         end
         object chkShowInMainForm: TCheckBox
@@ -665,7 +662,6 @@ object frmSettings: TfrmSettings
         Width = 241
         Height = 21
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 0
       end
       object chkLstFormatsToShow: TCheckListBox
@@ -860,6 +856,10 @@ object frmSettings: TfrmSettings
       Caption = 'pgeVideoPreview'
       ImageIndex = 4
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblDoubleClickInSub: TLabel
         Left = 0
         Top = 0
@@ -916,7 +916,6 @@ object frmSettings: TfrmSettings
         Width = 361
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         ItemIndex = 2
         TabOrder = 0
         Text = 'Go N second(s) before subtitle in video'
@@ -955,7 +954,6 @@ object frmSettings: TfrmSettings
         Width = 361
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         ItemIndex = 0
         TabOrder = 3
         Text = 'Go subtitle'#39's time in video'
@@ -1004,7 +1002,6 @@ object frmSettings: TfrmSettings
         Width = 97
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         ItemIndex = 4
         TabOrder = 7
         Text = '50%'
@@ -1277,7 +1274,7 @@ object frmSettings: TfrmSettings
         object subSample: TMiSubtitulo
           Left = 121
           Top = 16
-          Width = 120
+          Width = 32
           Height = 28
           Text = 'subSAMPLE'
           Shadow = True
@@ -1520,7 +1517,6 @@ object frmSettings: TfrmSettings
         Height = 21
         Style = csDropDownList
         Enabled = False
-        ItemHeight = 0
         Sorted = True
         TabOrder = 1
       end
@@ -1580,7 +1576,6 @@ object frmSettings: TfrmSettings
         Width = 361
         Height = 22
         Style = csOwnerDrawFixed
-        ItemHeight = 16
         TabOrder = 0
         OnDrawItem = cmbFontsDrawItem
       end
@@ -1609,7 +1604,6 @@ object frmSettings: TfrmSettings
         Width = 169
         Height = 21
         Style = csDropDownList
-        ItemHeight = 0
         TabOrder = 3
       end
       object chkSmartResize: TCheckBox
@@ -1852,7 +1846,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 0
         end
         object cmbShowColAlign: TComboBox
@@ -1861,7 +1854,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 1
         end
         object cmbHideColAlign: TComboBox
@@ -1870,7 +1862,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 2
         end
         object cmbDurColAlign: TComboBox
@@ -1879,7 +1870,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 3
         end
         object cmbTransColAlign: TComboBox
@@ -1888,7 +1878,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 4
         end
         object cmbTextColAlign: TComboBox
@@ -1897,7 +1886,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 5
         end
         object cmbDurColStyle: TComboBox
@@ -1906,7 +1894,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 6
         end
         object cmbHideColStyle: TComboBox
@@ -1915,7 +1902,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 7
         end
         object cmbShowColStyle: TComboBox
@@ -1924,7 +1910,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 8
         end
         object cmbNumColStyle: TComboBox
@@ -1933,7 +1918,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 9
         end
         object cmbPauseColAlign: TComboBox
@@ -1942,7 +1926,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 10
         end
         object cmbPauseColStyle: TComboBox
@@ -1951,7 +1934,6 @@ object frmSettings: TfrmSettings
           Width = 105
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 11
         end
       end

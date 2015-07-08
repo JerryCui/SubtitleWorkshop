@@ -9,7 +9,7 @@ unit InfoErrorsFunctions;
 interface
 
 uses
-  Forms, SysUtils, Windows, Graphics, Math, Controls, //Graphics added by adenry for TColor type use //Math added by adenry to use SimpleRoundTo //Controls added by adenry to use TCursor type
+  Forms, SysUtils, Dialogs, Windows, Graphics, Math, Controls, //Graphics added by adenry for TColor type use //Math added by adenry to use SimpleRoundTo //Controls added by adenry to use TCursor type
   VirtualTrees, StrUtils, //RegExpr, HTMLPars, //RegExpr, HTMLPars removed by adenry
   CommonTypes, jclStrings;
 
@@ -670,7 +670,6 @@ begin
   if Assigned(Previous) then
     DataP := frmMain.lstSubtitles.GetNodeData(Previous);
   SubText := RemoveSWTags(Data.Text, True, True, True, True);
-
   //Data.ErrorType := []; //removed by adenry
 
   //added by adenry: begin
@@ -686,7 +685,6 @@ begin
         Data.ErrorType := Data.ErrorType - [TErrorType(i)];
   end;
   //added by adenry: end
-
   // --------------------- //
   // Lines without letters //
   // --------------------- //
@@ -705,7 +703,7 @@ begin
   begin
     if IsEmpty(SubText) then
       Data.ErrorType := Data.ErrorType + [etEmptySubtitle];
-  end;    
+  end;
 
   // ----------- //
   // Overlapping //
@@ -749,7 +747,6 @@ begin
     if HasTextBeforeColon(SubText, ErrorsToCheck.eOnlyIfCapitalLetters) then
       Data.ErrorType := Data.ErrorType + [etTextBeforeColon];
   end;
-
   // ---------------- //
   // Unnecessary dots //
   // ---------------- //
@@ -759,7 +756,6 @@ begin
     if HasUnnecessaryDots(SubText) then
       Data.ErrorType := Data.ErrorType + [etUnnecessaryDots];
   end;
-
   // ----------------------- //
   // Subtitle over two lines //
   // ----------------------- //

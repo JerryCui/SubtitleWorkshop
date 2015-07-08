@@ -16,8 +16,8 @@ begin
 
   c := 0;
   u := 0;
-  DecimalSep := DecimalSeparator;
-  DecimalSeparator := '.';
+  DecimalSep := FormatSettings.DecimalSeparator;
+  FormatSettings.DecimalSeparator := '.';
 
   try
     for i := tmpSubFile.Count-1 downto 0 do
@@ -58,7 +58,7 @@ begin
       end;
     end;
   finally
-    DecimalSeparator := DecimalSep;
+    FormatSettings.DecimalSeparator := DecimalSep;
     if Subtitles.Count > 0 then Result := True;
   end;
 end;

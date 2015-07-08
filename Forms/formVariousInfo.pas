@@ -47,7 +47,7 @@ type
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure lstInfoGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: String);
     procedure FormCreate(Sender: TObject);
     procedure btnCalculateClick(Sender: TObject);
     procedure edtWidthKeyPress(Sender: TObject; var Key: Char);
@@ -203,14 +203,14 @@ end;
 
 procedure TfrmVariousInfo.lstInfoGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: String);
 var
   Data: PInfoClass;
 begin
   Data     := Sender.GetNodeData(Node);
   if Column = 0 then
-    CellText := StringToWideStringEx(Data.Info, CharSetToCodePage(frmMain.Font.Charset)) else
-    CellText := StringToWideStringEx(Data.Description, CharSetToCodePage(frmMain.Font.Charset));
+    CellText := Data.Info else
+    CellText := Data.Description;
 end;
 
 // -----------------------------------------------------------------------------

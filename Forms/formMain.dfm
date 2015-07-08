@@ -672,7 +672,7 @@ object frmMain: TfrmMain
         Height = 62
         Alignment = taCenter
         Anchors = [akLeft, akTop, akRight]
-        Font.Charset = ANSI_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
         Font.Name = 'Tahoma'
@@ -681,6 +681,7 @@ object frmMain: TfrmMain
         PlainText = True
         PopupMenu = mnuTextTransPopup
         TabOrder = 2
+        Zoom = 100
         OnChange = mmoTransChange
         OnEnter = mmoTransEnter
         OnExit = mmoTranslationExit
@@ -699,7 +700,7 @@ object frmMain: TfrmMain
         Anchors = [akLeft, akTop, akRight]
         BiDiMode = bdLeftToRight
         Ctl3D = True
-        Font.Charset = ANSI_CHARSET
+        Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
         Font.Name = 'Tahoma'
@@ -710,6 +711,7 @@ object frmMain: TfrmMain
         PlainText = True
         PopupMenu = mnuTextTransPopup
         TabOrder = 0
+        Zoom = 100
         OnChange = mmoSubTextChange
         OnEnter = mmoSubTextEnter
         OnExit = mmoSubtitleTextExit
@@ -925,7 +927,6 @@ object frmMain: TfrmMain
       AutoComplete = False
       Ctl3D = True
       DropDownCount = 12
-      ItemHeight = 13
       ParentCtl3D = False
       Sorted = True
       TabOrder = 2
@@ -940,7 +941,6 @@ object frmMain: TfrmMain
       AutoComplete = False
       Ctl3D = False
       DropDownCount = 12
-      ItemHeight = 13
       ParentCtl3D = False
       Sorted = True
       TabOrder = 1
@@ -982,7 +982,6 @@ object frmMain: TfrmMain
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
       TabOrder = 6
       OnSelect = cmbOrgCharsetSelect
     end
@@ -992,7 +991,6 @@ object frmMain: TfrmMain
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
       TabOrder = 7
       OnSelect = cmbTransCharsetSelect
     end
@@ -1002,7 +1000,6 @@ object frmMain: TfrmMain
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
       TabOrder = 9
       OnSelect = cmbOCRScriptsSelect
     end
@@ -1111,7 +1108,7 @@ object frmMain: TfrmMain
         object subSubtitle: TMiSubtitulo
           Left = 274
           Top = 24
-          Width = 116
+          Width = 32
           Height = 28
           Cursor = crHandPoint
           Text = 'subSubtitle'
@@ -2952,6 +2949,7 @@ object frmMain: TfrmMain
               7373737373737373737373737373737373737373737373737373737373737373
               737373AD947B}
             Max = 1000
+            Position = 0
             Normal.Data = {
               06030000424D060300000000000036000000280000000D000000120000000100
               180000000000D002000000000000000000000000000000000000FF00FFDD6946
@@ -8341,7 +8339,7 @@ object frmMain: TfrmMain
     Left = 200
     Top = 160
     Bitmap = {
-      494C0101310036001C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010131003600340010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -10143,7 +10141,7 @@ object frmMain: TfrmMain
     Left = 232
     Top = 160
     Bitmap = {
-      494C010131003600180010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010131003600300010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

@@ -60,16 +60,16 @@ function GetSubColor(Text: String; OnlyFullTag: Boolean = False): Integer;
 //procedure CopyRTFText(reSource, reDest: TRichEdit); //added by adenry
 //procedure SetRichEditBgColor(RichEdit: TRichEdit; AColor: TColor); //added by adenry
 procedure HighlightTags(re: TRichEdit); //by BDZL
-function GetRichEditText(RichEdit: TRichEdit): AnsiString; //added by adenry
+// function GetRichEditText(RichEdit: TRichEdit): AnsiString; //added by adenry
 //function GetRichEditTextW(RichEdit: TRichEdit): WideString; //added by adenry
-procedure SetRichEditText(RichEdit: TRichEdit; Text: String); //added by adenry
+//procedure SetRichEditText(RichEdit: TRichEdit; Text: String); //added by adenry
 //function GetRichEditSelText(RichEdit: TRichEdit): String; //added by adenry
-procedure SetRichEditSelText(RichEdit: TRichEdit; InsertText: String); //added by adenry
+//procedure SetRichEditSelText(RichEdit: TRichEdit; InsertText: String); //added by adenry
 //TSWTextEdit
-function GetSWTextEditText(SWTextEdit: TSWTextEdit): String; //added by adenry
-procedure SetSWTextEditText(SWTextEdit: TSWTextEdit; Text: String); //added by adenry
+// function GetSWTextEditText(SWTextEdit: TSWTextEdit): String; //added by adenry
+// procedure SetSWTextEditText(SWTextEdit: TSWTextEdit; Text: String); //added by adenry
 //function GetSWTextEditSelText(SWTextEdit: TSWTextEdit): String; //added by adenry
-procedure SetSWTextEditSelText(SWTextEdit: TSWTextEdit; Text: String); //added by adenry
+// procedure SetSWTextEditSelText(SWTextEdit: TSWTextEdit; Text: String); //added by adenry
 //Clipboard
 function GetUnicodeTextFromClipboard: WideString; //added by adenry
 // ---------------------//
@@ -110,7 +110,7 @@ procedure AdjustSubtitles(Points: TClassicSyncPoints; ActionType: Byte);
 function GetLengthForEachLine(Text: String): String;
 function FixRTLPunctuation(S: String): String;
 // ---------------------
-function TrimTimeString(Text: WideString): WideString; //added by adenry
+function TrimTimeString(Text: String): String; //added by adenry
 function TrimSpacesAndNewLinesOnly(S: String): String; //added by adenry
 
 // -----------------------------------------------------------------------------
@@ -303,7 +303,7 @@ begin
 		begin
 			Text := ReplaceString(Text, '<u>', '');
 			Text := ReplaceString(Text, '</u>', '');
-		end;    
+		end;
     if Color = True then
     begin
 			Text := ReplaceString(Text, '</c>', '');
@@ -512,7 +512,7 @@ begin
     end;
     for i := 1 to Length(Text) do
     begin
-      if Pos(Text[i],'0123456789+-E' + DecimalSeparator) = 0 then
+      if Pos(Text[i],'0123456789+-E' + FormatSettings.DecimalSeparator) = 0 then
       begin
         Result := False;
         Break;
@@ -1218,7 +1218,7 @@ end;
 function Replace(Text, This, ByThis: String; CaseSensitive, WholeWords, PreserveCase: Boolean): String;
 begin
   if ByThis = '' then PreserveCase := False;
-  Result := Replace(This, ByThis, Text, not CaseSensitive, WholeWords, PreserveCase);
+  Result := General.Replace(This, ByThis, Text, not CaseSensitive, WholeWords, PreserveCase);
 end;
 
 // -----------------------------------------------------------------------------
@@ -1821,7 +1821,7 @@ end;
 
 //added by adenry: begin
 //trim leading zeros for compact display of time
-function TrimTimeString(Text: WideString): WideString;
+function TrimTimeString(Text: String): String;
 begin
   while Text[1] in [WideChar('0'), WideChar(':')] do
     if Text[2] <> WideChar(',') then

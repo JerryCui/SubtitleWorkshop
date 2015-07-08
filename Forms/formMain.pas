@@ -19,7 +19,7 @@ uses
   uPSC_classes, uPSC_controls, uPSC_graphics, uPSC_stdctrls, uPSC_extctrls,
   uPSC_forms, uPSC_menus, uPSC_dateutils,
   uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
-  uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings;
+  uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings, System.ImageList;
 
 
 type
@@ -494,9 +494,9 @@ type
       Node: PVirtualNode);
     procedure lstSubtitlesGetNodeDataSize(Sender: TBaseVirtualTree;
       var NodeDataSize: Integer);
-    procedure lstSubtitlesGetText(Sender: TBaseVirtualTree;
+{    procedure lstSubtitlesGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: String);}
     procedure FormCreate(Sender: TObject);
     procedure spSplitterMoved(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -593,7 +593,7 @@ type
     procedure mnuReadTextsFromFileClick(Sender: TObject);
     procedure mnuAdjustToSyncSubsClick(Sender: TObject);
 //  procedure lstSubtitlesGetHint(Sender: TBaseVirtualTree;      Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;      var CellText: WideString);  // removed by BDZL
-    procedure lstSubtitlesGetHint(Sender: TBaseVirtualTree;      Node: PVirtualNode; Column: TColumnIndex;          var LineBreakStyle: TVTTooltipLineBreakStyle;      var HintText: WideString);
+    procedure lstSubtitlesGetHint(Sender: TBaseVirtualTree;      Node: PVirtualNode; Column: TColumnIndex;          var LineBreakStyle: TVTTooltipLineBreakStyle;      var HintText: String);
     procedure mnuFixPunctuationClick(Sender: TObject);
     procedure mnuTimeExpanderReducerClick(Sender: TObject);
     procedure mnuAboutSubtitleWorkshopClick(Sender: TObject);
@@ -957,6 +957,8 @@ type
     procedure PSScript1CompImport(Sender: TObject; x: TPSPascalCompiler);
     procedure PSScript1ExecImport(Sender: TObject; se: TPSExec;
       x: TPSRuntimeClassImporter);
+    procedure lstSubtitlesGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
   protected
     procedure CreateParams(var Params: TCreateParams); override;
   private
@@ -968,7 +970,6 @@ type
     procedure mnuOCRScriptClick(Sender: TObject);
     procedure mnuPascalScriptClick(Sender: TObject);
     procedure SetLanguage(LangFile: String);
-    //procedure AppException(Sender: TObject; E: Exception); //moved from here by adenry
     procedure DroppedFile(var Msg: TWMDropFiles); message WM_DROPFILES;
     function GetOrgModified(): Boolean; //by BDZL
     function GetTransModified(): Boolean; //by BDZL
@@ -1382,12 +1383,92 @@ begin
   NodeDataSize := SizeOf(TSubtitleItem);
 end;
 
+procedure TfrmMain.lstSubtitlesGetText(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
+  var CellText: string);
+var
+  Data: PSubtitleItem;
+  PrevData: PSubtitleItem; //added by adenry
+begin
+  Data := Sender.GetNodeData(Node);
+  if Assigned(Data) then
+  begin
+    case Column of
+      //0: CellText := IntToStr(Node.Index+1); //removed by adenry
+      //added by adenry: begin
+      //NUM column
+      0:
+        begin
+          CellText := IntToStr(Node.Index+1);
+          if ColNumDisplayStyle = 0 then
+            while Length(CellText) < Length(IntToStr(lstSubtitles.RootNodeCount)) do
+              CellText := '0' + CellText;
+        end;
+      //added by adenry: end
+      //SHOW column
+      1:
+        begin
+          if frmMain.FormatType = ftTime then
+          begin
+            CellText := TimeToString(Data.InitialTime);
+            if ColShowDisplayStyle = 1 then
+              CellText := TrimTimeString(CellText);
+          end else
+            CellText := IntToStr(TimeToFrames(Data.InitialTime, GetInputFPS));
+
+        end;
+      //HIDE column
+      2:
+        begin
+          if frmMain.FormatType = ftTime then
+          begin
+            CellText := TimeToString(Data.FinalTime);
+            if ColHideDisplayStyle = 1 then
+              CellText := TrimTimeString(CellText);
+          end else
+            CellText := IntToStr(TimeToFrames(Data.FinalTime, GetInputFPS));
+        end;
+      //TEXT column
+      3: //CellText := StringToWideStringEx(ReplaceEnters(Data.Text, '|'), CharsetToCodePage(OrgCharset)); //removed by adenry
+        CellText := ReplaceEnters(Data.Text, '|'); //added by adenry
+      //TRANSLATION column
+      4: //CellText := StringToWideStringEx(ReplaceEnters(Data.Translation, '|'), CharsetToCodePage(TransCharset)); //removed by adenry
+        CellText := ReplaceEnters(Data.Translation, '|'); //added by adenry: begin
+      //added by adenry: begin
+      //DURATION column
+      5:
+        begin
+          if frmMain.FormatType = ftTime then
+          begin
+            CellText := TimeToString(Data.FinalTime - Data.InitialTime);
+            if ColDurDisplayStyle = 1 then
+              CellText := TrimTimeString(CellText);
+          end else
+            CellText := IntToStr(TimeToFrames(Data.FinalTime - Data.InitialTime, GetInputFPS));
+        end;
+      //PAUSE column
+      6:
+        begin
+          PrevData := Sender.GetNodeData(Node.PrevSibling);
+          if Assigned(PrevData) then
+            if frmMain.FormatType = ftTime then
+            begin
+              CellText := TimeToString(Data.InitialTime - PrevData.FinalTime);
+              if ColPauseDisplayStyle = 1 then
+                CellText := TrimTimeString(CellText);
+            end else
+              CellText := IntToStr(TimeToFrames(Data.InitialTime - PrevData.FinalTime, GetInputFPS));
+        end;
+      //added by adenry: end
+    end;
+  end;
+end;
 // -----------------------------------------------------------------------------
 
 //Get subtitles list cell text
-procedure TfrmMain.lstSubtitlesGetText(Sender: TBaseVirtualTree;
+{procedure TfrmMain.lstSubtitlesGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: String);
 var
   Data: PSubtitleItem;
   PrevData: PSubtitleItem; //added by adenry
@@ -1464,7 +1545,7 @@ begin
       //added by adenry: end
     end;
   end;
-end;
+end;}
 
 // ---------------------------------------------------------------------------//
 //                                                                            //
@@ -1513,7 +1594,7 @@ begin
           begin
             Data := lstSubtitles.GetNodeData(lstSubtitles.GetFirstSelected);
             if (Data.Translation = UntranslatedSub) then
-              SetSWTextEditText(mmoTranslation, UntranslatedSub);
+              mmoTranslation.Text := UntranslatedSub;
           end;
       end;
 end;
@@ -1577,19 +1658,19 @@ begin
       rdoFinalTime.Caption  := Copy(tmp, Pos('|', tmp) + 1, PosEx('|', tmp, Pos('|', tmp) + 1) - (Pos('|', tmp) + 1));
       rdoBoth.Caption       := Copy(tmp, PosEx('|', tmp, Pos('|', tmp) + 1) + 1, Length(tmp));
 
-      lstSubtitles.Header.Columns[0].Text := StringToWideStringEx(ReadString('Main Form', '08', 'Num'), CharSetToCodePage(frmMain.Font.Charset));
-      lstSubtitles.Header.Columns[1].Text := StringToWideStringEx(ReadString('Main Form', '09', 'Show'), CharSetToCodePage(frmMain.Font.Charset));
+      lstSubtitles.Header.Columns[0].Text := ReadString('Main Form', '08', 'Num');
+      lstSubtitles.Header.Columns[1].Text := ReadString('Main Form', '09', 'Show');
       lblShow.Caption                     := ReadString('Main Form', '09', 'Show') + ':';
-      lstSubtitles.Header.Columns[2].Text := StringToWideStringEx(ReadString('Main Form', '10', 'Hide'), CharSetToCodePage(frmMain.Font.Charset));
+      lstSubtitles.Header.Columns[2].Text := ReadString('Main Form', '10', 'Hide');
       lblHide.Caption                     := ReadString('Main Form', '10', 'Hide') + ':';
       LabelText                           := ReadString('Main Form', '11', 'Text');
       LabelTranslation                    := ReadString('Main Form', '12', 'Translation');
       TransLeftLines                      := ReadString('Main Form', '13', '%d untranslated lines');
       lblDuration.Caption                 := ReplaceString(ReadString('Main Form', '14', 'Duration'), ':', '') + ':';
-      lstSubtitles.Header.Columns[5].Text := StringToWideStringEx(ReadString('Main Form', '14', 'Duration'), CharSetToCodePage(frmMain.Font.Charset));
+      lstSubtitles.Header.Columns[5].Text := ReadString('Main Form', '14', 'Duration');
       //added by adenry: begin
       lblPause.Caption                    := ReadString('Main Form', '19', 'Pause') + ':';
-      lstSubtitles.Header.Columns[6].Text := StringToWideStringEx(ReadString('Main Form', '19', 'Pause'), CharSetToCodePage(frmMain.Font.Charset));
+      lstSubtitles.Header.Columns[6].Text := ReadString('Main Form', '19', 'Pause');
       //added by adenry: end
       TextOrTransLength                   := ReadString('Main Form', '15', '%s (%s characters):');
       //UntranslatedSub                     := ReadString('Main Form', '16', UNTRANSLATED_SUBTITLE); //removed by adenry
@@ -1601,8 +1682,8 @@ begin
       NSelectedSubtitles                  := ReadString('Main Form', '20', '%d subtitles selected');
       NSelectedSubtitle                   := ReadString('Main Form', '21', '%d / %d');
       //added by adenry: end
-      lstSubtitles.Header.Columns[3].Text := StringToWideStringEx(LabelText, CharSetToCodePage(frmMain.Font.Charset));
-      lstSubtitles.Header.Columns[4].Text := StringToWideStringEx(LabelTranslation, CharSetToCodePage(frmMain.Font.Charset));
+      lstSubtitles.Header.Columns[3].Text := LabelText;
+      lstSubtitles.Header.Columns[4].Text := LabelTranslation;
       //added by adenry: begin
       mnuColNum.Caption                   := ReadString('Main Form', '08', 'Num');
       mnuColNumPopup.Caption              := mnuColNum.Caption;
@@ -2569,13 +2650,13 @@ begin
       begin
         s := mmoSubtitleText.SelStart;
         //mmoSubtitleText.Text := Data.Text; //removed by adenry
-        SetSWTextEditText(mmoSubtitleText, Data.Text); //added by adenry to properly handle RichEdit Text
+        mmoSubtitleText.Text := Data.Text; //added by adenry to properly handle RichEdit Text
         mmoSubtitleText.SelStart := s;
         if mnuTranslatorMode.Checked then
         begin
           s := mmoTranslation.SelStart;
           //mmoTranslation.Text := Data.Translation; //removed by adenry
-          SetSWTextEditText(mmoTranslation, Data.Translation); //added by adenry to properly handle RichEdit Text
+          mmoTranslation.Text := Data.Translation; //added by adenry to properly handle RichEdit Text
           mmoTranslation.SelStart := s;
         end;
         tmeShow.Time     := Data.InitialTime;
@@ -2837,7 +2918,7 @@ begin
     //    Initialize variables    //
     // ---------------------------//
     Caption               := ID_PROGRAM;
-    DecimalSeparator      := ',';
+    FormatSettings.DecimalSeparator      := ',';
     OrgFile               := '';
     TransFile             := '';
     MovieFile             := '';
@@ -5447,7 +5528,7 @@ var
   OldString: String;
   NewString: String; //added by adenry
 begin
-  NewString := GetSWTextEditText(mmoSubtitleText); //added by adenry - properly convert the Unicode text of the RichEdit to ANSI - WITH THE PROPER ENCODING!
+  NewString := mmoSubtitleText.Text; //added by adenry - properly convert the Unicode text of the RichEdit to ANSI - WITH THE PROPER ENCODING!
   IF (lstSubtitles.SelectedCount = 1) and (NewString <> GetSubText(lstSubtitles.FocusedNode)) and (GetFocus <> lstSubtitles.Handle) then //ReplaceString(GetSubText(lstSubtitles.FocusedNode), '|', #13#10) modified to GetSubText(lstSubtitles.FocusedNode) - TEXT IS NOT SAVED WITH | INSTEAD OF #13#10! //mmoSubtitleText.Text changed to NewString by adenry
   begin
     OldString := GetSubText(lstSubtitles.FocusedNode);
@@ -5474,7 +5555,7 @@ var
   OldString: String;
   NewString: String; //added by adenry
 begin
-  NewString := GetSWTextEditText(mmoTranslation); //added by adenry - properly convert the Unicode text of the RichEdit to ANSI - WITH THE PROPER ENCODING!
+  NewString := mmoTranslation.Text; //added by adenry - properly convert the Unicode text of the RichEdit to ANSI - WITH THE PROPER ENCODING!
   IF mnuTranslatorMode.Checked = True then
   begin
     if (lstSubtitles.SelectedCount = 1) and (NewString <> GetSubTranslation(lstSubtitles.FocusedNode)) and (GetFocus <> lstSubtitles.Handle) then //mmoTranslation.Text replaced with NewString by adenry
@@ -6237,13 +6318,14 @@ begin
       //Get Clipboard Unicode text
       WText := GetUnicodeTextFromClipboard;
       //Convert the Clipboard Unicode text to ANSI text with the Charset of the ActiveControl
-      Text := WideStringToStringEx(WText, CharsetToCodePage(TExtWinControl(ActiveControl).Font.Charset));
+      //Text := WideStringToStringEx(WText, CharsetToCodePage(TExtWinControl(ActiveControl).Font.Charset));
+      Text := WText;
     end else
       Text := Clipboard.AsText;
 
     if (ActiveControl = mmoSubtitleText) or (ActiveControl = mmoTranslation)
     or ((Assigned(frmDivideLines)) and ((ActiveControl = frmDivideLines.mmoSub1) or (ActiveControl = frmDivideLines.mmoSub2))) then
-      SetSWTextEditSelText(TSWTextEdit(ActiveControl), Text) else //paste plain text, we don't want any formatting //TMemo changed to TSWTextEdit
+      TSWTextEdit(ActiveControl).Text := Text else //paste plain text, we don't want any formatting //TMemo changed to TSWTextEdit
     if ActiveControl.ClassName = 'TRichEdit' then
       TRichEdit(ActiveControl).PasteFromClipboard else  //PasteFromClipboard works okay for TRichEdit, as TRichEdit uses Unicode internally
     if ActiveControl.ClassName = 'TMemo' then
@@ -8008,7 +8090,7 @@ procedure TfrmMain.cmbInputFPSKeyPress(Sender: TObject; var Key: Char);
 begin
   if (Key = Chr(VK_RETURN)) and (IsFloat(cmbInputFPS.Text)) then
     AddFPSItem(StrToFloat(cmbInputFPS.Text), True, True, True) else
-  if (Key in ['0'..'9', DecimalSeparator, Chr(VK_RETURN), Chr(VK_BACK)]) = False then
+  if (Key in ['0'..'9', FormatSettings.DecimalSeparator, Chr(VK_RETURN), Chr(VK_BACK)]) = False then
     Key := #0;
 end;
 
@@ -8018,7 +8100,7 @@ procedure TfrmMain.cmbFPSKeyPress(Sender: TObject; var Key: Char);
 begin
   if (Key = Chr(VK_RETURN)) and (IsFloat(cmbFPS.Text)) then
     AddFPSItem(StrToFloat(cmbFPS.Text), False, True, False) else
-  if (Key in ['0'..'9', DecimalSeparator, Chr(VK_RETURN), Chr(VK_BACK)]) = False then
+  if (Key in ['0'..'9', FormatSettings.DecimalSeparator, Chr(VK_RETURN), Chr(VK_BACK)]) = False then
     Key := #0;
 end;
 
@@ -9848,7 +9930,7 @@ begin
 end;
 // -----------------------------------------------------------------------------
 
-procedure TfrmMain.lstSubtitlesGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: WideString);
+procedure TfrmMain.lstSubtitlesGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: String);
 
 //  procedure TfrmMain.lstSubtitlesGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
 
@@ -9918,7 +10000,7 @@ begin
       HintText := Format(TransLeftLines, [CountUnTranslated]) else
       lstSubtitles.Hint := '';
   end;
-  HintText := StringToWideStringEx(Trim(HintText), CharsetToCodePage(frmMain.Font.Charset));
+  HintText := Trim(HintText);
 end;
 
 // -----------------------------------------------------------------------------
@@ -9945,7 +10027,7 @@ begin
     if lbl.Name = lblText.Name then  //added later
       mmo := mmoSubtitleText else    //added later
       mmo := mmoTranslation;         //added later
-    LengthOfEachLineText := GetLengthForEachLine(GetSWTextEditText(mmo)); //added later //mmo.Text
+    LengthOfEachLineText := GetLengthForEachLine(mmo.Text); //added later //mmo.Text
 
     if (Pos(LengthOfEachLineText, lbl.Caption) > 0) and (lbl.Visible) then
     begin
@@ -12517,7 +12599,7 @@ begin
     //multiple tags allowed, only one subtitle selected, and selection length in the memo > 0
     begin
       Node := lstSubtitles.GetFirstSelected;
-      Text := GetSWTextEditText(mmo);
+      Text := mmo.Text;
       if mmo.SelStart + mmo.SelLength > Length(Text) then mmo.SelLength := Length(Text) - mmo.SelStart; //added later - fix RichEdit selection
       //remove trailing new lines from selection:
       TextEnd := Copy(Text, mmo.SelLength-1, 2);
@@ -13616,13 +13698,13 @@ begin
   if frmMain.ActiveControl = mmoSubtitleText then
   begin
     //mmoSubtitleText.SelText := Chr;
-    SetSWTextEditSelText(mmoSubtitleText, Chr);
+    mmoSubtitleText.Text := Chr;
     mmoSubtitleText.SetFocus;
   end else
   if frmMain.ActiveControl = mmoTranslation then
   begin
     //mmoTranslation.SelText := Chr;
-    SetSWTextEditSelText(mmoTranslation, Chr);
+    mmoTranslation.Text := Chr;
     mmoTranslation.SetFocus;
   end else
   if frmMain.ActiveControl = mmoNotes then

@@ -48,13 +48,13 @@ type
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure lstPointsGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: String);
     procedure btnRemoveClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure lstPointsEditing(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; var Allowed: Boolean);
     procedure lstPointsNewText(Sender: TBaseVirtualTree;
-      Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+      Node: PVirtualNode; Column: TColumnIndex; NewText: String);
     procedure btnAddFromMediaClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
     procedure btnSaveToFileClick(Sender: TObject);
@@ -94,9 +94,9 @@ begin
       btnLoadFromFile.Caption    := ReadString('Adjust subtitles', '06', 'Load from file');
       btnSaveToFile.Caption      := ReadString('Adjust subtitles', '07', 'Save to file');
 
-      lstPoints.Header.Columns[1].Text := StringToWideStringEx(ReadString('Adjust subtitles', '08', 'Line #'), CharSetToCodePage(frmMain.Font.Charset));
-      lstPoints.Header.Columns[2].Text := StringToWideStringEx(ReadString('Adjust subtitles', '09', 'Old time'), CharSetToCodePage(frmMain.Font.Charset));
-      lstPoints.Header.Columns[3].Text := StringToWideStringEx(ReadString('Adjust subtitles', '10', 'New time'), CharSetToCodePage(frmMain.Font.Charset));
+      lstPoints.Header.Columns[1].Text := ReadString('Adjust subtitles', '08', 'Line #');
+      lstPoints.Header.Columns[2].Text := ReadString('Adjust subtitles', '09', 'Old time');
+      lstPoints.Header.Columns[3].Text := ReadString('Adjust subtitles', '10', 'New time');
 
       btnAdd.Caption                := ReadString('Adjust subtitles', '11', '&Add');
       btnAddFromMedia.Caption       := ReadString('Adjust subtitles', '12', 'Add from &media');
@@ -317,7 +317,7 @@ end;
 
 procedure TfrmAdjustSubtitles.lstPointsGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-  var CellText: WideString);
+  var CellText: String);
 var
   Data: PSyncPoint;
 begin
@@ -417,7 +417,7 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmAdjustSubtitles.lstPointsNewText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; NewText: WideString);
+  Node: PVirtualNode; Column: TColumnIndex; NewText: String);
 var
   Data : PSyncPoint;
   tmp  : Integer;

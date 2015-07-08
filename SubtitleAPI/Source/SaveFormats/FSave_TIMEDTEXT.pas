@@ -20,7 +20,7 @@ begin
     Add(' <body region="subtitleArea">', False); //region="subtitleArea" added by adenry 2013.04.13
     Add('   <div>', False); //added by adenry 2013.04.13
 
-    DecimalSeparator := '.'; //added by adenry 2013.04.13
+    FormatSettings.DecimalSeparator := '.'; //added by adenry 2013.04.13
 
     for i := From to UpTo do
     begin

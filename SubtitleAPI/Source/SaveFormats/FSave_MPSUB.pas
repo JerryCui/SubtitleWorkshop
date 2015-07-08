@@ -13,9 +13,9 @@ var
 begin
   Result     := True;
   tmpSubFile := TSubtitleFile.Create;
-  DSep       := DecimalSeparator;
+  DSep       := FormatSettings.DecimalSeparator;
   try
-    DecimalSeparator := '.';
+    FormatSettings.DecimalSeparator := '.';
     BigStr           := '';
 
     BigStr := BigStr + 'TITLE='#10;
@@ -44,6 +44,6 @@ begin
     end;
   finally
     tmpSubFile.Free;
-    DecimalSeparator := DSep;
+    FormatSettings.DecimalSeparator := DSep;
   end;
 end;

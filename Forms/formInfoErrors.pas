@@ -230,7 +230,7 @@ type
       var NodeDataSize: Integer);
     procedure lstErrorsGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: String);
     procedure lstErrorsInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure btnSettingsClick(Sender: TObject);
@@ -494,9 +494,9 @@ begin
       pnlInsideScrollBox.Caption              := ReadString('Custom info', '12', ' There is no custom info. Click the "+" button to add new custom info.');
       //added by adenry: end
 
-      lstErrors.Header.Columns[0].Text := StringToWideStringEx(ReadString('Information and errors', '06', 'Subtitle'), CharSetToCodePage(frmMain.Font.Charset));
-      lstErrors.Header.Columns[1].Text := StringToWideStringEx(ReadString('Information and errors', '07', 'Type'), CharSetToCodePage(frmMain.Font.Charset));
-      lstErrors.Header.Columns[2].Text := StringToWideStringEx(ReadString('Information and errors', '08', 'Description'), CharSetToCodePage(frmMain.Font.Charset));
+      lstErrors.Header.Columns[0].Text := ReadString('Information and errors', '06', 'Subtitle');
+      lstErrors.Header.Columns[1].Text := ReadString('Information and errors', '07', 'Type');
+      lstErrors.Header.Columns[2].Text := ReadString('Information and errors', '08', 'Description');
 
       // ------------- //
       //  Error types  //
@@ -675,7 +675,7 @@ end;
 
 // -----------------------------------------------------------------------------
 
-procedure TfrmInfoErrors.lstErrorsGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
+procedure TfrmInfoErrors.lstErrorsGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: String);
 var
   Data: PInfoError;
   Text: String;
@@ -714,7 +714,7 @@ begin
               if TPanel(FindComponent('pnlParent' + IntToStr(Data.CustomInfoNum))).Tag = 7 then
               begin
                 Text := TCheckBox(FindComponent('chkCaption' + IntToStr(Data.CustomInfoNum))).Caption;
-                CellText := StringToWideStringEx(Text, CharSetToCodePage(DEFAULT_CHARSET));
+                CellText := Text;
                 exit;
               end else
               //6.
@@ -724,9 +724,9 @@ begin
                 if TEdit(FindComponent('edt1_' + IntToStr(Data.CustomInfoNum))).Tag < 10 then
                   Text := '0' + Text;
                 Text := Text + TComboBox(FindComponent('cmb' + IntToStr(Data.CustomInfoNum))).Text + ' ';
-                CellText := StringToWideStringEx(Text, CharSetToCodePage(frmMain.Font.Charset));
+                CellText := Text;
                 Text := TEdit(FindComponent('edt1_' + IntToStr(Data.CustomInfoNum))).Text;
-                CellText := CellText + StringToWideStringEx(Text, CharSetToCodePage(frmMain.OrgCharset));
+                CellText := CellText + Text;
                 exit;
               end else
               //1, 2, 3, 4, 5
@@ -803,7 +803,7 @@ begin
           end;
         end;
     end;
-    CellText := StringToWideStringEx(Text, CharSetToCodePage(frmMain.Font.Charset));
+    CellText := Text;
   end;
 end;
 
@@ -3657,7 +3657,7 @@ procedure TfrmInfoErrors.btnExportToFileClick(Sender: TObject);
   var
     f    : TextFile;
     Node : PVirtualNode;
-    Data : WideString;
+    Data : String;
     Msg  : String;
     w1, w2 : Integer;
   begin

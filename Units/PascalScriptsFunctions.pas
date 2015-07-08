@@ -10,7 +10,7 @@ interface
 
 uses
   Forms, Controls, SysUtils,
-  VirtualTrees, IFPS3CompExec,
+  VirtualTrees,
   CommonTypes, uPSComponent;
 
 // -----------------------------------------------------------------------------
