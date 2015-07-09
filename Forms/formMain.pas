@@ -15,7 +15,7 @@ uses
     ShellAPI, ClipBrd, URLMon, FileCtrl, Grids, ToolWin, Mask, Math, {XPMan,} RichEdit, SymbolDlg, //Math, RichEdit, XPMan added by adenry
   VirtualTrees, MiMenu, MiSubtitulo, {MiHint,} {NFormSizing,} SWSeekBar, SWButton, USSpeller, SWTimeCounter, TimeMaskEdit, //MiHint, NFormSizing removed by adenry
   WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
-  CommonTypes, XPMan, uPSComponent, uPSCompiler, uPSRuntime, uPSC_std,
+  CommonTypes, uPSComponent, uPSCompiler, uPSRuntime, uPSC_std,
   uPSC_classes, uPSC_controls, uPSC_graphics, uPSC_stdctrls, uPSC_extctrls,
   uPSC_forms, uPSC_menus, uPSC_dateutils,
   uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
@@ -486,7 +486,6 @@ type
     mnuDisplayOriginalPopup: TMenuItem;
     mnuDisplayTranslationPopup: TMenuItem;
     edtPlayerShortcuts: TEdit;
-    XPManifest: TXPManifest;
     PSScript1: TPSScript;
     procedure lstSubtitlesInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);

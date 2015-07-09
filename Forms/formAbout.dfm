@@ -27,6 +27,10 @@ object frmAbout: TfrmAbout
     OnChange = pgeCtrlChange
     object pgeInformation: TTabSheet
       Caption = 'Information'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Bevel1: TBevel
         Left = 8
         Top = 40
@@ -157,6 +161,10 @@ object frmAbout: TfrmAbout
     object pgeCredits: TTabSheet
       Caption = 'Credits'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object pnlBase: TPanel
         Left = 8
         Top = 8
@@ -1499,11 +1507,20 @@ object frmAbout: TfrmAbout
     object pgeLicense: TTabSheet
       Caption = 'License'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object reLicense: TRichEdit
         Left = 8
         Top = 8
         Width = 297
         Height = 252
+        Font.Charset = RUSSIAN_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         Lines.Strings = (
           'Subtitle Workshop is free software: you can redistribute it '
           'and/or modify it under the terms of the GNU General Public '
@@ -1520,8 +1537,10 @@ object frmAbout: TfrmAbout
           'You should have received a copy of the GNU General Public '
           'License along with Subtitle Workshop.'
           'If not, see <http://www.gnu.org/licenses/>.')
+        ParentFont = False
         ReadOnly = True
         TabOrder = 0
+        Zoom = 100
       end
     end
   end

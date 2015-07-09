@@ -11,7 +11,7 @@ unit MiMenu;
 interface
 
 uses
-  Windows, Classes, Graphics, Menus, Forms, SysUtils;
+  UITypes, Windows, Classes, Graphics, Menus, Forms, SysUtils;
 
 type
   TMiMenu = class(TComponent)

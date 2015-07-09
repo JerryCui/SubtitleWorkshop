@@ -9,7 +9,8 @@ unit formAbout;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ComCtrls, Menus, ExtCtrls, IniFiles, ShellAPI;
+  UITypes, Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ComCtrls, Menus, ExtCtrls, IniFiles, ShellAPI;
 
 type
   TfrmAbout = class(TForm)
