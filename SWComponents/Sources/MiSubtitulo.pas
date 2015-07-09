@@ -15,10 +15,6 @@ uses
   StrUtils, jclStrings,
   Forms, ComCtrls, Math, RichEdit; //added by adenry
 
-const
-  //TransparentColor = $FF00FF; //removed by adenry
-  HexChars: set of Char = ['A'..'F', 'a'..'f' , '0'..'9']; //added by adenry
-
 type
   TMiSubtitulo = class(TCustomControl)
   private
@@ -1005,7 +1001,9 @@ begin
       re.SelStart := tPos + 10;
       re.SelLength := t2Pos - (tPos + 11); //if t2Pos = 0 SelLength automatically extends to the text's end!!
       Color := Copy(re.Text, tPos + 4, 6);
-      if (Color[1] in HexChars)and(Color[2] in HexChars)and(Color[3] in HexChars)and(Color[4] in HexChars)and(Color[5] in HexChars)and(Color[6] in HexChars) then
+      if CharIsHexDigit(Color[1]) and CharIsHexDigit(Color[2]) and
+         CharIsHexDigit(Color[3]) and CharIsHexDigit(Color[4]) and
+         CharIsHexDigit(Color[5]) and CharIsHexDigit(Color[6]) then
         re.SelAttributes.Color := RGB(StrToInt('$'+Copy(re.Text, tPos + 4, 2)), StrToInt('$'+Copy(re.Text, tPos + 6, 2)),StrToInt('$'+Copy(re.Text, tPos + 8, 2)));
 
       //delete <c:#XXXXXX> tag
