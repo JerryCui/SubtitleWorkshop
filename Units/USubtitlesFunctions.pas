@@ -21,7 +21,7 @@ uses
 function StringCount    (const aFindString, aSourceString : string; Const CaseSensitive : Boolean = TRUE): Integer;
 function ReplaceString  (const S, OldPattern, NewPattern: String; ReplaceAll: Boolean = True; IgnoreCase: Boolean = True): String;
 function PadLeft        (const S: String; const PadChar: Char; const Length: Integer; const Cut: Boolean = False): String;
-function PadRight       (const S: AnsiString; const PadChar: AnsiChar; const Length: Integer; const Cut: Boolean): AnsiString;
+function PadRight       (const S: String; const PadChar: Char; const Length: Integer; const Cut: Boolean): String;
 function IsInteger      (const Str: String; AddChars: String = ''): Boolean;
 //function LimitDecimals  (Num: Real; Limit: Integer): String; //removed by adenry
 // --------------------------//
@@ -118,9 +118,9 @@ begin
 
   for i := 1 to Length(Time) do
   begin
-    if (Time[i] in ['0'..'9']) = False then
+    if CharInSet(Time[i], ['0'..'9']) = False then
     begin
-      if Time[i] in [':',',','.'] then
+      if CharInSet(Time[i], [':',',','.']) then
       begin
         if (i = 1) or (i = Length(Time)) then exit;
         case PCount of
@@ -240,7 +240,7 @@ end;
 //add padding on the right of a string with a specific character
 //for example: to add padding with dots to the right of the string 'dog' so that the total length would be 10, call PadRight('dog', '.', 10);
 //the result will be 'dog.......'; if the Cut parameter is set to True, if the string is shorter than the desired total Length, the string would be cut, otherwise the length of the string would be used, and if the length of the string is shorter than the desired total Length, the Cut parameter has no effect
-function PadRight(const S: AnsiString; const PadChar: AnsiChar; const Length: Integer; const Cut: Boolean): AnsiString;
+function PadRight(const S: String; const PadChar: Char; const Length: Integer; const Cut: Boolean): String;
 var
   F, L, P, M : Integer;
   I, J       : PAnsiChar;
@@ -295,7 +295,6 @@ end;
 function TimeToString(Time: Integer; TimeFormat: String = {$IFDEF VIPLAY}'hh:mm:ss'{$ELSE}'hh:mm:ss,zzz'{$ENDIF}): String;
 var
   Hour, Min, Sec, MSec : Word;
-  tmpApariciones, tmp  : Byte;
 begin
   if Time < 0 then Time := 0;
   Hour := Trunc(Time / 3600000);

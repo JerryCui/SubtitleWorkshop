@@ -13,7 +13,7 @@ interface
 // -----------------------------------------------------------------------------
 
 uses
-  SysUtils, Math, Classes, Graphics, Controls;
+  UITypes, SysUtils, Math, Classes, Graphics, Controls;
 
 // -----------------------------------------------------------------------------
 

@@ -9,7 +9,7 @@ unit formInfoErrors;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, IniFiles, Buttons, Math, ComCtrls, ToolWin, Menus, StrUtils, //Math added by adenry to use MIN; StrUtils added for DupeString
+  UITypes, Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, IniFiles, Buttons, Math, ComCtrls, ToolWin, Menus, StrUtils, //Math added by adenry to use MIN; StrUtils added for DupeString
   VirtualTrees,
   RegExpr, //StrMan //FastStrings added by adenry to use SmartPos; RegExpr added by adenry //StrMan removed by adenry
   formCompositeCustomInfo, //formCompositeCustomInfo added by adenry
@@ -2706,7 +2706,7 @@ begin
   s := '';
   while p^ <> #0 do
   begin
-    if p^ in ['0'..'9'] then
+    if CharInSet(p^, ['0'..'9']) then
       s := s + p^;
     Inc(p);
   end;
