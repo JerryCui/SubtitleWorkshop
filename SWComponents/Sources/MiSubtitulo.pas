@@ -11,9 +11,8 @@ unit MiSubtitulo;
 interface
 
 uses
-  Windows, Messages, Classes, Graphics, Controls, SysUtils, USGraphics,
-  StrUtils, jclStrings,
-  Forms, ComCtrls, Math, RichEdit; //added by adenry
+  Types, UITypes, Windows, Messages, Classes, Graphics, Controls, SysUtils,
+  USGraphics, StrUtils, jclStrings, Forms, ComCtrls, Math, RichEdit;
 
 type
   TMiSubtitulo = class(TCustomControl)
@@ -271,8 +270,6 @@ end;
 
 procedure TMiSubtitulo.DrawSubtitleText;
   function GetSubColor(Text: String): Integer;
-  const
-    HTMLChars: set of Char = ['A'..'F', '0'..'9'];
   var
     i: Integer;
     tagPos: Integer; //added by adenry
@@ -290,7 +287,7 @@ procedure TMiSubtitulo.DrawSubtitleText;
         Text := AnsiUpperCase(Text);
 
         for i := 0 to Length(Text) do
-          if (Text[i] <> '') and (Text[i] in HTMLChars = False) then exit;
+          if (Text[i] <> '') and (CharIsHexDigit(Text[i]) = False) then exit;
 
         // convert hexadecimal values to RGB
         Result := Integer(StrToInt('$' + Copy(Text, 1, 2))) +
