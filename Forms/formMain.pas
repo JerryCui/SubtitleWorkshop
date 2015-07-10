@@ -1061,7 +1061,7 @@ type
     // ---------//
     UnTransSubsColor    : Integer;
     UnTransSubsBckgr    : Integer; //added by adenry
-    OrgCharset          : TFontCharset; //Integer replaced with TFontCharset by adenry
+    OrgCharset          : Cardinal; //Integer replaced with TFontCharset by adenry
     TransCharset        : TFontCharset; //Integer replaced with TFontCharset by adenry
     NotesCharset        : TFontCharset; //added by adenry
     AdjustFormOpened    : Boolean;
@@ -7118,11 +7118,50 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmMain.cmbOrgCharsetSelect(Sender: TObject);
+var
+  OldOrgCharset: Cardinal;
+  OldOrgEncoding, NewOrgEncoding: TEncoding;
+  Temp: String;
+  Bytes: TBytes;
+
+  Node: PVirtualNode;
+  Data: PSubtitleItem;
 begin
+  OldOrgCharset := OrgCharset;
   if cmbOrgCharset.ItemIndex <> -1 then
   begin
     OrgCharset := StrCharsetToInt(cmbOrgCharset.Items[cmbOrgCharset.ItemIndex]);
+
+    begin
+      try
+        OldOrgEncoding := TEncoding.GetEncoding(OldOrgCharset);
+        NewOrgEncoding := TEncoding.GetEncoding(OrgCharset);
+
+        Node := lstSubtitles.GetFirst;
+        while Assigned(Node) do
+        begin
+          Data := Node.GetData;
+          Temp := Data.Text;
+          Bytes := OldOrgEncoding.GetBytes(Temp);
+          Temp := NewOrgEncoding.GetString(Bytes);
+          Data.Text := Temp;
+
+          Node := Node.NextSibling;
+        end;
+
+{        Bytes := OldOrgEncoding.GetBytes(mmoSubtitleText.Text);
+
+        mmoSubtitleText.Text := NewOrgEncoding.GetString(Bytes);}
+      finally
+        OldOrgEncoding.Free;
+        NewOrgEncoding.Free;
+      end;
+    end;
+{    OrgEncoding := TEncoding.GetEncoding(866);
+    mmoSubtitleText.Text := OrgEncoding.GetString(TEncoding.Unicode.GetBytes(mmoSubtitleText.Text));
+    OrgEncoding := TEncoding.GetEncoding(866);
     mmoSubtitleText.Font.Charset := OrgCharset;
+    ShowMessage(IntToStr(OrgCharset));}
     if lstSubtitles.SelectedCount = 1 then RefreshTimes; //added by adenry - refresh mmoSubtitleText's text
     lstSubtitles.Refresh; //repaint texts in lstSubtitles
     if (Player.Initialized) and (mnuDisplayOriginal.Checked) then

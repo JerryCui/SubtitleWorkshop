@@ -19,7 +19,7 @@ uses
 //         Charsets          //
 // --------------------------//
 procedure AddCharsets(ComboBox: TComboBox);
-function StrCharsetToInt(CharSet: String): Byte;
+function StrCharsetToInt(CharSet: String): Cardinal;
 // --------------------------//
 //       Recent Files        //
 // --------------------------//
@@ -127,7 +127,7 @@ procedure AddCharsets(ComboBox: TComboBox);
 begin
   ComboBox.Items.Add('ANSI');
   ComboBox.Items.Add('Default');
-  ComboBox.Items.Add('Symbol');
+  //ComboBox.Items.Add('Symbol');
 //  ComboBox.Items.Add('MAC');
   ComboBox.Items.Add('Shiftjis');
   ComboBox.Items.Add('Hangeul');
@@ -149,26 +149,25 @@ end;
 
 // -----------------------------------------------------------------------------
 
-function StrCharsetToInt(CharSet: String): Byte;
+function StrCharsetToInt(CharSet: String): Cardinal;
 begin
-  Result := DEFAULT_CHARSET;
-  if CharSet = 'ANSI'         then Result := ANSI_CHARSET else
-  if CharSet = 'Default'      then Result := DEFAULT_CHARSET else
+  Result := TEncoding.ANSI.CodePage;
+  if CharSet = 'ANSI'         then Result := 1252 else
   if CharSet = 'Symbol'       then Result := SYMBOL_CHARSET else
-  if CharSet = 'Shiftjis'     then Result := SHIFTJIS_CHARSET else
-  if CharSet = 'Hangeul'      then Result := HANGEUL_CHARSET else
-  if CharSet = 'Johab'        then Result := JOHAB_CHARSET else
-  if CharSet = 'GB2312'       then Result := GB2312_CHARSET else
-  if CharSet = 'Chinese BIG5' then Result := CHINESEBIG5_CHARSET else
-  if CharSet = 'Greek'        then Result := GREEK_CHARSET else
-  if CharSet = 'Turkish'      then Result := TURKISH_CHARSET else
-  if CharSet = 'Vietnamese'   then Result := VIETNAMESE_CHARSET else
-  if CharSet = 'Hebrew'       then Result := HEBREW_CHARSET else
-  if CharSet = 'Arabic'       then Result := ARABIC_CHARSET else
-  if CharSet = 'Baltic'       then Result := BALTIC_CHARSET else
-  if CharSet = 'Cyrillic'     then Result := RUSSIAN_CHARSET else
-  if CharSet = 'Thai'         then Result := THAI_CHARSET else
-  if CharSet = 'EastEurope'   then Result := EASTEUROPE_CHARSET;
+  if CharSet = 'Shiftjis'     then Result := 932 else
+  if CharSet = 'Hangeul'      then Result := 949 else
+  if CharSet = 'Johab'        then Result := 1361 else
+  if CharSet = 'GB2312'       then Result := 936 else
+  if CharSet = 'Chinese BIG5' then Result := 950 else
+  if CharSet = 'Greek'        then Result := 1253 else
+  if CharSet = 'Turkish'      then Result := 1254 else
+  if CharSet = 'Vietnamese'   then Result := 1258 else
+  if CharSet = 'Hebrew'       then Result := 1255 else
+  if CharSet = 'Arabic'       then Result := 1256 else
+  if CharSet = 'Baltic'       then Result := 1257 else
+  if CharSet = 'Cyrillic'     then Result := 1251 else
+  if CharSet = 'Thai'         then Result := 874 else
+  if CharSet = 'EastEurope'   then Result := 1250;
 end;
 
 // -----------------------------------------------------------------------------
