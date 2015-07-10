@@ -9,7 +9,7 @@ unit Functions;
 interface
 
 uses
-  Forms, Windows, Classes, SysUtils, StdCtrls, Mask, IniFiles, ComCtrls, ExtCtrls, ShellApi, Controls, Math, Graphics, {JvRichEditToHtml,} Messages, RichEdit, ClipBrd, //Graphics, JvRichEditToHtml, Messages, RichEdit, ClipBrd added by adenry
+  Forms, Windows, Vcl.Dialogs, Classes, SysUtils, StdCtrls, Mask, IniFiles, ComCtrls, ExtCtrls, ShellApi, Controls, Math, Graphics, {JvRichEditToHtml,} Messages, RichEdit, ClipBrd, //Graphics, JvRichEditToHtml, Messages, RichEdit, ClipBrd added by adenry
   VirtualTrees, jclStrings, StrUtils, General,
   CommonTypes;
 
@@ -1839,52 +1839,25 @@ var
   tagOpen, tagClose, temp: Integer;
   tag: String;
   StringPart: String;
+  i: Integer;
 begin
   Result := False;
-  StringPart := StrLeft(Text, n);
-  if (n < 1) or (n > Length(Text)) then exit;
-  //if Length(Copy(Text, n, 1)) = 1 then
-  begin
-    tagOpen  := StrLastPos('<', StringPart);
-    if (tagOpen > 0) and (tagOpen > StrLastPos('>', StringPart)) then
-    begin
-      tagClose := StrFind('>', StringPart);
-      temp := PosEx('<', StringPart);
-      if (tagClose > 0) and ((tagClose < temp) or (temp=0)) then
-      begin
-        tag := Copy(Text, tagOpen, 3);
-        if (tag = '<b>') or (tag = '<i>') or (tag = '<u>')
-        or (tag = '<B>') or (tag = '<I>') or (tag = '<U>') then
-        begin
-          Result := True;
-          exit;
-        end;
-        tag := Copy(Text, tagOpen, 4);
-        if (tag = '</b>') or (tag = '</i>') or (tag = '</u>') or (tag = '</c>')
-        or (tag = '</B>') or (tag = '</I>') or (tag = '</U>') or (tag = '</C>')
-        or (tag = '<c:#') or (tag = '<C:#') then
-        begin
-          Result := True;
-          exit;
-        end;
-        {
-        tag := Copy(Text, tagOpen, 5);
-        if SmartPos('<font', tag, False) > 0 then
-        begin
-          Result := True;
-          exit;
-        end;
-        tag := Copy(Text, tagOpen, 7);
-        if SmartPos('</font>', tag, False) > 0 then
-        begin
-          Result := True;
-          exit;
-        end;
-        }
-      end;
-    end;
 
-  end;
+  if n > Length(Text) then
+    Exit;
+
+  tagOpen := n;
+  begin
+    // Check tag names, is equals return true
+    tag := UpperCase(Copy(Text, tagOpen, 3));
+    if (tag = '<B>') or (tag = '<I>') or (tag = '<U>') then
+      Result := True;
+
+    tag := UpperCase(Copy(Text, tagOpen, 4));
+    if (tag = '</B>') or (tag = '</I>') or (tag = '</U>') or
+       (tag = '</C>') or (tag = '<C:#') then
+      Result := True;
+  end
 end;
 //added by adenry: end
 
