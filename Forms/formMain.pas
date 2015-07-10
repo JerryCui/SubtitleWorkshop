@@ -12,14 +12,15 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Menus, ComCtrls, IniFiles, ImgList,
-    ShellAPI, ClipBrd, URLMon, FileCtrl, Grids, ToolWin, Mask, Math, {XPMan,} RichEdit, SymbolDlg, //Math, RichEdit, XPMan added by adenry
+    ShellAPI, ShlObj, ClipBrd, URLMon, FileCtrl, Grids, ToolWin, Mask, Math, {XPMan,} RichEdit, SymbolDlg, //Math, RichEdit, XPMan added by adenry
   VirtualTrees, MiMenu, MiSubtitulo, {MiHint,} {NFormSizing,} SWSeekBar, SWButton, USSpeller, SWTimeCounter, TimeMaskEdit, //MiHint, NFormSizing removed by adenry
   WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
   CommonTypes, uPSComponent, uPSCompiler, uPSRuntime, uPSC_std,
   uPSC_classes, uPSC_controls, uPSC_graphics, uPSC_stdctrls, uPSC_extctrls,
   uPSC_forms, uPSC_menus, uPSC_dateutils,
   uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
-  uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings, System.ImageList;
+  uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings,
+  System.ImageList, JclShell;
 
 
 type
@@ -2924,7 +2925,9 @@ begin
     SearchWord            := '';
     OldInputFPS           := 0;
     OldFPS                := 0;
-    IniRoot               := ExtractFilePath(Application.ExeName) + '\' + ID_ININAME;
+    IniRoot               := GetSpecialFolderLocation(CSIDL_APPDATA) + '\Subtitle Workshop\' + ID_ININAME;
+    if not DirectoryExists(IniRoot) then
+      CreateDir(GetSpecialFolderLocation(CSIDL_APPDATA) + '\Subtitle Workshop\');
     FormatType            := ftTime;
     RecentFiles           := TStringList.Create;
     FirstDialogInVideo    := -1;
