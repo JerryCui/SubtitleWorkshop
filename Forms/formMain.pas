@@ -1062,7 +1062,7 @@ type
     UnTransSubsColor    : Integer;
     UnTransSubsBckgr    : Integer; //added by adenry
     OrgCharset          : Cardinal; //Integer replaced with TFontCharset by adenry
-    TransCharset        : TFontCharset; //Integer replaced with TFontCharset by adenry
+    TransCharset        : Cardinal; //Integer replaced with TFontCharset by adenry
     NotesCharset        : TFontCharset; //added by adenry
     AdjustFormOpened    : Boolean;
     frmSaveAsExecuting  : Boolean; //added by adenry - to fix a bug
@@ -7175,12 +7175,43 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmMain.cmbTransCharsetSelect(Sender: TObject);
+var
+  OldTransCharset: Cardinal;
+  OldEncoding, NewEncoding: TEncoding;
+  Temp: String;
+  Bytes: TBytes;
+
+  Node: PVirtualNode;
+  Data: PSubtitleItem;
 begin
+  OldTransCharset := TransCharset;
+
   if cmbTransCharset.ItemIndex <> -1 then
   begin
     //set new charset:
     TransCharset := StrCharsetToInt(cmbTransCharset.Items[cmbTransCharset.ItemIndex]);
-    mmoTranslation.Font.Charset := TransCharset;
+
+    try
+      OldEncoding := TEncoding.GetEncoding(OldTransCharset);
+      NewEncoding := TEncoding.GetEncoding(TransCharset);
+
+      Node := lstSubtitles.GetFirst;
+        while Assigned(Node) do
+        begin
+          Data := Node.GetData;
+          Temp := Data.Translation;
+          Bytes := OldEncoding.GetBytes(Temp);
+          Temp := NewEncoding.GetString(Bytes);
+          Data.Translation := Temp;
+
+          Node := Node.NextSibling;
+        end;
+
+    finally
+      OldEncoding.Free;
+      NewEncoding.Free;
+    end;
+
     if lstSubtitles.SelectedCount = 1 then RefreshTimes; //added by adenry - refresh mmoTranslation's text
     SetUntranslatedSubString; //added by adenry - refresh the - Untranslated subtitle - string
     lstSubtitles.Refresh; //repaint texts in lstSubtitles
