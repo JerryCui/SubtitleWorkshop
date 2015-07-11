@@ -261,7 +261,6 @@ function FileToSubtitles_CAPTIONS32              (var Subtitles: TSubtitles; tmp
 function FileToSubtitles_CAPTIONSDAT             (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_CAPTIONSDATTEXT         (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_CAPTIONSINC             (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
-function FileToSubtitles_CAVENA                  (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;   // by Bedazzle 2007.05.13
 function FileToSubtitles_CHEETAH                 (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_CPC600                  (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_DKS                     (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
@@ -337,7 +336,7 @@ var
 
 implementation
 
-uses UCheckFormat;
+uses UCheckFormat, FRead_CAVENA;
 
 //------------------------------------------------------------------------------
 
@@ -505,7 +504,6 @@ end;
 {$include ReadFormats/FRead_CAPTIONSDAT}
 {$include ReadFormats/FRead_CAPTIONSDATTEXT}
 {$include ReadFormats/FRead_CAPTIONSINC}
-{$include ReadFormats/FRead_CAVENA}
 {$include ReadFormats/FRead_CHEETAH}
 {$include ReadFormats/FRead_CPC600}
 {$include ReadFormats/FRead_DKS}

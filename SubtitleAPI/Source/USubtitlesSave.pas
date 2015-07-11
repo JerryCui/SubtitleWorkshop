@@ -28,7 +28,6 @@ function SubtitlesToFile_CAPTIONS32              (Subtitles: TSubtitles; const F
 function SubtitlesToFile_CAPTIONSDAT             (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_CAPTIONSDATTEXT         (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_CAPTIONSINC             (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
-function SubtitlesToFile_CAVENA                  (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_CHEETAH                 (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_CPC600                  (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_DKS                     (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
@@ -236,6 +235,9 @@ var
 
 implementation
 
+uses
+  FSave_CAVENA;
+
 // -----------------------------------------------------------------------------
 
 function SubtitlesToFile(Subtitles: TSubtitles; const FileName: String; const FPS: Single; const SubtitleFormat: TSubtitleFormats; From: Integer = -1; UpTo: Integer = -1): Boolean;
@@ -335,7 +337,6 @@ end;
 {$include SaveFormats/FSave_CAPTIONSDAT}
 {$include SaveFormats/FSave_CAPTIONSDATTEXT}
 {$include SaveFormats/FSave_CAPTIONSINC}
-{$include SaveFormats/FSave_CAVENA}
 {$include SaveFormats/FSave_CHEETAH}
 {$include SaveFormats/FSave_CPC600}
 {$include SaveFormats/FSave_DKS}

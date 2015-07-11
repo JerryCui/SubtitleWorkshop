@@ -103,7 +103,9 @@ uses
   UCheckFormat in 'Source\UCheckFormat.pas',
   USubtitlesRead in 'Source\USubtitlesRead.pas',
   USubtitlesSave in 'Source\USubtitlesSave.pas',
-  USubtitlesFunctions in 'Source\USubtitlesFunctions.pas';
+  USubtitlesFunctions in 'Source\USubtitlesFunctions.pas',
+  FRead_CAVENA in 'Source\ReadFormats\FRead_CAVENA.pas',
+  FSave_CAVENA in 'Source\SaveFormats\FSave_CAVENA.pas';
 
 var
   Subtitles: TSubtitles = NIL;

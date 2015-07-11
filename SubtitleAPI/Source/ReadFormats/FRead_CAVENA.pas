@@ -4,6 +4,20 @@
 // Copyright: See Subtitle API's copyright information
 // File Description: Cavena subtitle format reading functionality
 
+unit FRead_CAVENA;
+
+interface
+
+uses
+  USubtitleFile;
+
+function FileToSubtitles_CAVENA(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
+
+implementation
+
+uses
+  USubtitlesRead, USubtitlesFunctions;
+
 // by Bedazzle 2007.05.13 start
 function FileToSubtitles_CAVENA(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 var
@@ -50,3 +64,4 @@ begin
   end;
 end;
 // by Bedazzle 2007.05.13 end
+end.
