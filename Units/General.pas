@@ -19,6 +19,15 @@ type
   TCharSet = set of Char;
   TOpenIntegerArray = array of Integer;
 
+  ESWException = class(Exception)
+  end;
+
+  ESWProjectException = class(ESWException)
+  end;
+
+  ESWProjectSubtitleFileNotExists = class(ESWProjectException)
+  end;
+
 var
   ID_VERSION: string;
   ID_BUILD: string;
@@ -672,28 +681,51 @@ end;
 procedure LoadProject(const FileName: String);
 var
   Ini: TIniFile;
+  ProjectPath: String;
+  OriginalFileName: String;
+  TranslatedFileName: String;
+  MovieFileName: String;
+  MoviePosition: Integer;
+  FocusedNodeIndex: Integer;
 begin
   Ini := TIniFile.Create(FileName);
+
+  OriginalFileName := Ini.ReadString('Subtitle files', 'Original', '');
+  TranslatedFileName := Ini.ReadString('Subtitle files', 'Translated', '');
+  MovieFileName := Ini.ReadString('Movie file', 'Movie', '');
+  MoviePosition := Ini.ReadInteger('Movie file', 'Position', 0);
+  FocusedNodeIndex := Ini.ReadInteger('Other', 'Focused node', 0);
+
   try
-    if FileExists(Ini.ReadString('Subtitle files', 'Original', '')) then
+    ProjectPath := TPath.GetDirectoryName(FileName);
+
+    if OriginalFileName = '' then
+      raise ESWProjectException.Create('Original subtitle file name is empty!');
+
+    OriginalFileName := TPath.Combine(ProjectPath, OriginalFileName);
+    TranslatedFileName := TPath.Combine(ProjectPath, TranslatedFileName);
+    MovieFileName := TPath.Combine(ProjectPath, MovieFileName);
+
+    if not TFile.Exists(OriginalFileName) then
+      raise ESWProjectSubtitleFileNotExists.Create('Original subtitle file is not exists!');
+
+    CloseSub;
+    LoadSubtitle(OriginalFileName, GetInputFPS);
+    if TFile.Exists(TranslatedFileName) then
     begin
-      CloseSub;
-      LoadSubtitle(Ini.ReadString('Subtitle files', 'Original', ''), GetInputFPS);
-      if FileExists(Ini.ReadString('Subtitle files', 'Translated', '')) then
-      begin
-        SetTranslatorMode(True);
-        LoadSubtitle(Ini.ReadString('Subtitle files', 'Translated', ''), GetInputFPS, 0, True);
-      end;
+      SetTranslatorMode(True);
+      LoadSubtitle(TranslatedFileName, GetInputFPS, 0, True);
     end;
-    if FileExists(Ini.ReadString('Movie file', 'Movie', '')) then
+
+    if TFile.Exists(MovieFileName) then
     begin
       SetVideoPreviewMode(True);
       //frmMain.AudioStreamNum := 0; //added by adenry
-      LoadMovie(Ini.ReadString('Movie file', 'Movie', ''));
-      if Ini.ReadInteger('Movie file', 'Position', 0) >= 0 then
-        SetVideoPos(Ini.ReadInteger('Movie file', 'Position', 0));
+      LoadMovie(MovieFileName);
+      if MoviePosition >= 0 then
+        SetVideoPos(MoviePosition);
     end;
-    if Ini.ReadInteger('Other', 'Focused node', 0) >= 0 then
+    if FocusedNodeIndex >= 0 then
     begin
       UnSelectAll(frmMain.lstSubtitles);
       frmMain.lstSubtitles.FocusedNode := GetNodeWithIndex(frmMain.lstSubtitles, Ini.ReadInteger('Other', 'Focused node', 0));
