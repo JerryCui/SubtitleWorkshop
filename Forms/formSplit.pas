@@ -494,7 +494,7 @@ begin
     edtEndOfVideo.Text    := frmMain.MovieFile;
   end;
   
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     if Ini.ReadBool('Split', 'SimpleMode', True) then
       pgeSplitMode.ActivePage := pgeSimple else
@@ -555,7 +555,7 @@ var
   Ini : TIniFile;
   i   : Integer;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Split', 'SimpleMode', pgeSplitMode.ActivePage = pgeSimple);
     Ini.WriteInteger('Split', 'Number of parts', udNumberOfParts.Position);

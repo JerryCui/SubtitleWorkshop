@@ -186,7 +186,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     udCharacters1.Position              := Ini.ReadInteger('Smart Line Adjust', 'Max length', 45);
     rdoEqualLines.Checked               := Ini.ReadBool('Smart Line Adjust', 'Equal lines', False);
@@ -209,7 +209,7 @@ procedure TfrmSmartLineAdjust.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Smart Line Adjust', 'Max length', udCharacters1.Position);
     Ini.WriteBool('Smart Line Adjust', 'Equal lines', rdoEqualLines.Checked);

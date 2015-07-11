@@ -50,7 +50,6 @@ object frmSetDelay: TfrmSetDelay
     Width = 71
     Height = 21
     Style = csDropDownList
-    ItemHeight = 13
     ItemIndex = 0
     TabOrder = 1
     TabStop = False

@@ -97,7 +97,6 @@ object frmCustomFormats: TfrmCustomFormats
       Width = 97
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
       TabOrder = 6
     end
     object edtNewLineChar: TLabeledEdit

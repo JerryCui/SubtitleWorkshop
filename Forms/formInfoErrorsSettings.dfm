@@ -27,6 +27,10 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     object pgeGeneral: TTabSheet
       Caption = 'General'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblOCRDefFile: TLabel
         Left = 8
         Top = 216
@@ -126,7 +130,6 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
         Width = 329
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         TabOrder = 7
       end
       object chkShowConfInMainForm: TCheckBox
@@ -617,6 +620,10 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblMilliseconds: TLabel
         Left = 88
         Top = 128
@@ -979,6 +986,10 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     end
     object pgeCheckFor: TTabSheet
       Caption = 'Check for'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlSep2: TBevel
         Left = 8
         Top = 80
@@ -1212,6 +1223,10 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     object pgeMark: TTabSheet
       Caption = 'Mark'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlSep8: TBevel
         Left = 8
         Top = 216
@@ -6724,6 +6739,10 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     object pgeFix: TTabSheet
       Caption = 'Fix'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlSep4: TBevel
         Left = 8
         Top = 80
@@ -6956,6 +6975,10 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     object pgeUnnecessarySpaces: TTabSheet
       Caption = 'Unnecessary spaces'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblCheckFor: TLabel
         Left = 8
         Top = 8

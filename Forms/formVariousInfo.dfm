@@ -35,6 +35,10 @@ object frmVariousInfo: TfrmVariousInfo
     TabOrder = 1
     object pgeInformation: TTabSheet
       Caption = 'pgeInformation'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         577
         227)
@@ -79,7 +83,7 @@ object frmVariousInfo: TfrmVariousInfo
           end
           item
             Position = 1
-            Width = 327
+            Width = 331
             WideText = 'Description'
           end>
       end
@@ -87,6 +91,10 @@ object frmVariousInfo: TfrmVariousInfo
     object pgeExtras: TTabSheet
       Caption = 'pgeExtras'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object gbBestFontSize: TGroupBox
         Left = 8
         Top = 12

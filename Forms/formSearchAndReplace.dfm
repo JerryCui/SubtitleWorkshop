@@ -38,6 +38,10 @@ object frmSearchAndReplace: TfrmSearchAndReplace
     TabOrder = 0
     object pgeSearch: TTabSheet
       Caption = 'Search'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlSearch: TBevel
         Left = 8
         Top = 8
@@ -74,6 +78,10 @@ object frmSearchAndReplace: TfrmSearchAndReplace
     object pgeReplace: TTabSheet
       Caption = 'Search && Replace'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlReplace: TBevel
         Left = 8
         Top = 8
@@ -206,7 +214,6 @@ object frmSearchAndReplace: TfrmSearchAndReplace
       Width = 201
       Height = 21
       Style = csDropDownList
-      ItemHeight = 13
       TabOrder = 4
       OnChange = cmbCharsetChange
     end

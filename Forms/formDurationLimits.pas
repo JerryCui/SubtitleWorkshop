@@ -103,7 +103,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     chkSetMaxDur.Checked        := Ini.ReadBool('Duration limits','Set maximum duration',True);
     chkSetMinDur.Checked        := Ini.ReadBool('Duration limits','Set minimum duration',True);
@@ -121,7 +121,7 @@ procedure TfrmDurationLimits.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Duration limits', 'Set maximum duration', chkSetMaxDur.Checked);
     Ini.WriteBool('Duration limits', 'Set minimum duration', chkSetMinDur.Checked);

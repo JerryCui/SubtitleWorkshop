@@ -122,7 +122,7 @@ var
 begin
   SetLanguage;
   AddCharsets(cmbCharset);
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
     // We base on percentage to calculate the minimized height, so we can
     // avoid trouble with large fonts...
 
@@ -182,7 +182,7 @@ procedure TfrmSearchAndReplace.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
     Ini.WriteBool('Search & Replace','All the subtitle',rdoAllTheSubtitle.Checked);
     Ini.WriteBool('Search & Replace','Case sensitive',chkCaseSensitive.Checked);
     Ini.WriteBool('Search & Replace','Whole Words',chkWholeWords.Checked);

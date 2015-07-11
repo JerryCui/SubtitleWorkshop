@@ -335,7 +335,6 @@ object frmBatchConvert: TfrmBatchConvert
           Width = 153
           Height = 21
           Style = csDropDownList
-          ItemHeight = 13
           TabOrder = 4
         end
         object cmbOutputFormat: TComboBox
@@ -344,7 +343,6 @@ object frmBatchConvert: TfrmBatchConvert
           Width = 257
           Height = 21
           Style = csDropDownList
-          ItemHeight = 13
           Sorted = True
           TabOrder = 5
         end
@@ -398,6 +396,8 @@ object frmBatchConvert: TfrmBatchConvert
         Left = 0
         Top = 0
         Caption = 'pgeFiles'
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lstFiles: TListView
           Left = 8
           Top = 8
@@ -460,7 +460,6 @@ object frmBatchConvert: TfrmBatchConvert
           Width = 160
           Height = 21
           Style = csDropDownList
-          ItemHeight = 0
           TabOrder = 4
           OnChange = cmbFPSChange
         end
@@ -476,6 +475,8 @@ object frmBatchConvert: TfrmBatchConvert
         Left = 0
         Top = 0
         Caption = 'pgeDone'
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object lblDone: TLabel
           Left = 8
           Top = 8

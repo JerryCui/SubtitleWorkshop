@@ -807,7 +807,7 @@ begin
 
   pgeCtrl.ActivePageIndex := 0;
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     if frmMain.mnuOCRScripts.Count > 0 then
     begin
@@ -1046,7 +1046,7 @@ var
 begin
 Screen.Cursor := crHourGlass; //added by adenry
 try
-  Ini := TMemIniFile.Create(IniRoot); //TIniFile replaced with TMemIniFile by adenry
+  Ini := TMemIniFile.Create(IniFileName); //TIniFile replaced with TMemIniFile by adenry
   try
     // ------------ //
     // General page //
@@ -1582,7 +1582,7 @@ var
   i: Integer;
   flags: TMarkFlags;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
 
   for i := 0 to Integer(High(TErrorType))+1 do

@@ -55,7 +55,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     rdoLimit.Checked      := Ini.ReadBool('Unbreak subtitles', 'Limit', True);
     rdoNoLimit.Checked    := not rdoLimit.Checked;
@@ -74,7 +74,7 @@ procedure TfrmUnbreakSubtitles.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Unbreak subtitles', 'Limit', rdoLimit.Checked);
     Ini.WriteInteger('Unbreak subtitles', 'Characters', udCharacters.Position);

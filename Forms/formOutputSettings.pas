@@ -1289,7 +1289,7 @@ begin
 
   //added by adenry: begin
   //Always Show Output Settings when saving
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     frmMain.OutputSettingsFormats[0].AlwaysShow := chkASSAlwaysShow.Checked;
     frmMain.OutputSettingsFormats[1].AlwaysShow := chkXASAlwaysShow.Checked;

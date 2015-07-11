@@ -1,7 +1,6 @@
 object frmJoin: TfrmJoin
   Left = 192
   Top = 103
-  AutoScroll = False
   BorderIcons = [biSystemMenu]
   Caption = 'frmJoin'
   ClientHeight = 321
@@ -119,7 +118,6 @@ object frmJoin: TfrmJoin
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akBottom]
-      ItemHeight = 13
       Sorted = True
       TabOrder = 5
       OnChange = cmbOutputFormatChange
@@ -178,7 +176,6 @@ object frmJoin: TfrmJoin
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akBottom]
-      ItemHeight = 13
       TabOrder = 6
       OnChange = cmbOutputFPSChange
     end
@@ -199,7 +196,6 @@ object frmJoin: TfrmJoin
       Height = 21
       Style = csDropDownList
       Anchors = [akLeft, akBottom]
-      ItemHeight = 13
       TabOrder = 4
       OnChange = cmbOutputFPSChange
     end

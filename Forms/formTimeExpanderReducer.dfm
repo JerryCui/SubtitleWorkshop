@@ -65,6 +65,7 @@ object frmTimeExpanderReducer: TfrmTimeExpanderReducer
       Width = 46
       Height = 21
       TabOrder = 0
+      Text = ''
       OnKeyPress = edtTimeToExpandKeyPress
     end
     object chkOnlyIfLongerThan: TCheckBox
@@ -110,6 +111,7 @@ object frmTimeExpanderReducer: TfrmTimeExpanderReducer
       Width = 46
       Height = 21
       TabOrder = 5
+      Text = ''
       OnKeyPress = edtMinMaxDurationKeyPress
     end
     object chkPreventOverlapping: TCheckBox

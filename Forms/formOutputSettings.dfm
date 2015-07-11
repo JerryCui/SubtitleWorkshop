@@ -59,6 +59,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'Advanced SubStation Alpha (*.ass)'
       ImageIndex = 8
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -113,6 +117,10 @@ object frmOutputSettings: TfrmOutputSettings
         TabOrder = 3
         object pgeASSCosmetics: TTabSheet
           Caption = 'Cosmetics'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblASSColor: TLabel
             Left = 280
             Top = 0
@@ -235,13 +243,16 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 177
             Height = 21
             Style = csDropDownList
-            ItemHeight = 0
             TabOrder = 6
           end
         end
         object pgeASSOthers: TTabSheet
           Caption = 'Others'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblASSEncoding: TLabel
             Left = 224
             Top = 80
@@ -381,7 +392,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 0
             TabOrder = 0
           end
           object seASSShadow: TSpinEdit
@@ -440,7 +450,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 0
             TabOrder = 6
           end
           object cmbASSSubTopMidTitle: TComboBox
@@ -449,7 +458,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 7
             Items.Strings = (
               'SubTitle'
@@ -492,13 +500,16 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 0
             TabOrder = 11
           end
         end
         object pgeASSAdvanced: TTabSheet
           Caption = 'Advanced'
           ImageIndex = 2
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblASSScaleX: TLabel
             Left = 0
             Top = 52
@@ -626,6 +637,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'Advanced Subtitles (*.xas)'
       ImageIndex = 7
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -901,7 +916,6 @@ object frmOutputSettings: TfrmOutputSettings
           Width = 83
           Height = 21
           Style = csDropDownList
-          ItemHeight = 13
           ItemIndex = 0
           TabOrder = 3
           Text = 'center'
@@ -1114,6 +1128,10 @@ object frmOutputSettings: TfrmOutputSettings
     object pgeDVDSubtitle: TTabSheet
       Caption = 'DVDSubtitle (*.sub)'
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -1218,6 +1236,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'SAMI (*.smi)'
       ImageIndex = 3
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -1335,6 +1357,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'Sonic Scenarist (*.sst)'
       ImageIndex = 4
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -1451,7 +1477,6 @@ object frmOutputSettings: TfrmOutputSettings
         Width = 137
         Height = 21
         Style = csDropDownList
-        ItemHeight = 13
         ItemIndex = 0
         TabOrder = 0
         Text = '25.000 PAL'
@@ -1524,6 +1549,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'SubStation Alpha (*.ssa)'
       ImageIndex = 6
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -1567,6 +1596,10 @@ object frmOutputSettings: TfrmOutputSettings
         TabOrder = 2
         object pgeSSACosmetics: TTabSheet
           Caption = 'Cosmetics'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblSSAColor: TLabel
             Left = 280
             Top = 0
@@ -1689,13 +1722,16 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 177
             Height = 21
             Style = csDropDownList
-            ItemHeight = 0
             TabOrder = 6
           end
         end
         object pgeSSAOthers: TTabSheet
           Caption = 'Others'
           ImageIndex = 1
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object lblSSAEncoding: TLabel
             Left = 224
             Top = 80
@@ -1835,7 +1871,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 9
           end
           object seSSAShadow: TSpinEdit
@@ -1894,7 +1929,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 7
           end
           object cmbSSASubTopMidTitle: TComboBox
@@ -1903,7 +1937,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 8
             Items.Strings = (
               'SubTitle'
@@ -1946,7 +1979,6 @@ object frmOutputSettings: TfrmOutputSettings
             Width = 113
             Height = 21
             Style = csDropDownList
-            ItemHeight = 13
             TabOrder = 10
           end
         end
@@ -1967,6 +1999,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'SubViewer (*.sub)'
       ImageIndex = 7
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -2067,6 +2103,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'SubViewer 2 (*.sub)'
       ImageIndex = 8
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)
@@ -2222,6 +2262,10 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'TMPlayer (*.txt)'
       ImageIndex = 9
       TabVisible = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         377
         317)

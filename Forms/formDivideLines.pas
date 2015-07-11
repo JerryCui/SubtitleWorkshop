@@ -270,7 +270,7 @@ var
   MaxBreaks  : Integer;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     //AdjustAutomatically   := Ini.ReadBool('Advanced', 'Smart line adjust automatically', True);
     chkUseAutoDur.Checked := Ini.ReadBool('General', 'Use automatic durations (Divide lines)', True); //False changed to True by adenry
@@ -538,7 +538,7 @@ procedure TfrmDivideLines.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('General', 'Use automatic durations (Divide lines)', chkUseAutoDur.Checked);
   finally

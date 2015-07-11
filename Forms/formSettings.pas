@@ -206,8 +206,6 @@ type
     lblFrames: TLabel;
     chkSaveEmptyLines: TCheckBox;
     chkAddOpenWithSWToShell: TCheckBox;
-    cmbNotesCharset: TComboBox;
-    lblNotesCharset: TLabel;
     gbCharsets: TGroupBox;
     cmbTransCharset: TComboBox;
     lblTransCharset: TLabel;
@@ -456,7 +454,6 @@ begin
       chkShowInMainForm.Caption := ReadString('Settings Form', '38', 'Show in Main Window');
       lblOrgCharset.Caption     := ReadString('Settings Form', '39', 'Original charset:');
       lblTransCharset.Caption   := ReadString('Settings Form', '40', 'Translation charset:');
-      lblNotesCharset.Caption   := ReadString('Settings Form', '104', 'Notes charset:'); //added by adenry
 
       // ------------------ //
       // Formats
@@ -877,7 +874,7 @@ begin
   rdoMultipleTagsMode.Font.Style := [fsBold]; //added later
   pgeCtrl.ActivePage := pgeGeneral;
 
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     // --------------------------------- //
     //              General              //
@@ -941,10 +938,8 @@ begin
     chkShowInMainForm.Checked := Ini.ReadBool('Settings', 'Show charsets in main form', True);
     AddCharsets(cmbOrgCharset);
     AddCharsets(cmbTransCharset);
-    AddCharsets(cmbNotesCharset); //added by adenry
     cmbOrgCharset.ItemIndex   := frmMain.cmbOrgCharset.ItemIndex;
     cmbTransCharset.ItemIndex := frmMain.cmbTransCharset.ItemIndex;
-    cmbNotesCharset.ItemIndex := Ini.ReadInteger('General', 'Notes charset', 1); //added by adenry //0 changed to 1 later
 
     // --------------------------------- //
     //               Formats             //
@@ -1185,7 +1180,7 @@ var
 begin
   Screen.Cursor := crHourGlass; //added by adenry
   ExtStr := '';
-  Ini := TMemIniFile.Create(IniRoot); //TIniFile replaced with TMemIniFile by adenry
+  Ini := TMemIniFile.Create(IniFileName); //TIniFile replaced with TMemIniFile by adenry
   try
     // --------------------------------- //
     //              General              //
@@ -1286,14 +1281,12 @@ begin
     Ini.WriteBool('Settings', 'Show charsets in main form', chkShowInMainForm.Checked);
     Ini.WriteInteger('General', 'Original charset', cmbOrgCharset.ItemIndex);
     Ini.WriteInteger('General', 'Translation charset', cmbTransCharset.ItemIndex);
-    Ini.WriteInteger('General', 'Notes charset', cmbNotesCharset.ItemIndex); //added by adenry
     frmMain.cmbOrgCharset.Visible        := chkShowInMainForm.Checked;
     frmMain.cmbTransCharset.Visible      := chkShowInMainForm.Checked;
     frmMain.cmbOrgCharset.ItemIndex      := cmbOrgCharset.ItemIndex;
     frmMain.cmbTransCharset.ItemIndex    := cmbTransCharset.ItemIndex;
     frmMain.OrgCharset                   := StrCharsetToInt(cmbOrgCharset.Items[cmbOrgCharset.ItemIndex]);
     frmMain.TransCharset                 := StrCharsetToInt(cmbTransCharset.Items[cmbTransCharset.ItemIndex]);
-    frmMain.NotesCharset                 := StrCharsetToInt(cmbNotesCharset.Items[cmbNotesCharset.ItemIndex]); //added by adenry
     //charsets are actually set after the parent font is modified in LOOK / PROGRAM settings
     //frmMain.mmoSubtitleText.Font.Charset := frmMain.OrgCharset;
     //frmMain.mmoTranslation.Font.Charset  := frmMain.TransCharset;
@@ -1553,7 +1546,6 @@ begin
     end;
     frmMain.mmoSubtitleText.Font.Charset := frmMain.OrgCharset;
     frmMain.mmoTranslation.Font.Charset  := frmMain.TransCharset;
-    frmMain.mmoNotes.Font.Charset        := frmMain.NotesCharset; //added by adenry
 
     //added by adenry: begin
     Ini.WriteBool('Program look', 'Highlight tags', chkTagsHighlight.Checked);

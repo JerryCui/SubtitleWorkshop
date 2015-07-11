@@ -115,7 +115,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     rdoExpandDuration.Checked := Ini.ReadBool('Time expander', 'Expand', True);
     rdoReduceDuration.Checked := not rdoExpandDuration.Checked;
@@ -160,7 +160,7 @@ procedure TfrmTimeExpanderReducer.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Time expander', 'Expand', rdoExpandDuration.Checked);
     if frmMain.FormatType = ftTime then

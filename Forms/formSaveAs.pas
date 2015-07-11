@@ -10,7 +10,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, StdCtrls,
-  Dialogs, ImgList, ComCtrls, IniFiles, StrUtils;
+  Dialogs, ImgList, ComCtrls, IniFiles, StrUtils, System.ImageList;
 
 // -----------------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ begin
   if TotalFormats = 0 then Exit;
   lstFormats.Clear;
 
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   //added by adenry: begin
   Width:=Ini.ReadInteger('Save', 'Width', 337);
   Height:=Ini.ReadInteger('Save', 'Height', 247);
@@ -151,7 +151,7 @@ begin
   TotalFormats := SubtitleAPI.FormatsCount;
   if TotalFormats = 0 then Exit;
   lstFormats.Clear;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   for i := 1 to TotalFormats do
   begin
     SubtitleAPI.GetFormatInfo(i, Name, Ext);
@@ -370,7 +370,7 @@ var
 begin
   //frmSaveAsExecuting := False;  // removed by BDZL
   //added by adenry: begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   Ini.WriteInteger('Save', 'Width', Width);
   Ini.WriteInteger('Save', 'Height', Height);
   frmMain.frmSaveAsExecuting := False;  //added by adenry. another option is frmMain.tmrSaveWork.Enabled:=True;

@@ -300,7 +300,7 @@ begin
   cmbFPS.ItemIndex        := frmMain.cmbInputFPS.ItemIndex;
   edtSearchPath.Text := frmMain.dlgLoadFile.InitialDir;
   NoteBook.PageIndex := 0;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     cmbOutputFormat.ItemIndex    := SubtitleAPI.GetFormatIndex(Ini.ReadString('Formats','Default format', 'SubRip')) - 1;
     chkIncludeSubFolders.Checked := Ini.ReadBool('Batch convert', 'Include subfolders', True);
@@ -318,7 +318,7 @@ procedure TfrmBatchConvert.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Batch convert', 'Include subfolders', chkIncludeSubFolders.Checked);
     Ini.WriteBool('Batch convert', 'Exhaustive check', chkExhaustiveCheck.Checked);

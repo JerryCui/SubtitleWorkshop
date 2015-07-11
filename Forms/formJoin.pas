@@ -192,7 +192,7 @@ begin
   cmbOutputFPS.ItemIndex := frmMain.cmbInputFPS.ItemIndex;
 
   GetFormatsList(cmbOutputFormat.Items);
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     cmbOutputFormat.ItemIndex := SubtitleAPI.GetFormatIndex(Ini.ReadString('Formats','Default format', 'SubRip')) - 1;
     cmbOutputFormatChange(Sender);
@@ -210,7 +210,7 @@ procedure TfrmJoin.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Join', 'Load file after joining and saving', chkLoadFile.Checked);
     Ini.WriteBool('Join', 'Recalculate times', chkRecalculate.Checked);

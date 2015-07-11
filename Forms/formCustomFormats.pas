@@ -113,7 +113,7 @@ begin
   if not DirectoryExists(ExtractFilePath(Application.ExeName) + 'CustomFormats\') then
     CreateDir(ExtractFilePath(Application.ExeName) + 'CustomFormats\');
   dlgLoad.InitialDir := ExtractFilePath(Application.ExeName) + 'CustomFormats\';
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     if Ini.ReadBool('Custom formats', 'Remember last custom format', True) then
     begin
@@ -142,7 +142,7 @@ procedure TfrmCustomFormats.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Custom formats', 'Remember last custom format', chkRemember.Checked);
     Ini.WriteString('Custom formats', 'Last custom format', CustomFormat);

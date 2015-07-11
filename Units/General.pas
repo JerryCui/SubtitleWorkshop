@@ -9,9 +9,9 @@ unit General;
 interface
 
 uses
-  Forms, Windows, Classes, SysUtils, Controls, StdCtrls, Mask, Menus, IniFiles, Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math, //Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math added by adenry
-  VirtualTrees,
-  USubtitleAPI, CommonTypes, StrUtils, jclStrings, jclFileUtils;
+  Forms, Windows, Classes, SysUtils, Controls, StdCtrls, Mask, Menus, IniFiles,
+  Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math, IOUtils,
+  VirtualTrees, USubtitleAPI, CommonTypes, StrUtils, jclStrings, jclFileUtils;
 
 // -----------------------------------------------------------------------------
 
@@ -195,7 +195,8 @@ function Replace(Text, This, ByThis: String; CaseSensitive, WholeWords, Preserve
 var
   SubtitleAPI : TSubtitleAPI;
   // Root of the main ini file
-  IniRoot : String;
+  IniRoot: String;
+  IniFileName : String;
   Dashes  : set of Char; //added by adenry
   DashCharsets1 : set of TFontCharset; //added by adenry - contain a dash in #150, and #151
   DashCharsets2 : set of TFontCharset; //added by adenry - contain a dash in #150, #151, and #173
@@ -1004,7 +1005,7 @@ begin
   with frmMain do
   begin
     tbTranslatorMode.Down := Flag;
-    Ini := TIniFile.Create(IniRoot);
+    Ini := TIniFile.Create(IniFileName);
     try
       mnuTranslatorMode.Checked := Flag;
       mnuColTranslation.Checked := Flag; //added by adenry

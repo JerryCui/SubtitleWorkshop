@@ -260,7 +260,7 @@ begin
     PUndoAction(UndoList.Last)^.BindToNext := False;
 
   ConvType := 0;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     if rdoSentenceType.Checked then ConvType := 0 else
     if rdoLowerCase.Checked    then ConvType := 1 else
@@ -288,7 +288,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     case Ini.ReadInteger('Convert case', 'Conversion type', 0) of
       1: rdoLowerCase.Checked := True;

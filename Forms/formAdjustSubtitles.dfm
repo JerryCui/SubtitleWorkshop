@@ -57,6 +57,10 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
     TabOrder = 2
     object pgeSimple: TTabSheet
       Caption = 'Simple'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblFirstSpokenLine: TLabel
         Left = 8
         Top = 8
@@ -105,6 +109,10 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblIfTimeOutsideScope: TLabel
         Left = 8
         Top = 184
@@ -142,7 +150,7 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
         Columns = <
           item
             Position = 0
-            Width = 33
+            Width = 37
             WideText = '#'
           end
           item

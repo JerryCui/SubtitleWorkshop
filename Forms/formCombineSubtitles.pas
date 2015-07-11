@@ -289,7 +289,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     udMinDuration.Position      := Ini.ReadInteger('Combine subtitles', 'Min duration', 1000);
     udMaxCPS.Position           := Ini.ReadInteger('Combine subtitles', 'Max CPS', 20);
@@ -310,7 +310,7 @@ procedure TfrmCombineSubtitles.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Combine subtitles', 'Min duration', udMinDuration.Position);
     Ini.WriteInteger('Combine subtitles', 'Max CPS', udMaxCPS.Position);

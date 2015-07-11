@@ -17,10 +17,10 @@ uses
   WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
   CommonTypes, uPSComponent, uPSCompiler, uPSRuntime, uPSC_std,
   uPSC_classes, uPSC_controls, uPSC_graphics, uPSC_stdctrls, uPSC_extctrls,
-  uPSC_forms, uPSC_menus, uPSC_dateutils,
+  uPSC_forms, uPSC_menus, uPSC_dateutils, IOUtils, System.ImageList,
   uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
   uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings,
-  System.ImageList, JclShell;
+  JclShell;
 
 
 type
@@ -892,7 +892,6 @@ type
     procedure mnuInsertSymbolClick(Sender: TObject);
     procedure sdSymbolDialogueInsertSymbol(Sender: TObject; Font: TFont;
       Chr: Char);
-    procedure mmoNotesEnter(Sender: TObject);
     procedure mmoSubTextEnter(Sender: TObject);
     procedure mmoTransEnter(Sender: TObject);
     procedure tmrFastTypingUndoBindTimer(Sender: TObject);
@@ -1064,7 +1063,6 @@ type
     UnTransSubsBckgr    : Integer; //added by adenry
     OrgCharset          : Cardinal; //Integer replaced with TFontCharset by adenry
     TransCharset        : Cardinal; //Integer replaced with TFontCharset by adenry
-    NotesCharset        : TFontCharset; //added by adenry
     AdjustFormOpened    : Boolean;
     frmSaveAsExecuting  : Boolean; //added by adenry - to fix a bug
     SmartResize         : Boolean; //added by adenry
@@ -2925,9 +2923,10 @@ begin
     SearchWord            := '';
     OldInputFPS           := 0;
     OldFPS                := 0;
-    IniRoot               := GetSpecialFolderLocation(CSIDL_APPDATA) + '\Subtitle Workshop\' + ID_ININAME;
-    if not DirectoryExists(IniRoot) then
-      CreateDir(GetSpecialFolderLocation(CSIDL_APPDATA) + '\Subtitle Workshop\');
+    IniRoot := TPath.Combine(TPath.GetHomePath, 'Subtitle Workshop');
+    IniFileName           := TPath.Combine(IniRoot, ID_ININAME);
+    if not TDirectory.Exists(IniRoot) then
+      TDirectory.CreateDirectory(IniRoot);
     FormatType            := ftTime;
     RecentFiles           := TStringList.Create;
     FirstDialogInVideo    := -1;
@@ -3123,9 +3122,8 @@ begin
     if ActualDefaultCharset in DashCharsets2 then DashCharsets2 := DashCharsets2 + [DEFAULT_CHARSET];
     Dashes := SetDashes(OrgCharset);
 
-    NotesCharset          := StrCharsetToInt(cmbOrgCharset.Items[Ini.ReadInteger('General', 'Notes charset', 1)]); //0 changed to 1 later
-    mmoNotes.Font.Charset := NotesCharset;
-    mmoNotes.Text         := ReplaceString(Ini.ReadString('General', 'Notes', ''), '|', #13#10);
+    if TFile.Exists(TPath.Combine(IniRoot, 'Notes.txt')) then
+      mmoNotes.Lines.LoadFromFile(TPath.Combine(IniRoot, 'Notes.txt'), TEncoding.UTF8);
     dlgColor.Color        := Ini.ReadInteger('General', 'Tag Color', $0000DFDF); //default is yellow
     //added by adenry: end
 
@@ -4108,7 +4106,7 @@ begin
   SubtitleAPI.Free;
   SaveFPS(cmbInputFPS);
 
-  Ini := TMemIniFile.Create(IniRoot); //TIniFile replaced with TMemIniFile by adenry
+  Ini := TMemIniFile.Create(IniFileName); //TIniFile replaced with TMemIniFile by adenry
   try
     // Save current language...
     Ini.WriteString('Language', 'Language', Copy(ExtractFileName(ActualLangFile), 0, Length(ExtractFileName(ActualLangFile))-4));
@@ -4137,7 +4135,7 @@ begin
     Ini.WriteInteger('General', 'Translated charset', cmbTransCharset.ItemIndex);
 
     // Notes content:
-    Ini.WriteString('General', 'Notes', ReplaceString(mmoNotes.Text, #13#10, '|')); //added by adenry
+    mmoNotes.Lines.SaveToFile(TPath.Combine(IniRoot, 'Notes.txt'), TEncoding.UTF8);
 
     // Save color of Color tag dialogue
     Ini.WriteInteger('General', 'Tag Color', dlgColor.Color); //added by adenry
@@ -8450,7 +8448,7 @@ var
   Temp     : array[0..MAX_PATH]of Char;
   Format   : Integer;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     if (FileExists(Ini.ReadString('External Preview','Video player', '')) = False) then
     begin
@@ -10209,7 +10207,7 @@ var
 begin
   if SmartResize then
   begin
-    Ini := TIniFile.Create(IniRoot);
+    Ini := TIniFile.Create(IniFileName);
     try
       if Ini.ReadBool('List look', 'Show horizontal scrollbar', True) = False then
         lstSubtitles.ScrollBarOptions.ScrollBars := ssVertical else
@@ -13821,18 +13819,6 @@ begin
   sdSymbolDialogue.Font := TheFont;
   //TODO: Make the mmoTranslation Text empty, if the Text is the UntranslatedSub text!
 end;
-
-procedure TfrmMain.mmoNotesEnter(Sender: TObject);
-var
-  TheFont: TFont;
-begin
-  TheFont := sdSymbolDialogue.Font;
-  TheFont.Charset := NotesCharset;
-  sdSymbolDialogue.Font := TheFont;
-end;
-//added by adenry: end
-
-// -----------------------------------------------------------------------------
 
 //added by adenry: begin
 procedure TfrmMain.mmoTranslationExit(Sender: TObject);

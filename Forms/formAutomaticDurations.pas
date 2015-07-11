@@ -272,7 +272,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     udMSPerCharacter.Position := Ini.ReadInteger('Automatic durations', 'Per character', 60);
     udMSPerWord.Position      := Ini.ReadInteger('Automatic durations', 'Per word', 50);
@@ -302,7 +302,7 @@ procedure TfrmAutomaticDurations.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Automatic durations', 'Per character', udMSPerCharacter.Position);
     Ini.WriteInteger('Automatic durations', 'Per word', udMSPerWord.Position);

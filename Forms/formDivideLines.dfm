@@ -157,8 +157,10 @@ object frmDivideLines: TfrmDivideLines
       Top = 88
       Width = 361
       Height = 70
+      ParentFont = False
       PlainText = True
       TabOrder = 1
+      Zoom = 100
       OnChange = mmoSubtitle1Change
       OnKeyDown = mmoSubtitle1KeyDown
     end
@@ -167,7 +169,9 @@ object frmDivideLines: TfrmDivideLines
       Top = 224
       Width = 361
       Height = 70
+      ParentFont = False
       TabOrder = 3
+      Zoom = 100
       OnChange = mmoSubtitle2Change
       OnKeyDown = mmoSubtitle2KeyDown
     end

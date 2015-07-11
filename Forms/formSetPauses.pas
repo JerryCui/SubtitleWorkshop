@@ -72,7 +72,7 @@ procedure TfrmSetPauses.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Set Pauses', 'Value', tmePauseValue.Time);
     if rdoAllSubs.Checked then
@@ -104,7 +104,7 @@ begin
     tmePauseValue.TimeMode  := tmFrames;
     tmePauseValue.MaxLength := 7;
   end;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     tmePauseValue.Time := Ini.ReadInteger('Set Pauses', 'Value', 200);
     rdoAllSubs.Checked := Ini.ReadBool('Set Pauses', 'All subtitles', True);

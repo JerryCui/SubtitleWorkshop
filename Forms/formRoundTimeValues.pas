@@ -50,7 +50,7 @@ var
   Ini: TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     udRoundingFactor.Position := Ini.ReadInteger('Round Time Values', 'Rounding factor', 100);
     rdoSelectedSubs.Checked   := not Ini.ReadBool('Round Time Values', 'All subtitles', True);
@@ -65,7 +65,7 @@ procedure TfrmRoundTimeValues.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Round Time Values', 'Rounding factor', udRoundingFactor.Position);
     Ini.WriteBool('Round Time Values', 'All subtitles', rdoAllSubs.Checked);

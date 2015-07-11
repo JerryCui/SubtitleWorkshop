@@ -314,7 +314,7 @@ begin
   SetLanguage;
 
   //added by adenry: begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Width   := Ini.ReadInteger('Various info', 'Width', 608);
     Height  := Ini.ReadInteger('Various info', 'Height', 336);
@@ -903,7 +903,7 @@ procedure TfrmVariousInfo.FormShow(Sender: TObject);
 var
   Ini : TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Various info', 'Various info form opened', True);
   finally
@@ -931,7 +931,7 @@ procedure TfrmVariousInfo.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Various info', 'Width', Width);
     Ini.WriteInteger('Various info', 'Height', Height);
@@ -950,7 +950,7 @@ procedure TfrmVariousInfo.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   Ini : TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('Various info', 'Various info form opened', False);
   finally

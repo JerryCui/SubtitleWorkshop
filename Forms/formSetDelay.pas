@@ -95,7 +95,7 @@ begin
     tmeDelay.TimeMode  := tmFrames;
     tmeDelay.MaxLength := 7;
   end;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     cmbDelayType.ItemIndex := Ini.ReadInteger('Delay', 'Type', 0);
     if (cmbDelayType.ItemIndex = 0) then
@@ -124,7 +124,7 @@ procedure TfrmSetDelay.FormDestroy(Sender: TObject);
 var
   Ini: TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteInteger('Delay', 'Type', cmbDelayType.ItemIndex);
     //Ini.WriteBool('Delay','All subtitles',rdoAllSubs.Checked); //removed by adenry

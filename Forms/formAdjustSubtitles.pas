@@ -165,7 +165,7 @@ begin
                  frmMain.SyncPointsArray[i].LineNum);
   end;
 
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     case Ini.ReadInteger('Adjust subtitles', 'Mode', 0) of
       1: rdoReturnOrgTime.Checked := True;
@@ -376,7 +376,7 @@ var
   Data : PSyncPoint;
   Node : PVirtualNode;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     i := 0;
     if rdoReturnOrgTime.Checked then i := 1 else

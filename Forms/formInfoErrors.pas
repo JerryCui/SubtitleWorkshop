@@ -1597,7 +1597,7 @@ var
   Ini     : TIniFile;
 begin
   SetLanguage;
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     chkConfirm.Checked := Ini.ReadBool('Information and Errors', 'Confirm each deletion', True);
 
@@ -1730,7 +1730,7 @@ var
   Ini : TMemIniFile; //TIniFile replaced with TMemIniFile by adenry
   i   : Integer;
 begin
-  Ini := TMemIniFile.Create(IniRoot); //TIniFile replaced with TMemIniFile by adenry
+  Ini := TMemIniFile.Create(IniFileName); //TIniFile replaced with TMemIniFile by adenry
   try
     Ini.WriteBool('Information and Errors', 'Confirm each deletion', chkConfirm.Checked);
 
@@ -2796,7 +2796,7 @@ procedure TfrmInfoErrors.FormShow(Sender: TObject);
 var
   Ini : TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('General', 'Info and errors form opened', True);
   finally
@@ -3026,7 +3026,7 @@ procedure TfrmInfoErrors.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   Ini : TIniFile;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     Ini.WriteBool('General', 'Info and errors form opened', False);
   finally
@@ -3242,7 +3242,7 @@ var
   Ini : TIniFile;
   i   : Integer;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     SetLength(ErrorTypesSets, Ini.ReadInteger('Information and Errors error types', 'Error types sets count', 0));
     for i := 0 to Length(ErrorTypesSets) - 1 do
@@ -3267,7 +3267,7 @@ var
   j, k    : Integer;
   CIData  : TCustomInfoData;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     for j := 1 to                                    Ini.ReadInteger('CI sets', 'SCur CICnt', 0) do
     begin
@@ -3303,7 +3303,7 @@ var
   Ini     : TIniFile;
   i, j, k : Integer;
 begin
-  Ini := TIniFile.Create(IniRoot);
+  Ini := TIniFile.Create(IniFileName);
   try
     SetLength(CustomInfoSets,                                          Ini.ReadInteger('CI sets', 'Sets count', 0));
     for i := 0 to Length(CustomInfoSets) - 1 do
@@ -3347,7 +3347,7 @@ var
   k, ANDcounter : Integer;
   form          : TfrmCompositeCustomInfo;
 begin
-  Ini := TMemIniFile.Create(IniRoot); //TIniFile replaced with TMemIniFile by adenry
+  Ini := TMemIniFile.Create(IniFileName); //TIniFile replaced with TMemIniFile by adenry
   try
     Ini.WriteInteger            ('CI sets', 'SCur CICnt', CustomInfosCount);
     counter := 0;
@@ -3399,7 +3399,7 @@ var
   Ini     : TMemIniFile; //TIniFile replaced with TMemIniFile by adenry
   i, j, k : Integer;
 begin
-  Ini := TMemIniFile.Create(IniRoot); //TIniFile replaced with TMemIniFile by adenry
+  Ini := TMemIniFile.Create(IniFileName); //TIniFile replaced with TMemIniFile by adenry
   try
     for i := 0 to cmbCustomInfoSets.Items.Count - 1 do
     begin
