@@ -20,7 +20,7 @@ uses
   uPSC_forms, uPSC_menus, uPSC_dateutils, IOUtils, System.ImageList,
   uPSR_std, uPSR_classes, uPSR_controls, uPSR_graphics, uPSR_stdctrls, uPSR_extctrls,
   uPSR_forms, uPSR_menus, uPSR_dateutils, StrUtils, jclStrings,
-  JclShell;
+  JclShell, System.Actions, Vcl.ActnList;
 
 
 type
@@ -488,6 +488,8 @@ type
     mnuDisplayTranslationPopup: TMenuItem;
     edtPlayerShortcuts: TEdit;
     PSScript1: TPSScript;
+    ActionList: TActionList;
+    actNewSubtitle: TAction;
     procedure lstSubtitlesInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure lstSubtitlesFreeNode(Sender: TBaseVirtualTree;
@@ -555,7 +557,6 @@ type
     procedure mnuEndSubtitleClick(Sender: TObject);
     procedure mnuCombineSubtitlesClick(Sender: TObject);
     procedure mnuFastSmartLineAdjustClick(Sender: TObject);
-    procedure mnuNewSubtitleClick(Sender: TObject);
     procedure btnAddSyncPointClick(Sender: TObject);
     procedure mnuSelectAllClick(Sender: TObject);
     procedure mnuBack5SecClick(Sender: TObject);
@@ -775,8 +776,6 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure tbRedoMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure tbNewSubtitleMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure tbLoadSubtitleMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure tbSaveFileMouseUp(Sender: TObject; Button: TMouseButton;
@@ -958,6 +957,7 @@ type
       x: TPSRuntimeClassImporter);
     procedure lstSubtitlesGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType; var CellText: string);
+    procedure actNewSubtitleExecute(Sender: TObject);
   protected
     procedure CreateParams(var Params: TCreateParams); override;
   private
@@ -2843,6 +2843,23 @@ begin
 end;
 
 // -----------------------------------------------------------------------------
+
+procedure TfrmMain.actNewSubtitleExecute(Sender: TObject);
+begin
+  if CloseSub then
+  begin
+    SubtitleAPI.CreateNewSubtitle;
+    EnableCtrls(True);
+    InsertNode;
+    RefreshTimes;
+    AutoRecheckNodeErrorsAndRepaint(lstSubtitles.GetFirst); //added by adenry
+    OrgModified     := False;
+    TransModified   := False;
+    MarkingModified := False; //added by adenry
+    OldInputFPS := GetInputFPS; //added by adenry
+    OldFPS      := GetFPS; //added by adenry
+  end;
+end;
 
 procedure TfrmMain.AddToRecent(const FileName: String);
 var
@@ -7220,27 +7237,6 @@ begin
       subSubtitle.Font.Charset := TransCharset;
   end;
 end;
-
-// -----------------------------------------------------------------------------
-
-procedure TfrmMain.mnuNewSubtitleClick(Sender: TObject);
-begin
-  if CloseSub then
-  begin
-    SubtitleAPI.CreateNewSubtitle;
-    EnableCtrls(True);
-    InsertNode;
-    RefreshTimes;
-    AutoRecheckNodeErrorsAndRepaint(lstSubtitles.GetFirst); //added by adenry
-    OrgModified     := False;
-    TransModified   := False;
-    MarkingModified := False; //added by adenry
-    OldInputFPS := GetInputFPS; //added by adenry
-    OldFPS      := GetFPS; //added by adenry
-  end;
-end;
-
-// -----------------------------------------------------------------------------
 
 procedure TfrmMain.mnuFirstSyncPointClick(Sender: TObject);
 begin
@@ -12172,15 +12168,6 @@ begin
   pnlEditingControls.Top := pnlEditingControls.Top + x;
 end;
 //added by adenry: end
-
-// -----------------------------------------------------------------------------
-
-//added by adenry: begin
-// TOOLBAR BUTTONS // MenuItem assignment calls the menus on mousedown, but I want them on mouseup
-procedure TfrmMain.tbNewSubtitleMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  mnuNewSubtitleClick(mnuNewSubtitle);
-end;
 
 procedure TfrmMain.tbLoadSubtitleMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 begin

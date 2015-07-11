@@ -68,9 +68,7 @@ object frmMain: TfrmMain
     object tbNewSubtitle: TToolButton
       Left = 6
       Top = 0
-      Caption = 'New subtitle...'
-      ImageIndex = 9
-      OnMouseUp = tbNewSubtitleMouseUp
+      Action = actNewSubtitle
     end
     object tbLoadSubtitle: TToolButton
       Left = 29
@@ -7091,10 +7089,7 @@ object frmMain: TfrmMain
       Caption = 'File'
       OnClick = mnuFileClick
       object mnuNewSubtitle: TMenuItem
-        Caption = 'New subtitle...'
-        ImageIndex = 9
-        ShortCut = 16462
-        OnClick = mnuNewSubtitleClick
+        Action = actNewSubtitle
       end
       object mnuLoad: TMenuItem
         Caption = 'Load'
@@ -8338,7 +8333,7 @@ object frmMain: TfrmMain
     Left = 200
     Top = 160
     Bitmap = {
-      494C010131003600400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010131003600440010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -10140,7 +10135,7 @@ object frmMain: TfrmMain
     Left = 232
     Top = 160
     Bitmap = {
-      494C0101310036003C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010131003600400010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000040000000D0000000010020000000000000D0
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -12147,5 +12142,18 @@ object frmMain: TfrmMain
     UsePreProcessor = False
     Left = 520
     Top = 56
+  end
+  object ActionList: TActionList
+    Images = imgLstMenu
+    Left = 336
+    Top = 248
+    object actNewSubtitle: TAction
+      Category = 'File'
+      Caption = '&New subtitle...'
+      Hint = 'New subtitle'
+      ImageIndex = 9
+      ShortCut = 16462
+      OnExecute = actNewSubtitleExecute
+    end
   end
 end
