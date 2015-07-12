@@ -69,7 +69,9 @@ function SubtitlesToFile_SUBSTATIONALPHA(Subtitles: TSubtitles; const FileName: 
 	    begin
 	      additional := 0;
 	      SSAColor := Copy(Text, tagPos+4, 6); //get color value
-	      if (SSAColor[1] in HexChars) and (SSAColor[2] in HexChars) and (SSAColor[3] in HexChars) and (SSAColor[4] in HexChars) and (SSAColor[5] in HexChars) and (SSAColor[6] in HexChars) then
+	      if CharIsHexDigit(SSAColor[1]) and CharIsHexDigit(SSAColor[2]) and
+           CharIsHexDigit(SSAColor[3]) and CharIsHexDigit(SSAColor[4]) and
+           CharIsHexDigit(SSAColor[5]) and CharIsHexDigit(SSAColor[6]) then
 	      begin
 	        SSAColor := '{\c&H' + SSAColor[5] + SSAColor[6] + SSAColor[3] + SSAColor[4] + SSAColor[1] + SSAColor[2] + '&}';
 	        Insert(SSAColor, Text, tagPos);

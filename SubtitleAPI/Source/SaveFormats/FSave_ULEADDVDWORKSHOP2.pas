@@ -8,7 +8,7 @@ function SubtitlesToFile_ULEADDVDWORKSHOP2(Subtitles: TSubtitles; const FileName
 var
   tmpSubFile         : TSubtitleFile;
   i, count           : Integer;
-  time1, time2       : shortstring;
+  time1, time2       : String;
 begin
   Result := True;
   tmpSubFile := TSubtitleFile.Create;

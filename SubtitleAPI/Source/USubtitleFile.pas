@@ -11,7 +11,7 @@ unit USubtitleFile;
 interface
 
 uses
-  SysUtils;
+  SysUtils, Classes, IOUtils, Vcl.Dialogs;
 
 const
   MaxListSize = MaxInt Div 16;
@@ -20,35 +20,32 @@ type
 
   { TSubtitleFile }
 
-  PStringItemList = ^TStringItemList;
-  TStringItemList = array[0..MaxListSize] of {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
-
   TSubtitleFile = class
   private
-    FList: PStringItemList;
-    FCount: Integer;
-    FCapacity: Integer;
-    function Get(Index: Integer): {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
-    procedure Put(Index: Integer; const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF});
+    FList: TStringList;
+    function Get(Index: Integer): String;
+    procedure Put(Index: Integer; const S: String);
     procedure SetCapacity(NewCapacity: Integer);
     procedure Grow;
-    function GetTextStr: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
-    procedure SetTextStr(const Value: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF});
+    function GetTextStr: String;
+    procedure SetTextStr(const Value: String);
+    function GetCapacity: Integer;
+    function GetCount: Integer;
   public
     constructor Create(FileName: String = ''; Trim: Boolean = True);
     destructor Destroy; override;
     procedure LoadFromFile(FileName: String; Trim: Boolean = True);
     // procedure SaveToFile(FileName: String);
     procedure SaveToFile(FileName: String; LineBreaks: TTextLineBreakStyle = tlbsCRLF);
-    function Add(const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; Trim: Boolean = True): Integer;
-    procedure Insert(Index: Integer; const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; Trim: Boolean = True);
+    function Add(const S: String; Trim: Boolean = True): Integer;
+    procedure Insert(Index: Integer; const S: String; Trim: Boolean = True);
     procedure Move(CurIndex, NewIndex: Integer);
     procedure Delete(Index: Integer);
     procedure Clear;
-    property Capacity: Integer read FCapacity write SetCapacity;
-    property Count: Integer read FCount;
-    property Strings[Index: Integer]: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF} read Get write Put; default;
-    property Text: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF} read GetTextStr write SetTextStr;
+    property Capacity: Integer read GetCapacity write SetCapacity;
+    property Count: Integer read GetCount;
+    property Strings[Index: Integer]: String read Get write Put; default;
+    property Text: String read GetTextStr write SetTextStr;
   end;
 
   { TSubtitles }
@@ -109,8 +106,7 @@ implementation
 
 constructor TSubtitleFile.Create(FileName: String = ''; Trim: Boolean = True);
 begin
-  FCount    := 0;
-  FCapacity := 0;
+  FList := TStringList.Create;
 
   If FileName <> '' Then
     LoadFromFile(FileName, Trim);
@@ -120,11 +116,7 @@ end;
 
 destructor TSubtitleFile.Destroy;
 begin
-  If FCount <> 0 Then
-    Finalize(FList^[0], FCount);
-
-  FCount := 0;
-  SetCapacity(0);
+  FList.Free;
 
   inherited Destroy;
 end;
@@ -132,85 +124,63 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.LoadFromFile(FileName: String; Trim: Boolean = True);
-var
-  f : TextFile;
-  s : {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
 begin
   Clear;
 
-  {$I-}
-  AssignFile(f, FileName);
-  Try
-    Reset(f);
-
-    If IOResult = 0 Then
-      While Not Eof(f) Do
-      Begin
-        ReadLn(f, s);
-        Add(s, Trim);
-      End;
-  Finally
-    CloseFile(f);
-    {$I+}
-  End;
+  if TPath.GetExtension(FileName).ToLower = '.xml' then
+    FList.LoadFromFile(FileName, TEncoding.UTF8)
+  else
+    FList.LoadFromFile(FileName);
 end;
 
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.SaveToFile(FileName: String; LineBreaks: TTextLineBreakStyle = tlbsCRLF);
-var
-  f : TextFile;
-  i : Integer;
 begin
-  If FCount = 0 Then Exit;
+  If FList.Count = 0 Then Exit;
 
-  {$I-}
-  AssignFile(f, FileName);
-  Try
-    SetLineBreakStyle(f, LineBreaks);   // LF or CRLF
-
-    ReWrite(f);
-
-    If IOResult = 0 Then
-      For i := 0 To FCount-1 Do
-        WriteLn(f, Get(i));
-
-    Flush(f);
-  Finally
-    CloseFile(f);
-    {$I+}
-  End;
+  FList.SaveToFile(FileName);
 end;
 
 // -----------------------------------------------------------------------------
 
-function TSubtitleFile.Get(Index: Integer): {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
+function TSubtitleFile.Get(Index: Integer): String;
 begin
-  If (Index >= 0) Or (Index < FCount) Then
-    Result := FList^[Index];
+  If (Index >= 0) or (Index < FList.Count) Then
+    Result := FList[Index];
+end;
+
+function TSubtitleFile.GetCapacity: Integer;
+begin
+  Result := FList.Capacity;
+end;
+
+function TSubtitleFile.GetCount: Integer;
+begin
+  Result := FList.Count;
 end;
 
 // -----------------------------------------------------------------------------
 
-procedure TSubtitleFile.Put(Index: Integer; const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF});
+procedure TSubtitleFile.Put(Index: Integer; const S: String);
 begin
-  If (Index >= 0) Or (Index < FCount) Then
-    FList^[Index] := S;
+  If (Index >= 0) Or (Index < FList.Count) Then
+    FList[Index] := S;
 end;
 
 // -----------------------------------------------------------------------------
 
-function TSubtitleFile.Add(const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; Trim: Boolean = True): Integer;
+function TSubtitleFile.Add(const S: String; Trim: Boolean = True): Integer;
 begin
-  Result := FCount;
+  Result := FList.Count;
   Insert(Result, S, Trim);
 end;
 
 // -----------------------------------------------------------------------------
 
-procedure TSubtitleFile.Insert(Index: Integer; const S: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF}; Trim: Boolean = True);
+procedure TSubtitleFile.Insert(Index: Integer; const S: String; Trim: Boolean = True);
 var
-  FLine: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
+  FLine: String;
 begin
   If Trim = True Then
   Begin
@@ -220,143 +190,59 @@ begin
   Else
     FLine := S;
 
-  If FCount = FCapacity Then
-    Grow;
-
-  If Index < FCount Then
-    System.Move(FList^[Index], FList^[Index + 1], (FCount - Index) * SizeOf(String));
-
-  Pointer(FList^[Index]) := NIL;
-  FList^[Index]          := FLine;
-
-  Inc(FCount);
+  FList.Insert(Index, FLine);
 end;
 
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.Move(CurIndex, NewIndex: Integer);
-var
-  TempString: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
 begin
-  If (CurIndex >= 0) And (CurIndex < FCount) And (CurIndex <> NewIndex) Then
-  Begin
-    TempString := Get(CurIndex);
-    Delete(CurIndex);
-    Insert(NewIndex, TempString, False);
-  End;
+  If (CurIndex >= 0) And (CurIndex < FList.Count) And (CurIndex <> NewIndex) Then
+    FList.Move(CurIndex, NewIndex);
 end;
 
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.Delete(Index: Integer);
 begin
-  If (Index < 0) Or (Index >= FCount) Then Exit;
+  If (Index < 0) Or (Index >= FList.Count) Then Exit;
 
-  Finalize(FList^[Index]);
-  Dec(FCount);
-
-  If Index < FCount Then
-    System.Move(FList^[Index + 1], FList^[Index], (FCount - Index) * SizeOf(String));
+  FList.Delete(Index);
 end;
 
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.Clear;
 begin
-  If FCount <> 0 Then
-  Begin
-    Finalize(FList^[0], FCount);
-    FCount := 0;
-    SetCapacity(0);
-  End;
+  FList.Clear;
 end;
 
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.SetCapacity(NewCapacity: Integer);
 begin
-  ReallocMem(FList, NewCapacity * SizeOf(String));
-  FCapacity := NewCapacity;
+  FList.Capacity := NewCapacity;
 end;
 
 // -----------------------------------------------------------------------------
 
 procedure TSubtitleFile.Grow;
-var
-  Delta: Integer;
 begin
-  If FCapacity > 64 Then
-    Delta := FCapacity Div 4
-  Else If FCapacity > 8 Then
-    Delta := 16
-  Else
-    Delta := 4;
-
-  SetCapacity(FCapacity + Delta);
 end;
 
 // -----------------------------------------------------------------------------
 
-function TSubtitleFile.GetTextStr: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
-var
-  I, L, Size : Integer;
-  P          : {$IFDEF UTF8}PWideChar{$ELSE}PChar{$ENDIF};
-  S, LB      : {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
+function TSubtitleFile.GetTextStr: String;
 begin
-  Size := 0;
-  LB   := #13#10;
-
-  For I := 0 To FCount - 1 Do
-    Inc(Size, Length(Get(I)) + Length(LB));
-
-  SetString(Result, NIL, Size);
-  P := Pointer(Result);
-
-  For I := 0 To FCount - 1 Do
-  Begin
-    S := Get(I);
-    L := Length(S);
-
-    If L <> 0 Then
-    Begin
-      System.Move(Pointer(S)^, P^, L);
-      Inc(P, L);
-    End;
-
-    L := Length(LB);
-
-    If L <> 0 Then
-    Begin
-      System.Move(Pointer(LB)^, P^, L);
-      Inc(P, L);
-    End;
-  End;
+  Result := FList.Text;
 end;
 
 // -----------------------------------------------------------------------------
 
-procedure TSubtitleFile.SetTextStr(const Value: {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF});
-var
-  P, Start : {$IFDEF UTF8}PWideChar{$ELSE}PChar{$ENDIF};
-  S        : {$IFDEF UTF8}WideString{$ELSE}String{$ENDIF};
+procedure TSubtitleFile.SetTextStr(const Value: String);
 begin
   Clear;
-  P := Pointer(Value);
-
-  If P <> NIL Then
-    While P^ <> #0 Do
-    Begin
-      Start := P;
-
-      While Not (P^ in [#0, #10, #13]) Do
-        Inc(P);
-
-      SetString(S, Start, P - Start);
-      Add(S);
-
-      If P^ = #13 Then Inc(P);
-      If P^ = #10 Then Inc(P);
-    End;
+  FList.Text := Value;
 end;
 
 // -----------------------------------------------------------------------------

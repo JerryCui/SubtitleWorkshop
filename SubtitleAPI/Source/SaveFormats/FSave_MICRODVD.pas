@@ -79,7 +79,9 @@ function SubtitlesToFile_MICRODVD(Subtitles: TSubtitles; const FileName: String;
 		
 		  if Color then
 		  begin
-		    if (TheColor[1] in HexChars) and (TheColor[2] in HexChars) and (TheColor[3] in HexChars) and (TheColor[4] in HexChars) and (TheColor[5] in HexChars) and (TheColor[6] in HexChars) then
+		    if CharIsHexDigit(TheColor[1]) and CharIsHexDigit(TheColor[2]) and
+           CharIsHexDigit(TheColor[3]) and CharIsHexDigit(TheColor[4]) and
+           CharIsHexDigit(TheColor[5]) and CharIsHexDigit(TheColor[6]) then
 		    begin
 		      CTag := CTag + TheColor[5] + TheColor[6] + TheColor[3] + TheColor[4] + TheColor[1] + TheColor[2] + '}';
 		      Text := CTag + Text;

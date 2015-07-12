@@ -9,7 +9,7 @@ function SubtitlesToFile_SCANTITLE(Subtitles: TSubtitles; const FileName: String
 var
   tmpSubFile : TSubtitleFile;
   i, Count   : Integer;
-  z: shortstring;
+  z: String;
 begin
   Count  := 1;
   Result := True;

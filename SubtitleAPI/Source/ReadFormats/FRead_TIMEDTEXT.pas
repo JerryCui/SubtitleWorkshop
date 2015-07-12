@@ -3,98 +3,162 @@
 // Licesne: GPL v3
 // Copyright: See Subtitle API's copyright information
 // File Description: Timed Text subtitle format reading functionality
+unit FRead_TIMEDTEXT;
 
-function FileToSubtitles_TIMEDTEXT(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
+interface
+
+uses
+  System.SysUtils, USubtitleFile, OXMLSax, OTextReadWrite, Vcl.Dialogs;
+
 type
   TXMLState = (xsNone, xsSubtitleHeader, xsSubtitleText);
+  TXMLStates = set of TXMLState;
 
-var
-  XML         : TXMLParser;
-  State       : set of TXMLState;
-  Tag         : String;
-  InitialTime : Integer;
-  FinalTime   : Integer;
-  Text        : String;
-
-  function GetTimeValue(const ID: String): Integer;
-  var
-    S: String;
-  begin
-    S := XML.CurAttr.Value(ID);
-    //Result := StrToInt(Copy(S, 1, Length(S)-1)) * 1000; //removed by adenry 2013.04.13
-    //added by adenry: begin 2013.04.13
-    try
-      Result := Trunc(StrToFloat(Copy(S, 1, Length(S)-1)) * 1000);
-    except
-      Result := 0;
-    end;
-    //added by adenry: end    
+  TTimedTextSubtitle = class
+    FTag: String;
+    FInitialTime: Integer;
+    FFinalTime: Integer;
+    FState: TXMLStates;
+    FSubtitles: TSubtitles;
+    FExtraTime: Integer;
+    function GetTimeValue(const ID: String): Integer;
+    procedure StartElement(Sender: TSAXParser; const aName: String; const aAttributes: TSAXAttributes);
+    procedure EndElement(aSaxParser: TSAXParser; const aName: String);
+    procedure ProcessCharacters(aSaxParser: TSAXParser; const aText: String);
+  public
+    constructor Create;
+    destructor Destroy; override;
+    function Parse(SubtitleFile: TSubtitleFile; ExtraTime: Integer): Boolean;
+    property Subtitles: TSubtitles read FSubtitles;
   end;
 
+function FileToSubtitles_TIMEDTEXT(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
+
+implementation
+
+uses
+  USubtitlesFunctions, USubtitlesRead;
+
+function FileToSubtitles_TIMEDTEXT(var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
+var
+  TimedTextSubtitle: TTimedTextSubtitle;
+  I: Integer;
 begin
   Result := False;
-  State  := [xsNone];
-  XML    := TXMLParser.Create;
 
-  DecimalSeparator := '.'; //added by adenry 2013.04.13
-
-  with XML do
+  TimedTextSubtitle := TTimedTextSubtitle.Create;
   try
-    tmpSubFile.Text := ReplaceString(tmpSubFile.Text, '<br/>', #17); //added by adenry 2013.04.13
-    LoadFromBuffer(PChar(tmpSubFile.Text));
-    InitialTime := -1; //added by adenry 2013.04.13
-    FinalTime   := -1; //added by adenry 2013.04.13
-    StartScan;
-    while Scan do
-    begin
-      Tag := LowerCase(CurName);
-      //InitialTime := -1; //removed by adenry 2013.04.13
-      //FinalTime   := -1; //removed by adenry 2013.04.13
-
-      case CurPartType of
-        ptStartTag : begin
-
-          if Tag = 'div' then
-                       Include(State, xsSubtitleHeader) else //added by adenry 2013.04.13
-          if Tag = 'p' then //added by adenry 2013.04.13
-                     if (xsSubtitleHeader in State) then //added by adenry 2013.04.13
-                     begin
-                       //Include(State, xsSubtitleHeader); //removed by adenry 2013.04.13
-                       InitialTime := GetTimeValue('begin');
-                       FinalTime   := GetTimeValue('end');
-                       Include(State, xsSubtitleText); //added by adenry 2013.04.13
-                     end;
-                     //else if (xsSubtitleHeader in State) and (Tag = 'p') then //removed by adenry 2013.04.13
-                     //  Include(State, xsSubtitleText);                        //removed by adenry 2013.04.13
-        end;
-
-        ptEndTag   : if Tag = 'p' then
-                       Exclude(State, xsSubtitleText)
-                     else if Tag = 'div' then
-                       Exclude(State, xsSubtitleHeader)
-                     else if Tag = 'body' then
-                       Break;
-
-        ptContent  : //if tag = 'p' then
-                      if (xsSubtitleText in State) then
-                      begin
-                        Text := ReplaceString(XML.CurContent, #17, #13#10); //'|' replaced with #17 by adenry 2013.04.13
-                        //moved in here by adenry: 2013.04.13
-                        if (InitialTime > -1) and (FinalTime > -1) then
-                        begin
-                          if (MaxDuration > 0) and ((FinalTime + ExtraTime) > MaxDuration) Then
-                            Subtitles.Add(InitialTime + ExtraTime, InitialTime + ExtraTime + MaxDuration, Text)
-                          else
-                            Subtitles.Add(InitialTime + ExtraTime, FinalTime + ExtraTime, Text);
-                        end;
-                        InitialTime := -1; //added by adenry 2013.04.13
-                        FinalTime   := -1; //added by adenry 2013.04.13
-                      end;
-      end;
-      
-    end;
+      TimedTextSubtitle.Parse(tmpSubFile, ExtraTime);
   finally
-    Free;
-    if Subtitles.Count > 0 then Result := True;
+    if TimedTextSubtitle.Subtitles.Count > 0 then
+    begin
+      for I := 0 to TimedTextSubtitle.Subtitles.Count - 1  do
+        Subtitles.Add(TimedTextSubtitle.Subtitles[i].InitialTime, TimedTextSubtitle.Subtitles[i].FinalTime, TimedTextSubtitle.Subtitles[i].Text);
+
+      Result := True;
+    end;
+
+    TimedTextSubtitle.Free;
+  end;
+
+end;
+
+{ TTimedTextSubtitle }
+
+constructor TTimedTextSubtitle.Create;
+begin
+  inherited;
+  FSubtitles := TSubtitles.Create;
+end;
+
+destructor TTimedTextSubtitle.Destroy;
+begin
+  FSubtitles.Free;
+  inherited;
+end;
+
+procedure TTimedTextSubtitle.EndElement(aSaxParser: TSAXParser;
+  const aName: String);
+begin
+  FTag := aName.ToLower;
+
+  if FTag = 'p' then
+    Exclude(FState, xsSubtitleText)
+  else
+    if FTag = 'div' then
+      Exclude(FState, xsSubtitleHeader)
+    else if FTag = 'body' then
+      ;
+end;
+
+function TTimedTextSubtitle.GetTimeValue(const ID: String): Integer;
+var
+  FSettings: TFormatSettings;
+begin
+  try
+    FSettings.DecimalSeparator := '.';
+    Result := Trunc(StrToFloat(Copy(ID, 1, Length(ID)-1), FSettings) * 1000);
+  except
+    Result := 0;
   end;
 end;
+
+function TTimedTextSubtitle.Parse(SubtitleFile: TSubtitleFile; ExtraTime: Integer): Boolean;
+var
+  XmlParser: TSAXParser;
+begin
+  FExtraTime := ExtraTime;
+  FSubtitles.Clear;
+
+  XmlParser := TSAXParser.Create;
+  XmlParser.ReaderSettings.ErrorHandling := ehRaise;
+  XmlParser.OnStartElement := StartElement;
+  XmlParser.OnEndElement := EndElement;
+  XmlParser.OnCharacters := ProcessCharacters;
+  try
+    XmlParser.ParseXML(SubtitleFile.Text);
+  finally
+    XmlParser.Free;
+  end;
+
+end;
+
+procedure TTimedTextSubtitle.ProcessCharacters(aSaxParser: TSAXParser;
+  const aText: String);
+var
+  S: String;
+begin
+  if (xsSubtitleText in FState) then
+  begin
+    S := ReplaceString(aText, #17, #13#10); //'|' replaced with #17 by adenry 2013.04.13
+    //moved in here by adenry: 2013.04.13
+    if (FInitialTime > -1) and (FFinalTime > -1) then
+    begin
+      if (MaxDuration > 0) and ((FFinalTime + FExtraTime) > MaxDuration) Then
+                            Subtitles.Add(FInitialTime + FExtraTime, FInitialTime + FExtraTime + MaxDuration, S)
+                          else
+                            Subtitles.Add(FInitialTime + FExtraTime, FFinalTime + FExtraTime, S);
+                        end;
+                        FInitialTime := -1; //added by adenry 2013.04.13
+                        FFinalTime   := -1; //added by adenry 2013.04.13
+                      end;
+end;
+
+procedure TTimedTextSubtitle.StartElement(Sender: TSAXParser; const aName: String;
+  const aAttributes: TSAXAttributes);
+begin
+  FTag := aName.ToLower;
+  if FTag = 'div' then
+    Include(FState, xsSubtitleHeader)
+  else
+    if FTag = 'p' then //added by adenry 2013.04.13
+      if (xsSubtitleHeader in FState) then //added by adenry 2013.04.13
+      begin
+        //Include(State, xsSubtitleHeader); //removed by adenry 2013.04.13
+        FInitialTime := GetTimeValue(aAttributes.Get('begin'));
+        FFinalTime   := GetTimeValue(aAttributes.Get('end'));
+        Include(FState, xsSubtitleText); //added by adenry 2013.04.13
+      end;
+end;
+
+end.

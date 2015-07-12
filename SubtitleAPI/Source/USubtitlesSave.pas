@@ -74,7 +74,6 @@ function SubtitlesToFile_SUBSONIC                (Subtitles: TSubtitles; const F
 function SubtitlesToFile_SUBSTATIONALPHA         (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_SUBVIEWER1              (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_SUBVIEWER2              (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
-function SubtitlesToFile_TIMEDTEXT               (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;  // by URUWorks 2007.12.22
 //function SubtitlesToFile_TITLEVISIONTXT          (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_TMPLAYER                (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
 function SubtitlesToFile_TURBOTITLER             (Subtitles: TSubtitles; const FileName: String; From: Integer = -1; UpTo: Integer = -1)                    : Boolean;
@@ -236,7 +235,7 @@ var
 implementation
 
 uses
-  FSave_CAVENA;
+  FSave_CAVENA, FSave_TIMEDTEXT;
 
 // -----------------------------------------------------------------------------
 
@@ -383,7 +382,6 @@ end;
 {$include SaveFormats/FSave_SUBSTATIONALPHA}
 {$include SaveFormats/FSave_SUBVIEWER1}
 {$include SaveFormats/FSave_SUBVIEWER2}
-{$include SaveFormats/FSave_TIMEDTEXT}
 //{$include SaveFormats/FSave_TITLEVISIONTXT}
 {$include SaveFormats/FSave_TMPLAYER}
 {$include SaveFormats/FSave_TURBOTITLER}

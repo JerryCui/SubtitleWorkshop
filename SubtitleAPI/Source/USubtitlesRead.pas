@@ -307,7 +307,6 @@ function FileToSubtitles_SUBSONIC                (var Subtitles: TSubtitles; tmp
 function FileToSubtitles_SUBSTATIONALPHA         (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_SUBVIEWER1              (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_SUBVIEWER2              (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
-//function FileToSubtitles_TIMEDTEXT               (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;   // by URUWorks 2007.12.22
 //function FileToSubtitles_TITLEVISIONTXT          (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_TMPLAYER                (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
 function FileToSubtitles_TURBOTITLER             (var Subtitles: TSubtitles; tmpSubFile: TSubtitleFile; ExtraTime: Integer): Boolean;
@@ -336,7 +335,7 @@ var
 
 implementation
 
-uses UCheckFormat, FRead_CAVENA;
+uses UCheckFormat, FRead_CAVENA, FRead_TIMEDTEXT;
 
 //------------------------------------------------------------------------------
 
@@ -480,7 +479,7 @@ begin
     sfSubStationAlpha         : Result := FileToSubtitles_SUBSTATIONALPHA        (Subtitles, tmpSubFile, ExtraTime);
     sfSubViewer1              : Result := FileToSubtitles_SUBVIEWER1             (Subtitles, tmpSubFile, ExtraTime);
     sfSubViewer2              : Result := FileToSubtitles_SUBVIEWER2             (Subtitles, tmpSubFile, ExtraTime);
-//    sfTimedText               : Result := FileToSubtitles_TIMEDTEXT              (Subtitles, tmpSubFile, ExtraTime);    // by URUWorks 2007.12.22
+    sfTimedText               : Result := FileToSubtitles_TIMEDTEXT              (Subtitles, tmpSubFile, ExtraTime);    // by URUWorks 2007.12.22
     //sfTitlevisionTXT          : Result := FileToSubtitles_TITLEVISIONTXT         (Subtitles, tmpSubFile, ExtraTime);
     sfTMPlayer                : Result := FileToSubtitles_TMPLAYER               (Subtitles, tmpSubFile, ExtraTime);
     sfTurboTitler             : Result := FileToSubtitles_TURBOTITLER            (Subtitles, tmpSubFile, ExtraTime);
