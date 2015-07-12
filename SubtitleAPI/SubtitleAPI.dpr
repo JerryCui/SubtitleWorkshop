@@ -105,9 +105,7 @@ uses
   USubtitlesSave in 'Source\USubtitlesSave.pas',
   USubtitlesFunctions in 'Source\USubtitlesFunctions.pas',
   FRead_CAVENA in 'Source\ReadFormats\FRead_CAVENA.pas',
-  FSave_CAVENA in 'Source\SaveFormats\FSave_CAVENA.pas',
-  FSave_TIMEDTEXT in 'Source\SaveFormats\FSave_TIMEDTEXT.pas',
-  FRead_TIMEDTEXT in 'Source\ReadFormats\FRead_TIMEDTEXT.pas';
+  FSave_CAVENA in 'Source\SaveFormats\FSave_CAVENA.pas';
 
 var
   Subtitles: TSubtitles = NIL;

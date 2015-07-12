@@ -235,7 +235,8 @@ var
 implementation
 
 uses
-  FSave_CAVENA, FSave_TIMEDTEXT;
+  FSave_CAVENA
+  {,FSave_TIMEDTEXT};  //  disabled as incomplete
 
 // -----------------------------------------------------------------------------
 
@@ -310,7 +311,7 @@ begin
       sfSubStationAlpha         : Result := SubtitlesToFile_SUBSTATIONALPHA(Subtitles, FileName, From, UpTo);
       sfSubViewer1              : Result := SubtitlesToFile_SUBVIEWER1(Subtitles, FileName, From, UpTo);
       sfSubViewer2              : Result := SubtitlesToFile_SUBVIEWER2(Subtitles, FileName, From, UpTo);
-      sfTimedText               : Result := SubtitlesToFile_TIMEDTEXT(Subtitles, FileName, From, UpTo);
+      { sfTimedText               : Result := SubtitlesToFile_TIMEDTEXT(Subtitles, FileName, From, UpTo); }
       //sfTitlevisionTXT          : Result := SubtitlesToFile_TITLEVISIONTXT(Subtitles, FileName, From, UpTo);
       sfTMPlayer                : Result := SubtitlesToFile_TMPLAYER(Subtitles, FileName, From, UpTo);
       sfTurboTitler             : Result := SubtitlesToFile_TURBOTITLER(Subtitles, FileName, From, UpTo);
