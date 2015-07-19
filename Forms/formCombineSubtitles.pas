@@ -9,7 +9,7 @@ unit formCombineSubtitles; //added by adenry
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ComCtrls, ExtCtrls, IniFiles,
+  Windows, Messages, UITypes, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ComCtrls, ExtCtrls, IniFiles,
   VirtualTrees,
   CommonTypes;
 
