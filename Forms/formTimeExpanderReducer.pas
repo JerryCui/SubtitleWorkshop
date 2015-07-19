@@ -9,8 +9,8 @@ unit formTimeExpanderReducer;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, Mask, ExtCtrls, ComCtrls, IniFiles,
-  VirtualTrees,
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Mask, ExtCtrls, ComCtrls, IniFiles, VirtualTrees,
   CommonTypes;
 
 type
