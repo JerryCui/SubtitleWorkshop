@@ -11,8 +11,8 @@ unit formSAMILangExtractor;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ExtCtrls, StdCtrls, IniFiles, FileCtrl, ComCtrls, HTMLPars, StrUtils,
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, IniFiles, FileCtrl, ComCtrls, HTMLPars, StrUtils,
   jclStrings;
 
 type

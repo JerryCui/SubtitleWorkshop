@@ -9,7 +9,7 @@ unit formSetPauses; //added by adenry
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Mask, IniFiles,
+  Windows, Messages, UITypes, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Mask, IniFiles,
   TimeMaskEdit;
 
 type
