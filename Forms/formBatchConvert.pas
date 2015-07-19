@@ -6,12 +6,11 @@
 
 unit formBatchConvert;
 
-{$WARN UNIT_PLATFORM OFF}
-
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, CheckLst, ComCtrls, ExtCtrls, IniFiles, FileCtrl;
+  Windows, Messages, SysUtils, Classes, IOUtils, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, CheckLst, ComCtrls, ExtCtrls, IniFiles, FileCtrl;
 
 type
   TfrmBatchConvert = class(TForm)
@@ -375,13 +374,13 @@ begin
       MsgBox(ErrorMsg[07], BTN_OK, '', '', MB_ICONERROR, frmBatchConvert);
       exit;
     end;
-    if DirectoryExists(edtSearchPath.Text) = False then
+    if TDirectory.Exists(edtSearchPath.Text) = False then
     begin
       MsgBox(ErrorMsg[08], BTN_OK, '', '', MB_ICONERROR, frmBatchConvert);
       exit;
     end;
-    if DirectoryExists(edtOutputDirectory.Text) = False then
-      ForceDirectories(edtOutputDirectory.Text);
+    if TDirectory.Exists(edtOutputDirectory.Text) = False then
+      TDirectory.CreateDirectory(edtOutputDirectory.Text);
 
     lstFiles.Clear;
     ProgressBar.Position  := 0;
