@@ -8744,7 +8744,6 @@ var
   Text2       : String;
   tmpText1    : String;
   tmpText2    : String;
-  DotPos      : Integer;
   UndoAction1 : PUndoAction;
   UndoAction2 : PUndoAction;
   MustAddUndo : Boolean; //added later
