@@ -11901,7 +11901,8 @@ begin
       R := Rect(0, 0, 0, 0);
       TargetCanvas.Font.Style := [];
       DrawText(TargetCanvas.Handle, PChar(Text), -1, R, DT_CALCRECT);
-      R.Top := R.Top+Round((lstSubtitles.DefaultNodeHeight-R.Bottom)/2);
+      R.Top := R.Top+Round((Integer(lstSubtitles.DefaultNodeHeight) -
+               R.Bottom)/2);
       R.Bottom := R.Bottom+Round((Integer(lstSubtitles.DefaultNodeHeight) -
                   R.Bottom)/2);
       R.Left := CellRect.Right-(R.Right-R.Left)-4;
