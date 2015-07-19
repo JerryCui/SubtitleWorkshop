@@ -9,8 +9,8 @@ unit General;
 interface
 
 uses
-  Forms, Windows, Classes, SysUtils, Controls, StdCtrls, Mask, Menus, IniFiles,
-  Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math, IOUtils,
+  Forms, Windows, Classes, Character, SysUtils, Controls, StdCtrls, Mask, Menus,
+  IniFiles, Dialogs, Graphics, Messages, ClipBrd, ExtCtrls, Math, IOUtils,
   VirtualTrees, USubtitleAPI, CommonTypes, StrUtils, jclStrings, jclFileUtils;
 
 // -----------------------------------------------------------------------------
@@ -56,7 +56,6 @@ const
 
   gcWordDelims     = [#1..#47,#58..#64,#91..#96,#123..#126,'¡','¿']-['`'];
 
-  Alphanumeric: set of Char = ['a'..'z', 'A'..'Z', '0'..'9']; //added by adenry
   HexChars: set of Char = ['A'..'F', 'a'..'f' , '0'..'9']; //added by adenry
   NumDelimiterChars : set of Char = ['.', ',', ':', '-', '+', '=', '^']; //added by adenry
 
@@ -2359,7 +2358,7 @@ begin
     begin
       prev := Length(s1);
       next := 1;
-      if (s1[prev] in Alphanumeric) and (s2[next] in Alphanumeric) then //if the characters around the dot are alphanumeric
+      if s1[prev].IsLetterOrDigit and s2[next].IsLetterOrDigit then //if the characters around the dot are alphanumeric
       begin
         //get the start and the end of the website address
         prev := Max(StrLastPos(' ', s1), StrLastPos(#13#10, s1)) + 1;
