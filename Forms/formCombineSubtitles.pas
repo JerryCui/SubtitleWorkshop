@@ -115,8 +115,9 @@ begin
       if Length(S2)>0 then
         C2_First := Copy(S2, 1, 1)[1];
 
-      if (C1_Last in ['?', '!', '.']) or ((C1_Last in dashes)and(C1_BeforeLast in dashes)) then  // first string should not end on ? . ! or --
-        if not (C2_First in dashes) then //at this point, combine only if S2 has dash on first line
+      if CharInSet(C1_Last, ['?', '!', '.']) or (CharInSet(C1_Last, dashes) and
+         CharInSet(C1_BeforeLast, dashes)) then  // first string should not end on ? . ! or --
+        if not CharInSet(C2_First, dashes) then //at this point, combine only if S2 has dash on first line
           Result := False;
     end;
 end;
