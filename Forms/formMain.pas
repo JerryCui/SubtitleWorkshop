@@ -11319,7 +11319,7 @@ end;
 //added by adenry: begin
 procedure TfrmMain.tmeShowMouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 var
-  step              : Cardinal;
+  step              : Integer;
   Node, NextSelNode : PVirtualNode; //added later
 begin
   if FormatType = ftTime then
@@ -11355,7 +11355,7 @@ end;
 //added by adenry: begin
 procedure TfrmMain.tmeShowMouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 var
-  step              : Cardinal;
+  step              : Integer;
   Node, NextSelNode : PVirtualNode; //added later
 begin
   if FormatType = ftTime then
@@ -11394,7 +11394,7 @@ end;
 //added by adenry: begin
 procedure TfrmMain.tmeHideMouseWheelDown(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 var
-  step              : Cardinal;
+  step              : Integer;
   Node, NextSelNode : PVirtualNode; //added later
 begin
   if FormatType = ftTime then
@@ -11430,7 +11430,7 @@ end;
 //added by adenry: begin
 procedure TfrmMain.tmeHideMouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 var
-  step              : Cardinal;
+  step              : Integer;
   Node, NextSelNode : PVirtualNode; //added later
 begin
   if FormatType = ftTime then
@@ -11587,7 +11587,7 @@ end;
 //added by adenry: begin
 procedure TfrmMain.tmePauseMouseWheelUp(Sender: TObject; Shift: TShiftState; MousePos: TPoint; var Handled: Boolean);
 var
-  step              : Cardinal;
+  step              : Integer;
   Pause             : Integer; //added later
   Node, NextSelNode : PVirtualNode; //added later
 begin
