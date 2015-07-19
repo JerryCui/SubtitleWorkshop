@@ -11,9 +11,9 @@ unit formSplit;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, FileCtrl, IniFiles, Buttons,
-  VirtualTrees, TimeMaskEdit,
-  CommonTypes;
+  Windows, Messages, SysUtils, Classes, IOUtils, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, FileCtrl, IniFiles, Buttons,
+  VirtualTrees, TimeMaskEdit, CommonTypes;
 
 type
   TSubtitlePart = record
@@ -412,7 +412,8 @@ begin
     begin
       OutPath := edtOutputDirectory.Text;
       if OutPath[Length(OutPath)] <> '\' then OutPath := OutPath + '\';
-      if DirectoryExists(OutPath) = False then ForceDirectories(OutPath);
+      if TDirectory.Exists(OutPath) = False then
+        TDirectory.CreateDirectory(OutPath);
     end else
       OutPath := ExtractFilePath(frmMain.OrgFile);
 
