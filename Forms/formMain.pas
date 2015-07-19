@@ -11,7 +11,7 @@ unit formMain;
 interface
 
 uses
-  Windows, Messages, Types, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Menus, ComCtrls, IniFiles, ImgList,
+  Windows, Messages, Types, UITypes, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Menus, ComCtrls, IniFiles, ImgList,
     ShellAPI, ShlObj, ClipBrd, URLMon, FileCtrl, Grids, ToolWin, Mask, Math, {XPMan,} RichEdit, SymbolDlg, //Math, RichEdit, XPMan added by adenry
   VirtualTrees, MiMenu, MiSubtitulo, {MiHint,} {NFormSizing,} SWSeekBar, SWButton, USSpeller, SWTimeCounter, TimeMaskEdit, //MiHint, NFormSizing removed by adenry
   WinShell, //DirectShow9, //WinShell added by adenry, DirectShow9 removed by adenry
