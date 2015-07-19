@@ -9,7 +9,7 @@ unit formSmartLineAdjust; //added by adenry
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, ComCtrls, IniFiles,
+  Windows, Messages, UITypes, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, ComCtrls, IniFiles,
   VirtualTrees,
   CommonTypes;
 
