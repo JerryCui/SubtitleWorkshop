@@ -13590,7 +13590,7 @@ procedure TfrmMain.mnuShiftToNextClick(Sender: TObject);
 var
   Node          : PVirtualNode;
   UndoAction    : PUndoAction;
-  ShiftValue    : Cardinal;
+  ShiftValue    : Integer;
 begin
   Node := GetLastSelected;
   if Assigned(Node) and Assigned(Node.NextSibling) then
@@ -13644,7 +13644,7 @@ procedure TfrmMain.mnuShiftToPreviousClick(Sender: TObject);
 var
   Node          : PVirtualNode;
   UndoAction    : PUndoAction;
-  ShiftValue    : Cardinal;
+  ShiftValue    : Integer;
 begin
   //Get First selected:
   Node := lstSubtitles.GetFirstSelected;
