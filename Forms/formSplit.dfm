@@ -7,7 +7,7 @@ object frmSplit: TfrmSplit
   ClientHeight = 489
   ClientWidth = 424
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -196,7 +196,7 @@ object frmSplit: TfrmSplit
         Left = 16
         Top = 96
         Width = 95
-        Height = 22
+        Height = 21
         Alignment = taCenter
         ChangeTimeOnModify = True
         FPS = 25.000000000000000000
@@ -211,10 +211,6 @@ object frmSplit: TfrmSplit
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object rdoEndOfVideos: TRadioButton
         Left = 0
         Top = 192
@@ -352,7 +348,7 @@ object frmSplit: TfrmSplit
           item
             Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible]
             Position = 0
-            Width = 251
+            Width = 247
             WideText = 'Filename'
           end
           item

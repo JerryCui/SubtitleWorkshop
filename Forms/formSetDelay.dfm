@@ -7,7 +7,7 @@ object frmSetDelay: TfrmSetDelay
   ClientHeight = 145
   ClientWidth = 297
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

@@ -7,7 +7,7 @@ object frmDivideLines: TfrmDivideLines
   ClientHeight = 353
   ClientWidth = 577
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -157,6 +157,11 @@ object frmDivideLines: TfrmDivideLines
       Top = 88
       Width = 361
       Height = 70
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
       ParentFont = False
       PlainText = True
       TabOrder = 1
@@ -169,6 +174,11 @@ object frmDivideLines: TfrmDivideLines
       Top = 224
       Width = 361
       Height = 70
+      Font.Charset = RUSSIAN_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
       ParentFont = False
       TabOrder = 3
       Zoom = 100

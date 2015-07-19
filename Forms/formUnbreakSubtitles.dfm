@@ -10,7 +10,7 @@ object frmUnbreakSubtitles: TfrmUnbreakSubtitles
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -28,7 +28,7 @@ object frmUnbreakSubtitles: TfrmUnbreakSubtitles
     object lblCharacters: TLabel
       Left = 88
       Top = 64
-      Width = 50
+      Width = 51
       Height = 13
       Caption = 'characters'
     end

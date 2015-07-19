@@ -10,7 +10,7 @@ object frmSubtitleAPIFormats: TfrmSubtitleAPIFormats
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -51,6 +51,7 @@ object frmSubtitleAPIFormats: TfrmSubtitleAPIFormats
     Header.Font.Height = -11
     Header.Font.Name = 'MS Sans Serif'
     Header.Font.Style = []
+    Header.Height = 17
     Header.MainColumn = 1
     Header.Options = [hoAutoResize, hoRestrictDrag, hoShowSortGlyphs, hoAutoSpring]
     Header.SortColumn = 1

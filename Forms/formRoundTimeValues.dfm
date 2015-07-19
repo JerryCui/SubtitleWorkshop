@@ -10,7 +10,7 @@ object frmRoundTimeValues: TfrmRoundTimeValues
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -80,7 +80,7 @@ object frmRoundTimeValues: TfrmRoundTimeValues
     object lblMilliseconds: TLabel
       Left = 200
       Top = 16
-      Width = 56
+      Width = 55
       Height = 13
       Caption = 'milliseconds'
     end
@@ -89,7 +89,7 @@ object frmRoundTimeValues: TfrmRoundTimeValues
       Top = 12
       Width = 49
       Height = 21
-      EditLabel.Width = 47
+      EditLabel.Width = 48
       EditLabel.Height = 13
       EditLabel.Caption = 'Round to:'
       LabelPosition = lpLeft

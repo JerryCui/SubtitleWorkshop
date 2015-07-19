@@ -35,10 +35,6 @@ object frmVariousInfo: TfrmVariousInfo
     TabOrder = 1
     object pgeInformation: TTabSheet
       Caption = 'pgeInformation'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         577
         227)
@@ -50,6 +46,11 @@ object frmVariousInfo: TfrmVariousInfo
         Anchors = [akLeft, akTop, akRight, akBottom]
         DefaultPasteMode = amInsertAfter
         EditDelay = 100
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Tahoma'
+        Font.Style = []
         Header.AutoSizeIndex = 4
         Header.DefaultHeight = 17
         Header.Font.Charset = ANSI_CHARSET
@@ -61,6 +62,7 @@ object frmVariousInfo: TfrmVariousInfo
         Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoRestrictDrag]
         Header.Style = hsPlates
         HintMode = hmHintAndDefault
+        ParentFont = False
         ParentShowHint = False
         ScrollBarOptions.ScrollBars = ssVertical
         ShowHint = False
@@ -83,7 +85,7 @@ object frmVariousInfo: TfrmVariousInfo
           end
           item
             Position = 1
-            Width = 331
+            Width = 327
             WideText = 'Description'
           end>
       end
@@ -91,10 +93,6 @@ object frmVariousInfo: TfrmVariousInfo
     object pgeExtras: TTabSheet
       Caption = 'pgeExtras'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object gbBestFontSize: TGroupBox
         Left = 8
         Top = 12

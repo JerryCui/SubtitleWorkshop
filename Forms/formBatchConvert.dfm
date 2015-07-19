@@ -8,7 +8,7 @@ object frmBatchConvert: TfrmBatchConvert
   ClientHeight = 408
   ClientWidth = 456
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

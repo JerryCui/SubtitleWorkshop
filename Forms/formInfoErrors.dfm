@@ -8,7 +8,7 @@ object frmInfoErrors: TfrmInfoErrors
   Color = clBtnFace
   Constraints.MinHeight = 300
   Constraints.MinWidth = 513
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

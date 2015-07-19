@@ -7,7 +7,7 @@ object frmAutomaticDurations: TfrmAutomaticDurations
   ClientHeight = 457
   ClientWidth = 401
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

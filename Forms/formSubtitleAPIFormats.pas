@@ -29,7 +29,7 @@ type
       var NodeDataSize: Integer);
     procedure lstFormatsGetText(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
-      var CellText: WideString);
+      var CellText: String);
     procedure lstFormatsInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
   private
@@ -125,7 +125,7 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmSubtitleAPIFormats.lstFormatsGetText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: WideString);
+  Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType; var CellText: String);
 var
   Data: PSubtitleAPIFormats;
 begin

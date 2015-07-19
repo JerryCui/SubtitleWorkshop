@@ -1,12 +1,12 @@
 object frmEnterNewSyncPoint: TfrmEnterNewSyncPoint
   Left = 526
   Top = 197
-  Width = 193
-  Height = 187
   BorderIcons = []
   Caption = 'Enter new sync point'
+  ClientHeight = 149
+  ClientWidth = 177
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

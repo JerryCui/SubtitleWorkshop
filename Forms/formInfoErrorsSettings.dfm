@@ -7,7 +7,7 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
   ClientHeight = 641
   ClientWidth = 473
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -27,10 +27,6 @@ object frmInfoErrorsSettings: TfrmInfoErrorsSettings
     object pgeGeneral: TTabSheet
       Caption = 'General'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblOCRDefFile: TLabel
         Left = 8
         Top = 216

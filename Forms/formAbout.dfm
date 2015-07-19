@@ -7,7 +7,7 @@ object frmAbout: TfrmAbout
   ClientHeight = 345
   ClientWidth = 337
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -27,10 +27,6 @@ object frmAbout: TfrmAbout
     OnChange = pgeCtrlChange
     object pgeInformation: TTabSheet
       Caption = 'Information'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object Bevel1: TBevel
         Left = 8
         Top = 40

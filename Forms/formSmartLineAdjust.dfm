@@ -10,7 +10,7 @@ object frmSmartLineAdjust: TfrmSmartLineAdjust
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -54,28 +54,28 @@ object frmSmartLineAdjust: TfrmSmartLineAdjust
     object lblTwoLinesIfLongerThan: TLabel
       Left = 8
       Top = 8
-      Width = 112
+      Width = 115
       Height = 13
       Caption = 'Two lines if longer than:'
     end
     object lblCharacters1: TLabel
       Left = 72
       Top = 32
-      Width = 50
+      Width = 51
       Height = 13
       Caption = 'characters'
     end
     object lblBreakMethod: TLabel
       Left = 8
       Top = 64
-      Width = 69
+      Width = 70
       Height = 13
       Caption = 'Break method:'
     end
     object lblCharacters2: TLabel
       Left = 288
       Top = 48
-      Width = 50
+      Width = 51
       Height = 13
       Caption = 'characters'
       Visible = False
@@ -83,7 +83,7 @@ object frmSmartLineAdjust: TfrmSmartLineAdjust
     object lblMinimumLineLength: TLabel
       Left = 224
       Top = 26
-      Width = 95
+      Width = 96
       Height = 13
       Caption = 'Minimum line length:'
       Visible = False

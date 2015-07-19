@@ -7,7 +7,7 @@ object frmCustomFormats: TfrmCustomFormats
   ClientHeight = 448
   ClientWidth = 755
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

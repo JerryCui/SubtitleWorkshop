@@ -10,7 +10,7 @@ object frmSetPauses: TfrmSetPauses
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -34,7 +34,7 @@ object frmSetPauses: TfrmSetPauses
   object lblShortenDurationOf: TLabel
     Left = 16
     Top = 72
-    Width = 93
+    Width = 98
     Height = 13
     Caption = 'Shorten duration of:'
   end

@@ -8,7 +8,7 @@ object frmDurationLimits: TfrmDurationLimits
   ClientHeight = 217
   ClientWidth = 361
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

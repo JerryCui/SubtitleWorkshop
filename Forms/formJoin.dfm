@@ -7,7 +7,7 @@ object frmJoin: TfrmJoin
   ClientWidth = 561
   Color = clBtnFace
   Constraints.MinHeight = 355
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'

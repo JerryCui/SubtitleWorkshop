@@ -10,7 +10,7 @@ object frmCompositeCustomInfo: TfrmCompositeCustomInfo
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -352,10 +352,8 @@ object frmCompositeCustomInfo: TfrmCompositeCustomInfo
       Caption = 'tbErrorTypes'
       Color = clBtnFace
       DisabledImages = frmMain.imgLstMenuDisabled
-      EdgeBorders = []
       EdgeInner = esNone
       EdgeOuter = esNone
-      Flat = True
       Images = frmMain.imgLstMenu
       ParentColor = False
       ParentShowHint = False
@@ -379,7 +377,7 @@ object frmCompositeCustomInfo: TfrmCompositeCustomInfo
     Top = 16
     Width = 409
     Height = 21
-    EditLabel.Width = 39
+    EditLabel.Width = 41
     EditLabel.Height = 13
     EditLabel.Caption = 'Caption:'
     Font.Charset = DEFAULT_CHARSET

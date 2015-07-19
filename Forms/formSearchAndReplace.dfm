@@ -7,7 +7,7 @@ object frmSearchAndReplace: TfrmSearchAndReplace
   ClientHeight = 409
   ClientWidth = 336
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -38,10 +38,6 @@ object frmSearchAndReplace: TfrmSearchAndReplace
     TabOrder = 0
     object pgeSearch: TTabSheet
       Caption = 'Search'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object bvlSearch: TBevel
         Left = 8
         Top = 8

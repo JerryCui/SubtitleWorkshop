@@ -7,7 +7,7 @@ object frmOutputSettings: TfrmOutputSettings
   ClientHeight = 409
   ClientWidth = 609
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -398,7 +398,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 176
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 4
             MinValue = 0
             TabOrder = 1
@@ -408,7 +408,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 152
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 4
             MinValue = 0
             TabOrder = 2
@@ -418,7 +418,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 40
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 3
@@ -428,7 +428,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 16
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 4
@@ -438,7 +438,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 64
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 5
@@ -468,7 +468,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 96
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 10000
             MinValue = 0
             TabOrder = 8
@@ -478,7 +478,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 120
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 10000
             MinValue = 0
             TabOrder = 9
@@ -594,7 +594,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 48
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 10000
             MinValue = 0
             TabOrder = 2
@@ -604,7 +604,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 72
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 10000
             MinValue = 0
             TabOrder = 3
@@ -614,7 +614,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 104
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 4
@@ -1435,7 +1435,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 288
         Top = 56
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 15
         MinValue = 0
         TabOrder = 6
@@ -1445,7 +1445,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 288
         Top = 88
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 15
         MinValue = 0
         TabOrder = 7
@@ -1455,7 +1455,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 288
         Top = 120
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 15
         MinValue = 0
         TabOrder = 8
@@ -1465,7 +1465,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 288
         Top = 152
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 15
         MinValue = 0
         TabOrder = 9
@@ -1489,7 +1489,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 176
         Top = 56
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 16
         MinValue = 1
         TabOrder = 2
@@ -1499,7 +1499,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 176
         Top = 88
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 16
         MinValue = 1
         TabOrder = 3
@@ -1509,7 +1509,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 176
         Top = 120
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 16
         MinValue = 1
         TabOrder = 4
@@ -1519,7 +1519,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 176
         Top = 152
         Width = 65
-        Height = 22
+        Height = 21
         MaxValue = 16
         MinValue = 1
         TabOrder = 5
@@ -1877,7 +1877,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 176
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 4
             MinValue = 0
             TabOrder = 6
@@ -1887,7 +1887,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 152
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 4
             MinValue = 0
             TabOrder = 5
@@ -1897,7 +1897,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 40
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 1
@@ -1907,7 +1907,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 16
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 0
@@ -1917,7 +1917,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 64
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 1000
             MinValue = 0
             TabOrder = 2
@@ -1947,7 +1947,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 96
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 10000
             MinValue = 0
             TabOrder = 3
@@ -1957,7 +1957,7 @@ object frmOutputSettings: TfrmOutputSettings
             Left = 112
             Top = 120
             Width = 65
-            Height = 22
+            Height = 21
             MaxValue = 10000
             MinValue = 0
             TabOrder = 4
@@ -2081,7 +2081,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 88
         Top = 123
         Width = 57
-        Height = 22
+        Height = 21
         MaxValue = 65535
         MinValue = 0
         TabOrder = 5
@@ -2195,7 +2195,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 88
         Top = 123
         Width = 57
-        Height = 22
+        Height = 21
         MaxValue = 65535
         MinValue = 0
         TabOrder = 5
@@ -2205,7 +2205,7 @@ object frmOutputSettings: TfrmOutputSettings
         Left = 264
         Top = 123
         Width = 57
-        Height = 22
+        Height = 21
         MaxValue = 65535
         MinValue = 0
         TabOrder = 6
@@ -2262,10 +2262,6 @@ object frmOutputSettings: TfrmOutputSettings
       Caption = 'TMPlayer (*.txt)'
       ImageIndex = 9
       TabVisible = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         377
         317)

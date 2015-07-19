@@ -10,7 +10,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
@@ -79,21 +79,21 @@ object frmCombineSubtitles: TfrmCombineSubtitles
     object lblMilliseconds1: TLabel
       Left = 88
       Top = 36
-      Width = 56
+      Width = 55
       Height = 13
       Caption = 'milliseconds'
     end
     object lblCPS: TLabel
       Left = 88
       Top = 84
-      Width = 106
+      Width = 107
       Height = 13
       Caption = 'characters per second'
     end
     object lblMilliseconds2: TLabel
       Left = 88
       Top = 132
-      Width = 56
+      Width = 55
       Height = 13
       Caption = 'milliseconds'
     end
@@ -102,7 +102,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
       Top = 28
       Width = 49
       Height = 21
-      EditLabel.Width = 207
+      EditLabel.Width = 217
       EditLabel.Height = 13
       EditLabel.Caption = 'Combine if duration is less than (0 = no limit):'
       TabOrder = 0
@@ -125,7 +125,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
       Top = 76
       Width = 49
       Height = 21
-      EditLabel.Width = 205
+      EditLabel.Width = 214
       EditLabel.Height = 13
       EditLabel.Caption = 'Combine if CPS is greater than (0 = no limit):'
       TabOrder = 2
@@ -147,7 +147,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
       Top = 124
       Width = 49
       Height = 21
-      EditLabel.Width = 240
+      EditLabel.Width = 250
       EditLabel.Height = 13
       EditLabel.Caption = 'Don'#39't combine if pause is greater than (0 = no limit):'
       TabOrder = 4
@@ -175,14 +175,14 @@ object frmCombineSubtitles: TfrmCombineSubtitles
     object lblMilliseconds3: TLabel
       Left = 88
       Top = 36
-      Width = 56
+      Width = 55
       Height = 13
       Caption = 'milliseconds'
     end
     object lblMilliseconds4: TLabel
       Left = 88
       Top = 84
-      Width = 56
+      Width = 55
       Height = 13
       Caption = 'milliseconds'
     end
@@ -191,7 +191,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
       Top = 28
       Width = 49
       Height = 21
-      EditLabel.Width = 237
+      EditLabel.Width = 248
       EditLabel.Height = 13
       EditLabel.Caption = 'Combined subtitles maximum duration (0 = no limit):'
       TabOrder = 0
@@ -214,7 +214,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
       Top = 76
       Width = 49
       Height = 21
-      EditLabel.Width = 239
+      EditLabel.Width = 247
       EditLabel.Height = 13
       EditLabel.Caption = 'Decrease duration if necessary, with no more than:'
       TabOrder = 2
@@ -257,7 +257,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
     object lblCharacters: TLabel
       Left = 88
       Top = 36
-      Width = 50
+      Width = 51
       Height = 13
       Caption = 'characters'
     end
@@ -266,7 +266,7 @@ object frmCombineSubtitles: TfrmCombineSubtitles
       Top = 28
       Width = 49
       Height = 21
-      EditLabel.Width = 252
+      EditLabel.Width = 262
       EditLabel.Height = 13
       EditLabel.Caption = 'Combined subtitles maximum lines length (0 = no limit):'
       TabOrder = 0

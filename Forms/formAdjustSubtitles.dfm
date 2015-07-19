@@ -7,7 +7,7 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
   ClientHeight = 327
   ClientWidth = 322
   Color = clBtnFace
-  Font.Charset = ANSI_CHARSET
+  Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
@@ -79,7 +79,7 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
         Left = 8
         Top = 24
         Width = 97
-        Height = 22
+        Height = 21
         Alignment = taCenter
         ChangeTimeOnModify = True
         FPS = 25.000000000000000000
@@ -94,7 +94,7 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
         Left = 8
         Top = 72
         Width = 97
-        Height = 22
+        Height = 21
         Alignment = taCenter
         ChangeTimeOnModify = True
         FPS = 25.000000000000000000
@@ -109,10 +109,6 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblIfTimeOutsideScope: TLabel
         Left = 8
         Top = 184
@@ -150,7 +146,7 @@ object frmAdjustSubtitles: TfrmAdjustSubtitles
         Columns = <
           item
             Position = 0
-            Width = 37
+            Width = 33
             WideText = '#'
           end
           item
