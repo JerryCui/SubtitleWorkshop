@@ -18,7 +18,6 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-  published
     property Key   : String read FKey write SetKey;
     property Value : String read FValue;
   end;
