@@ -11,9 +11,8 @@ unit Undo;
 interface
 
 uses
-  Windows, Messages, SysUtils, Forms, Classes, Controls, Math, //Controls added by adenry to use TCursor type; Math added by adenry for use in DetectChangesForUndo
-  VirtualTrees,
-  CommonTypes;
+  Windows, Messages, Types, SysUtils, Forms, Classes, Controls, Math, //Controls added by adenry to use TCursor type; Math added by adenry for use in DetectChangesForUndo
+  VirtualTrees, CommonTypes;
 
 // -----------------------------------------------------------------------------
 

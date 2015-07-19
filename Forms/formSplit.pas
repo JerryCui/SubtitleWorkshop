@@ -6,12 +6,14 @@
 
 unit formSplit;
 
+{$WARN UNIT_PLATFORM OFF}
+
 interface
 
 uses
-  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, FileCtrl, IniFiles, Buttons,
-  VirtualTrees, TimeMaskEdit, CommonTypes;
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, FileCtrl, IniFiles, Buttons,
+  VirtualTrees, TimeMaskEdit,
+  CommonTypes;
 
 type
   TSubtitlePart = record
