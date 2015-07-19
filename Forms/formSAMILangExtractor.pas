@@ -13,7 +13,7 @@ interface
 uses
   Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, IniFiles, FileCtrl, ComCtrls, HTMLPars, StrUtils,
-  jclStrings;
+  IOUtils, jclStrings;
 
 type
   TfrmSAMILangExtractor = class(TForm)
@@ -167,9 +167,9 @@ begin
       if OutputDir[Length(OutputDir)] <> '\' then
         OutputDir := OutputDir + '\';
     end;
-    if DirectoryExists(OutputDir) = False then
+    if TDirectory.Exists(OutputDir) = False then
     begin
-      if (OutputDir = '') or (ForceDirectories(OutputDir) = False) then
+      if (OutputDir = '') or (SysUtils.ForceDirectories(OutputDir) = False) then
       begin
         MsgBox(ErrorMsg[15], BTN_OK, '', '', MB_ICONERROR, frmSAMILangExtractor);
         exit;
