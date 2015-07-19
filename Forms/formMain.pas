@@ -8160,7 +8160,7 @@ procedure TfrmMain.cmbInputFPSKeyPress(Sender: TObject; var Key: Char);
 begin
   if (Key = Chr(VK_RETURN)) and (IsFloat(cmbInputFPS.Text)) then
     AddFPSItem(StrToFloat(cmbInputFPS.Text), True, True, True) else
-  if (Key in ['0'..'9', FormatSettings.DecimalSeparator, Chr(VK_RETURN), Chr(VK_BACK)]) = False then
+  if CharInSet(Key, ['0'..'9', FormatSettings.DecimalSeparator, Chr(VK_RETURN), Chr(VK_BACK)]) = False then
     Key := #0;
 end;
 
