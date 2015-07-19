@@ -364,8 +364,8 @@ begin
         begin
           OutPath := edtOutputDirectory.Text;
           if OutPath[Length(OutPath)] <> '\' then OutPath := OutPath + '\';
-          if DirectoryExists(OutPath) = False then
-            ForceDirectories(OutPath);
+          if TDirectory.Exists(OutPath) = False then
+            TDirectory.CreateDirectory(OutPath);
         end else
           OutPath := ExtractFilePath(frmMain.OrgFile);
 
