@@ -9,9 +9,8 @@ unit formConvertCase;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, IniFiles,
-  VirtualTrees,
-  CommonTypes;
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, IniFiles, VirtualTrees, CommonTypes;
 
 type
   TfrmConvertCase = class(TForm)
