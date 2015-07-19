@@ -328,7 +328,8 @@ procedure TfrmTimeExpanderReducer.edtMinMaxDurationKeyPress(Sender: TObject;
 begin
   if frmMain.FormatType = ftFrames then
   begin
-    if not (Key in['0'..'9', Chr(VK_RETURN), Chr(VK_BACK), Chr(VK_ESCAPE)]) then
+    if not CharInSet(Key, ['0'..'9', Chr(VK_RETURN), Chr(VK_BACK),
+       Chr(VK_ESCAPE)]) then
       Key := #0;
   end;
 end;
