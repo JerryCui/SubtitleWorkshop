@@ -9,8 +9,8 @@ unit formAutomaticDurations;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, IniFiles, ComCtrls, Math,
-  VirtualTrees,
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, IniFiles, ComCtrls, Math, VirtualTrees,
   CommonTypes;
 
 type

@@ -57,6 +57,7 @@
         <VerInfo_Keys>CompanyName=;FileDescription=Subtitle Workshop is a free application for creating, editing, and converting text-based subtitle files.;FileVersion=7.0.0.7;InternalName=SubtitleWorkshop;LegalCopyright=;LegalTrademarks=;OriginalFilename=SubtitleWorkshop.exe;ProductName=Subtitle Workshop;ProductVersion=6.1.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <VerInfo_AutoIncVersion>false</VerInfo_AutoIncVersion>
         <Icon_MainIcon>Graphics\Icon.ico</Icon_MainIcon>
         <VerInfo_Build>0</VerInfo_Build>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=7.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
