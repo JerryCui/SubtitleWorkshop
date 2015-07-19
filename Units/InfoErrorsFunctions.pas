@@ -1454,9 +1454,9 @@ function RemoveUnnecessarySpaces(Text: String; ForceFix: Boolean = False): Strin
       begin
         for i := 0 to Length(Line)-2 do
         begin
-          if (Line[i] in ['0'..'9', '/']) and
+          if (CharInSet(Line[i], ['0'..'9', '/'])) and
              (Line[i+1] = ' ') and
-             (Line[i+2] in ['0'..'9', ',', '.', '-', ':', '/']) then
+             CharInSet(Line[i+2], ['0'..'9', ',', '.', '-', ':', '/']) then
             Delete(Line, i+1, 1);
         end;
       end;
