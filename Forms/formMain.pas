@@ -7209,6 +7209,8 @@ begin
     //set new charset:
     TransCharset := StrCharsetToInt(cmbTransCharset.Items[cmbTransCharset.ItemIndex]);
 
+    OldEncoding := nil;
+    NewEncoding := nil;
     try
       OldEncoding := TEncoding.GetEncoding(OldTransCharset);
       NewEncoding := TEncoding.GetEncoding(TransCharset);
