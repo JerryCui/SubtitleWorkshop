@@ -7150,6 +7150,8 @@ begin
   begin
     OrgCharset := StrCharsetToInt(cmbOrgCharset.Items[cmbOrgCharset.ItemIndex]);
 
+    OldOrgEncoding := nil;
+    NewOrgEncoding := nil;
     begin
       try
         OldOrgEncoding := TEncoding.GetEncoding(OldOrgCharset);
