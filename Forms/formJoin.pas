@@ -9,7 +9,8 @@ unit formJoin;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ComCtrls, StdCtrls, ExtCtrls, IniFiles;
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, ComCtrls, StdCtrls, ExtCtrls, IniFiles;
 
 type
   TfrmJoin = class(TForm)
