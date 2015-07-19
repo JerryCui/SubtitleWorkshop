@@ -11902,7 +11902,8 @@ begin
       TargetCanvas.Font.Style := [];
       DrawText(TargetCanvas.Handle, PChar(Text), -1, R, DT_CALCRECT);
       R.Top := R.Top+Round((lstSubtitles.DefaultNodeHeight-R.Bottom)/2);
-      R.Bottom := R.Bottom+Round((lstSubtitles.DefaultNodeHeight-R.Bottom)/2);
+      R.Bottom := R.Bottom+Round((Integer(lstSubtitles.DefaultNodeHeight) -
+                  R.Bottom)/2);
       R.Left := CellRect.Right-(R.Right-R.Left)-4;
       R.Right := CellRect.Right-4;
 
@@ -12945,7 +12946,8 @@ begin
   //regular double click
   if mmo.SelLength > 0 then
   begin
-    while (mmo.SelText[1] in SpecialChars) or (isTagPart(mmo.Text, mmo.SelStart+1)) do
+    while CharInSet(mmo.SelText[1], SpecialChars) or
+          (isTagPart(mmo.Text, mmo.SelStart+1)) do
     begin
       len := mmo.SelLength;
       mmo.SelStart := mmo.SelStart + 1;
@@ -12953,7 +12955,8 @@ begin
       if mmo.SelLength = 0 then
         exit;
     end;
-    while (mmo.SelText[mmo.SelLength] in SpecialChars) or (isTagPart(mmo.Text, mmo.SelStart+mmo.SelLength)) do
+    while CharInSet(mmo.SelText[mmo.SelLength], SpecialChars) or
+          (isTagPart(mmo.Text, mmo.SelStart+mmo.SelLength)) do
     begin
       mmo.SelLength := mmo.SelLength - 1;
       if mmo.SelLength = 0 then
@@ -13838,7 +13841,7 @@ end;
 
 procedure TfrmMain.mmoTextTransKeyPress(Sender: TObject; var Key: Char);
 begin
-  if Key in SpecialChars then //a special character means a word's end, so we stop binding undo actions
+  if CharInSet(Key, SpecialChars) then //a special character means a word's end, so we stop binding undo actions
     tmrFastTypingUndoBind.Enabled := False;
   if Key = #13 then //don't bind anything after typing a new line
     tmrFastTypingUndoBind.Tag := 1 else
