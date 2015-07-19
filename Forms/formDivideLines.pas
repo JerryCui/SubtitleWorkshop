@@ -9,9 +9,9 @@ unit formDivideLines;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, Mask, ExtCtrls, ComCtrls, Math, IniFiles, Menus, ClipBrd, //ClipBrd added by adenry
-  VirtualTrees, TimeMaskEdit,
-  CommonTypes, General;
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, Mask, ExtCtrls, ComCtrls, Math, IniFiles, Menus, ClipBrd,
+  VirtualTrees, TimeMaskEdit, CommonTypes, General;
 
 type
   TfrmDivideLines = class(TForm)
@@ -53,7 +53,7 @@ type
     procedure btnDivideClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure udDivideAfterBreakNumChangingEx(Sender: TObject;
-      var AllowChange: Boolean; NewValue: Smallint;
+      var AllowChange: Boolean; NewValue: Integer;
       Direction: TUpDownDirection);
     procedure mmoSubtitle1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -343,7 +343,7 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmDivideLines.udDivideAfterBreakNumChangingEx(Sender: TObject;
-  var AllowChange: Boolean; NewValue: Smallint;
+  var AllowChange: Boolean; NewValue: Integer;
   Direction: TUpDownDirection);
 var
   Part1, Part2: String;
