@@ -846,7 +846,7 @@ type
     procedure tmePauseTimeChange(Sender: TObject; NewTime: Cardinal);
     procedure tmePauseTimeChangeFromEditOnly(Sender: TObject;
       NewTime: Cardinal);
-    procedure ChangePause(Node: PVirtualNode; NewPause: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False); //added by adenry
+    procedure ChangePause(Node: PVirtualNode; NewPause: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False); //added by adenry
     procedure tmePauseMouseWheelDown(Sender: TObject; Shift: TShiftState;
       MousePos: TPoint; var Handled: Boolean);
     procedure tmePauseMouseWheelUp(Sender: TObject; Shift: TShiftState;
@@ -5209,11 +5209,14 @@ end;
 // -----------------------------------------------------------------------------
 
 //added by adenry: begin
-procedure TfrmMain.ChangePause(Node: PVirtualNode; NewPause: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False);
+procedure TfrmMain.ChangePause(Node: PVirtualNode; NewPause: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False);
 var
   UndoAction: PUndoAction;
   NewShowTime, NewHideTime, ShowTime, HideTime: Integer; //added later
 begin
+  if NewPause < 0 then
+    Exit;
+
   if Node <> lstSubtitles.GetFirst then
   if NewPause <> GetStartTime(Node) - GetFinalTime(Node.PrevSibling) then
   begin
