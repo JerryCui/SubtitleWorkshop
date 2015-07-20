@@ -171,7 +171,7 @@ function DeleteEmptyLines(Text: String): String; //added by adenry
 // ---------------
 // Timing rounding
 // ---------------
-function RoundTimeValue(TimeValue: Cardinal; Factor: Integer; RoundUpward: Boolean = False; RoundDownward: Boolean = False): Cardinal; //added by adenry
+function RoundTimeValue(TimeValue: Integer; Factor: Integer; RoundUpward: Boolean = False; RoundDownward: Boolean = False): Integer; //added by adenry
 procedure RoundSubtitlesValues(RoundFactor: Byte; SelectedOnly: Boolean); //added by adenry
 // ---------------
 // Charset related
@@ -2091,10 +2091,13 @@ end;
 // -----------------------------------------------------------------------------
 
 //added by adenry - round a passed time value
-function RoundTimeValue(TimeValue: Cardinal; Factor: Integer; RoundUpward: Boolean = False; RoundDownward: Boolean = False): Cardinal;
+function RoundTimeValue(TimeValue: Integer; Factor: Integer; RoundUpward: Boolean = False; RoundDownward: Boolean = False): Integer;
 var
   ModValue: Cardinal;
 begin
+  if Factor < 0 then
+    Factor := 0;
+
   ModValue := TimeValue mod Factor;
   if ModValue > 0 then
     if (RoundUpward or (ModValue >= Factor / 2)) and (RoundDownward = False) then

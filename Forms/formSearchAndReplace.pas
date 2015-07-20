@@ -9,9 +9,8 @@ unit formSearchAndReplace;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls, ComCtrls, IniFiles,
-  VirtualTrees,
-  CommonTypes;
+  Windows, Messages, UITypes, SysUtils, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, ComCtrls, IniFiles, VirtualTrees, CommonTypes;
 
 type
   TfrmSearchAndReplace = class(TForm)

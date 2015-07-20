@@ -99,7 +99,7 @@ begin
   FirstCharPos := 0;
   for i := 1 to Length(Str) do //0 changed to 1 by adenry
   begin
-    if ((Str[i] in SpecialChars) = False)
+    if (CharInSet(Str[i], SpecialChars) = False)
     and( (SubtitleApi.MultiTagsMode = False) or (not IsTagPart(Str, i)) ) //added by adenry
     then
     begin
@@ -144,7 +144,7 @@ begin
   Str := AnsiUpperCase(Copy(Str, 1, 1)) + AnsiLowerCase(Copy(Str, 2, Length(Str)));
   for i := 1 to Length(Str) do
   begin
-    if (Str[i] in SpecialChars) then
+    if CharInSet(Str[i], SpecialChars) then
       Str := Copy(Str, 1, i) + AnsiUpperCase(Copy(Str, i + 1, 1)) + AnsiLowerCase(Copy(Str, i + 2, Length(Str)));
   end;
   Result := Str;

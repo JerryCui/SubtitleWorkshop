@@ -38,6 +38,10 @@ object frmSearchAndReplace: TfrmSearchAndReplace
     TabOrder = 0
     object pgeSearch: TTabSheet
       Caption = 'Search'
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object bvlSearch: TBevel
         Left = 8
         Top = 8

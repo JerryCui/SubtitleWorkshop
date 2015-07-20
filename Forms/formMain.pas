@@ -672,11 +672,11 @@ type
     procedure mnuFastDivideLinesClick(Sender: TObject);
     procedure mnuAddSyncPointClick(Sender: TObject);
     procedure tmeShowTimeChangeFromEditOnly(Sender: TObject; NewTime: Cardinal);
-    procedure ChangeShowTime(Node: PVirtualNode; NewShowTime: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanShowEdit); //added by adenry
+    procedure ChangeShowTime(Node: PVirtualNode; NewShowTime: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanShowEdit); //added by adenry
     procedure tmeHideTimeChangeFromEditOnly(Sender: TObject; NewTime: Cardinal);
-    procedure ChangeHideTime(Node: PVirtualNode; NewHideTime: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanHideEdit); //added by adenry
+    procedure ChangeHideTime(Node: PVirtualNode; NewHideTime: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanHideEdit); //added by adenry
     procedure tmeDurationTimeChangeFromEditOnly(Sender: TObject; NewTime: Cardinal);
-    procedure ChangeDuration(Node: PVirtualNode; NewDuration: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False); //added by adenry
+    procedure ChangeDuration(Node: PVirtualNode; NewDuration: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False); //added by adenry
     procedure lstSubtitlesCreateEditor(Sender: TBaseVirtualTree;
       Node: PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
     procedure lstSubtitlesEditing(Sender: TBaseVirtualTree;
@@ -4952,14 +4952,15 @@ end;
 // -----------------------------------------------------------------------------
 
 //added by adenry: begin
-procedure TfrmMain.ChangeShowTime(Node: PVirtualNode; NewShowTime: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanShowEdit);
+procedure TfrmMain.ChangeShowTime(Node: PVirtualNode; NewShowTime: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanShowEdit);
 var
   UndoAction: PUndoAction;
   ShowTime, HideTime, NewHideTime: Integer; //added by adenry
 begin
+
   ShowTime := GetStartTime(Node);
   HideTime := GetFinalTime(Node);
-  if NewShowTime > MAX_TIME then NewShowTime := 0; //added later
+  if (NewShowTime > MAX_TIME) or (NewShowTime < 0) then NewShowTime := 0; //added later
   if NewShowTime <> ShowTime then
   begin
     //added by adenry: bind to previous when fast scrolling
@@ -5041,14 +5042,14 @@ end;
 // -----------------------------------------------------------------------------
 
 //added by adenry: begin
-procedure TfrmMain.ChangeHideTime(Node: PVirtualNode; NewHideTime: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanHideEdit);
+procedure TfrmMain.ChangeHideTime(Node: PVirtualNode; NewHideTime: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False; UndoActionName: TUndoActionName = uanHideEdit);
 var
   UndoAction: PUndoAction;
   ShowTime, HideTime, NewShowTime: Integer; //added by adenry
 begin
   ShowTime := GetStartTime(Node);
   HideTime := GetFinalTime(Node);
-  if NewHideTime > MAX_TIME then NewHideTime := 0; //added later
+  if (NewHideTime > MAX_TIME) or (NewHideTime < 0) then NewHideTime := 0; //added later
   if NewHideTime <> HideTime then
   begin
     //added by adenry: bind to previous when fast scrolling
@@ -5132,12 +5133,15 @@ end;
 
 //added by adenry: begin
 //most of tmeDurationTimeChangeFromEditOnly is now here, however here we have additional parameters (Node and BinUndoToNext):
-procedure TfrmMain.ChangeDuration(Node: PVirtualNode; NewDuration: Cardinal; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False);
+procedure TfrmMain.ChangeDuration(Node: PVirtualNode; NewDuration: Integer; BindUndoToNext: Boolean = False; BindUndoToPrev: Boolean = False; Shift: Boolean = False);
 var
   UndoAction      : PUndoAction;
   oldStartTime    : Integer; //added by adenry
   durationIncrease: Integer; //added by adenry
 begin
+  if NewDuration < 0 then
+    raise ERangeError.Create('NewDuration cannot be < 0');
+
   oldStartTime := GetStartTime(Node); //added by adenry //was lstSubtitles.FocusedNode
   durationIncrease := NewDuration - (GetFinalTime(Node) - oldStartTime); //added by adenry //was lstSubtitles.FocusedNode
 
@@ -5173,7 +5177,7 @@ begin
     //added by adenry: end
     AddUndo(UndoAction);
 
-    SetFinalTime(Node, Cardinal(oldStartTime) + NewDuration); //added by adenry //lstSubtitles.FocusedNode
+    SetFinalTime(Node, oldStartTime + NewDuration); //added by adenry //lstSubtitles.FocusedNode
     //SetFinalTime(lstSubtitles.FocusedNode, Cardinal(GetStartTime(lstSubtitles.FocusedNode)) + NewDuration); //removed by adenry
     if BindUndoToNext = False then //added by adenry later
       RefreshTimes;

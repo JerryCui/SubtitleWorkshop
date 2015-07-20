@@ -211,6 +211,10 @@ object frmSplit: TfrmSplit
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object rdoEndOfVideos: TRadioButton
         Left = 0
         Top = 192

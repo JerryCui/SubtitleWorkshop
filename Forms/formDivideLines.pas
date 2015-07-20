@@ -164,7 +164,7 @@ begin
     tmeShowSub1.Time  := InitialTime;
     tmeHideSub2.Time  := FinalTime;
     tmeHideSub1.Time  := InitialTime + Duration1;
-    tmeShowSub2.Time  := tmeHideSub1.Time + DefaultSubPause; //1 replaced with DefaultSubPause by adenry
+    tmeShowSub2.Time  := Integer(tmeHideSub1.Time) + DefaultSubPause; //1 replaced with DefaultSubPause by adenry
     tmeDuration1.Time := Duration1;
     tmeDuration2.Time := tmeHideSub2.Time - tmeShowSub2.Time; //1 replaced with DefaultSubPause by adenry
   end;
