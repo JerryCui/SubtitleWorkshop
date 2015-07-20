@@ -10,8 +10,8 @@ interface
 
 uses
   Windows, Messages, UITypes, SysUtils, Classes, IOUtils, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, FileCtrl, IniFiles,
-  Buttons, VirtualTrees, TimeMaskEdit, CommonTypes;
+  Forms, Dialogs, StdCtrls, ExtCtrls, Mask, ComCtrls, IniFiles,
+  Buttons, VirtualTrees, TimeMaskEdit, CommonTypes, JvBaseDlg, JvSelectDirectory;
 
 type
   TSubtitlePart = record
@@ -64,6 +64,7 @@ type
     btnBrowse2: TButton;
     btnBrowse1: TButton;
     tmeGivenTime: TTimeMaskEdit;
+    JvSelectDirectory: TJvSelectDirectory;
     procedure btnSplitClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnBrowse1Click(Sender: TObject);
@@ -862,8 +863,9 @@ procedure TfrmSplit.btnBrowse2Click(Sender: TObject);
 var
   Dir : String;
 begin
-  if SelectDirectory(edtOutputDirectory.EditLabel.Caption, '', Dir) then
-    edtOutputDirectory.Text := Dir;
+  JvSelectDirectory.InitialDir := edtOutputDirectory.Text;
+  if JvSelectDirectory.Execute then
+    edtOutputDirectory.Text := JvSelectDirectory.Directory;
 end;
 
 // -----------------------------------------------------------------------------

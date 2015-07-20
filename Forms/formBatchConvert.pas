@@ -10,7 +10,8 @@ interface
 
 uses
   Windows, Messages, UITypes, SysUtils, Classes, IOUtils, Graphics, Controls,
-  Forms, Dialogs, StdCtrls, CheckLst, ComCtrls, ExtCtrls, IniFiles, FileCtrl;
+  Forms, Dialogs, StdCtrls, CheckLst, ComCtrls, ExtCtrls, IniFiles, JvBaseDlg,
+  JvSelectDirectory{, FileCtrl};
 
 type
   TfrmBatchConvert = class(TForm)
@@ -55,6 +56,7 @@ type
     btnSaveLog: TButton;
     btnAll: TButton;
     btnNone: TButton;
+    JvSelectDirectory: TJvSelectDirectory;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btnBrowseClick(Sender: TObject);
@@ -331,12 +333,10 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmBatchConvert.btnBrowseClick(Sender: TObject);
-var
-  Dir: String;
 begin
-  Dir := '';
-  if SelectDirectory(edtSearchPath.EditLabel.Caption, '', Dir) = True then
-    edtSearchPath.Text := Dir;
+  JvSelectDirectory.InitialDir := edtSearchPath.Text;
+  if JvSelectDirectory.Execute then
+    edtSearchPath.Text := JvSelectDirectory.Directory;
 end;
 
 
@@ -487,12 +487,10 @@ end;
 // -----------------------------------------------------------------------------
 
 procedure TfrmBatchConvert.btnBrowse2Click(Sender: TObject);
-var
-  Dir: String;
 begin
-  Dir := '';
-  if SelectDirectory(edtOutputDirectory.EditLabel.Caption, '', Dir) = True then
-    edtOutputDirectory.Text := Dir;
+  JvSelectDirectory.InitialDir := edtOutputDirectory.Text;
+  if JvSelectDirectory.Execute then
+    edtOutputDirectory.Text := JvSelectDirectory.Directory;
 end;
 
 // -----------------------------------------------------------------------------

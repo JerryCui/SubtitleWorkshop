@@ -396,8 +396,6 @@ object frmBatchConvert: TfrmBatchConvert
         Left = 0
         Top = 0
         Caption = 'pgeFiles'
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lstFiles: TListView
           Left = 8
           Top = 8
@@ -475,8 +473,6 @@ object frmBatchConvert: TfrmBatchConvert
         Left = 0
         Top = 0
         Caption = 'pgeDone'
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lblDone: TLabel
           Left = 8
           Top = 8
@@ -557,5 +553,9 @@ object frmBatchConvert: TfrmBatchConvert
     Filter = 'Batch Conversion Log (*.log)|*.log'
     Left = 40
     Top = 376
+  end
+  object JvSelectDirectory: TJvSelectDirectory
+    Left = 361
+    Top = 321
   end
 end

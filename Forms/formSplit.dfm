@@ -62,10 +62,6 @@ object frmSplit: TfrmSplit
     TabOrder = 3
     object pgeSimple: TTabSheet
       Caption = 'Simple'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object rdoSelectedItem: TRadioButton
         Left = 0
         Top = 8
@@ -196,7 +192,7 @@ object frmSplit: TfrmSplit
         Left = 16
         Top = 96
         Width = 95
-        Height = 21
+        Height = 22
         Alignment = taCenter
         ChangeTimeOnModify = True
         FPS = 25.000000000000000000
@@ -211,10 +207,6 @@ object frmSplit: TfrmSplit
     object pgeAdvanced: TTabSheet
       Caption = 'Advanced'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object rdoEndOfVideos: TRadioButton
         Left = 0
         Top = 192
@@ -352,7 +344,7 @@ object frmSplit: TfrmSplit
           item
             Options = [coAllowClick, coEnabled, coParentBidiMode, coParentColor, coResizable, coShowDropMark, coVisible]
             Position = 0
-            Width = 251
+            Width = 247
             WideText = 'Filename'
           end
           item
@@ -423,6 +415,10 @@ object frmSplit: TfrmSplit
   object dlgSavePart: TSaveDialog
     Filter = 'Subrip(*.srt)|*.srt|All Files(*.*)|*.*'
     Left = 352
+    Top = 408
+  end
+  object JvSelectDirectory: TJvSelectDirectory
+    Left = 384
     Top = 408
   end
 end
